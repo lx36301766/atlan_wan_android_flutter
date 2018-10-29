@@ -19,10 +19,15 @@ class SplashPage extends StatefulWidget {
 // }
 
 class _SplashPageState extends State<SplashPage> {
+
   @override
   Widget build(BuildContext context) {
-    return new Container(
-      
+    return new Scaffold(
+      backgroundColor: Colors.orange,
+      body: new Center(
+         child: new Image.asset('image/logo.png'),
+        ),
     );
   }
+
 }
