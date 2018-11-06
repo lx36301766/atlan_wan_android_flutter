@@ -1,33 +1,46 @@
+import 'dart:async';
+
+import 'package:atlan_wan_android_flutter/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SplashPage extends StatefulWidget {
   @override
   _SplashPageState createState() => _SplashPageState();
 }
 
-// class _SplashPageState extends State<SplashPage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     Widget image = new Image.asset(
-//       'image/logo.png',
-//       width: 100.0,
-//       height: 100.0,
-//       // fit: BoxFit.fill,
-//     );
-//     return image;
-//   }
-// }
-
 class _SplashPageState extends State<SplashPage> {
+
+  Timer _timer;
+
+  _SplashPageState() {
+    _timer = Timer(const Duration(seconds: 3), () {
+//      SystemNavigator.pop();
+      _onLogoClick();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      backgroundColor: Colors.orange,
-      body: new Center(
-         child: new Image.asset('image/logo.png'),
+    return Scaffold(
+      backgroundColor: Colors.amberAccent,
+      body: Center(
+        child: FlatButton(
+          child: Image.asset('image/logo.png'),
+          onPressed: _onLogoClick
         ),
+      )
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _timer.cancel();
+  }
+
+  void _onLogoClick() {
+    Navigator.pushNamed(context, Constants.PAGE_ROUTE_HOME);
   }
 
 }
