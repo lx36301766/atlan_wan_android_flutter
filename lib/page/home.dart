@@ -1,4 +1,5 @@
 import 'package:atlan_wan_android_flutter/constants.dart';
+import 'package:atlan_wan_android_flutter/view/DrawerView.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,8 +11,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
+      drawer: Drawer(
+        child: DrawerView(),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.cyan,
         title: Text(Constants.APP_NAME),
@@ -31,10 +35,8 @@ class _HomePageState extends State<HomePage> {
           PopupMenuButton(
               itemBuilder: (BuildContext context) =>
               <PopupMenuItem<String>>[
-                PopupMenuItem<String>(
-                    child: const Text('Doge'), value: 'Doge'),
-                PopupMenuItem<String>(
-                    child: const Text('Lion'), value: 'Lion'),
+                PopupMenuItem<String>(child: const Text('Doge'), value: 'Doge'),
+                PopupMenuItem<String>(child: const Text('Lion'), value: 'Lion'),
               ],
               onSelected: _onPopMenuSelected
           ),
