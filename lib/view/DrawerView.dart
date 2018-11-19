@@ -20,6 +20,7 @@ class _DrawerViewState extends State<DrawerView> {
         ),
         FlatButton(
           child: Text('username'),
+          onPressed: null,
         ),
       ],
     );
