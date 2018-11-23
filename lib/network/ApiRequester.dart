@@ -1,12 +1,27 @@
 
+import 'package:atlan_wan_android_flutter/network/entity/ApiResp.dart';
+import 'package:atlan_wan_android_flutter/network/entity/HomeListResp2.dart';
+
 import 'HttpCall.dart';
 import 'HttpResponse.dart';
 import 'ApiUrl.dart';
 
+import 'dart:convert';
+
 class ApiRequester {
 
-  static void getHomeList() async {
-    HttpCall.fetchGet(BASE_URL + API_HOME_LIST);
+  static Future getHomeList(int page) async {
+    return HttpCall.fetchGet(BASE_URL + API_HOME_LIST + page.toString() + "/json");
   }
+
+}
+
+
+void main() {
+  ApiRequester.getHomeList(1).then((map){
+    print(ApiResp<HomeListResp2>.fromJson(map).data.toString());
+  }, onError: (e) {
+    print(e);
+  });
 
 }
