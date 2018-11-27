@@ -8,10 +8,15 @@ part 'HomeListResp.g.dart';
 class HomeListResp {
 
   int curPage;
+  int offset;
+  bool over;
+  int pageCount;
+  int size;
+  int total;
 
-  String name;
+  List datas;
 
-  HomeListResp(this.curPage, this.name);
+  HomeListResp(this.curPage, this.offset, this.over, this.pageCount, this.size, this.total);
 
   factory HomeListResp.fromJson(Map<String, dynamic> json) => _$HomeListRespFromJson(json);
 

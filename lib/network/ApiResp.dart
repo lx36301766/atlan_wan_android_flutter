@@ -1,6 +1,6 @@
 
 
-import 'package:atlan_wan_android_flutter/network/entity/HomeListResp2.dart';
+import 'package:atlan_wan_android_flutter/network/entity/HomeListResp.dart';
 
 class ApiResp<T> {
 
@@ -14,8 +14,8 @@ class ApiResp<T> {
 
   factory ApiResp.fromJson(Map<String, dynamic> json) {
     var data = json['data'];
-    if (T == HomeListResp2) {
-      data = HomeListResp2.fromJson(data);
+    if (T == HomeListResp) {
+      data = HomeListResp.fromJson(data);
     }
     return ApiResp(data,
       json['errorCode'] as int,

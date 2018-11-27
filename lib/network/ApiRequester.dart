@@ -1,12 +1,10 @@
 
-import 'package:atlan_wan_android_flutter/network/entity/ApiResp.dart';
+import 'package:atlan_wan_android_flutter/network/ApiResp.dart';
 import 'package:atlan_wan_android_flutter/network/entity/HomeListResp2.dart';
 
 import 'HttpCall.dart';
-import 'HttpResponse.dart';
 import 'ApiUrl.dart';
 
-import 'dart:convert';
 
 class ApiRequester {
 
@@ -23,5 +21,4 @@ void main() {
   }, onError: (e) {
     print(e);
   });
-
 }
