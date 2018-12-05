@@ -16,8 +16,11 @@ class WanAndroidMain extends StatelessWidget {
         primarySwatch: Colors.red,
       ),
       home: SplashPage(),
-//      initialRoute: Constants.PAGE_ROUTE_SPLASH,
-      routes: buildRoutes(),
+      initialRoute: Constants.PAGE_ROUTE_SPLASH,
+      routes: {
+        Constants.PAGE_ROUTE_SPLASH : (BuildContext context) => new SplashPage(),
+        Constants.PAGE_ROUTE_HOME: (BuildContext context) => new HomePage(),
+      },
     );
   }
 }
