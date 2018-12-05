@@ -1,24 +1,31 @@
 
 import 'package:atlan_wan_android_flutter/network/ApiResp.dart';
-import 'package:atlan_wan_android_flutter/network/entity/HomeListResp2.dart';
+import 'package:atlan_wan_android_flutter/network/entity/HomeListResp.dart';
 
-import 'HttpCall.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'ApiUrl.dart';
 
 
 class ApiRequester {
 
-  static Future getHomeList(int page) async {
-    return HttpCall.fetchGet(BASE_URL + API_HOME_LIST + page.toString() + "/json");
+  static Future<HomeListResp> getHomeList(int page) async {
+    var jsonMap = await fetchGet(BASE_URL + API_HOME_LIST + page.toString());
+    var data = ApiResp.fromJson(jsonMap).data;
+    return HomeListResp.fromJson(data);
   }
 
-}
+  static Future<HomeListResp> getHomeList2(int page) async {
+    var jsonMap = await fetchGet(BASE_URL + API_HOME_LIST + page.toString());
+    return HomeListResp.fromJson(ApiResp.fromJson(jsonMap).data);
+  }
 
 
-void main() {
-  ApiRequester.getHomeList(1).then((map){
-    print(ApiResp<HomeListResp2>.fromJson(map).data.toString());
-  }, onError: (e) {
-    print(e);
-  });
+
+
+  static Future fetchGet(String url) async {
+    final response = await http.get(url + "/json");
+    return json.decode(response.body);
+  }
+
 }

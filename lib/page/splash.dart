@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:atlan_wan_android_flutter/constants.dart';
+import 'package:atlan_wan_android_flutter/network/ApiRequester.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -40,7 +41,12 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _onLogoClick() {
-    Navigator.pushNamed(context, Constants.PAGE_ROUTE_HOME);
+//    Navigator.pushNamed(context, Constants.PAGE_ROUTE_HOME);
+    ApiRequester.getHomeList(1).then((resp){
+      print(resp.toString());
+    }, onError: (e) {
+      print(e);
+    });
   }
 
 }
