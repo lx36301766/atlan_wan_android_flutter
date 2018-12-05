@@ -8,7 +8,6 @@ class DrawerView extends StatefulWidget {
 class _DrawerViewState extends State<DrawerView> {
   @override
   Widget build(BuildContext context) {
-
     Widget header4 = Expanded(
       child: DrawerHeader(
         margin: EdgeInsets.only(top: 10),
