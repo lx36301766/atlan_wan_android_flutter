@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:atlan_wan_android_flutter/constants.dart';
-import 'package:atlan_wan_android_flutter/network/ApiRequester.dart';
+import 'package:atlan_wan_android_flutter/network/api_requester.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -47,6 +47,26 @@ class _SplashPageState extends State<SplashPage> {
     }, onError: (e) {
       print(e);
     });
+
+
+    ApiRequester.getHomeBanner().then((resp){
+      print(resp.toString());
+    }, onError: (e) {
+      print(e);
+    });
+
+    ApiRequester.getHomeCommonWebsite().then((resp){
+      print(resp.toString());
+    }, onError: (e) {
+      print(e);
+    });
+
+    ApiRequester.getHomeHotKey().then((resp){
+      print(resp.toString());
+    }, onError: (e) {
+      print(e);
+    });
+
   }
 
 }
