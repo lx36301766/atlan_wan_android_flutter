@@ -1,10 +1,9 @@
 
 
-class Constants {
+import 'package:flutter/material.dart';
 
-  static final APP_NAME = "Atlan WanAndroid";
 
-  static final PAGE_ROUTE_SPLASH = '/splash';
-  static final PAGE_ROUTE_HOME = '/home';
 
-}
+const Color appIconColor = Color(0xFF4DD0E1);
+
+const String appName = "Atlan WanAndroid";

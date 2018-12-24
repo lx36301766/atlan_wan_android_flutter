@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:atlan_wan_android_flutter/constants.dart';
 import 'package:atlan_wan_android_flutter/network/api_requester.dart';
+import 'package:atlan_wan_android_flutter/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -41,31 +42,31 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _onLogoClick() {
-//    Navigator.pushNamed(context, Constants.PAGE_ROUTE_HOME);
-    ApiRequester.getHomeList(1).then((resp){
-      print(resp.toString());
-    }, onError: (e) {
-      print(e);
-    });
-
-
-    ApiRequester.getHomeBanner().then((resp){
-      print(resp.toString());
-    }, onError: (e) {
-      print(e);
-    });
-
-    ApiRequester.getHomeCommonWebsite().then((resp){
-      print(resp.toString());
-    }, onError: (e) {
-      print(e);
-    });
-
-    ApiRequester.getHomeHotKey().then((resp){
-      print(resp.toString());
-    }, onError: (e) {
-      print(e);
-    });
+    Navigator.pushNamed(context, Pages.ROUTE_HOME);
+//    ApiRequester.getHomeList(1).then((resp){
+//      print(resp.toString());
+//    }, onError: (e) {
+//      print(e);
+//    });
+//
+//
+//    ApiRequester.getHomeBanner().then((resp){
+//      print(resp.toString());
+//    }, onError: (e) {
+//      print(e);
+//    });
+//
+//    ApiRequester.getHomeCommonWebsite().then((resp){
+//      print(resp.toString());
+//    }, onError: (e) {
+//      print(e);
+//    });
+//
+//    ApiRequester.getHomeHotKey().then((resp){
+//      print(resp.toString());
+//    }, onError: (e) {
+//      print(e);
+//    });
 
   }
 

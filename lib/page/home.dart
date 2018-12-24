@@ -1,5 +1,5 @@
 import 'package:atlan_wan_android_flutter/constants.dart';
-import 'package:atlan_wan_android_flutter/view/DrawerView.dart';
+import 'package:atlan_wan_android_flutter/view/drawer_view.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
       ),
       appBar: AppBar(
         backgroundColor: Colors.cyan,
-        title: Text(Constants.APP_NAME),
+        title: Text(appName),
         centerTitle: true,
         bottom: PreferredSize(
             child: Container(

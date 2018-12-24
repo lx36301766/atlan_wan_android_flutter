@@ -1,6 +1,7 @@
 import 'package:atlan_wan_android_flutter/constants.dart';
 import 'package:atlan_wan_android_flutter/page/home.dart';
 import 'package:atlan_wan_android_flutter/page/splash.dart';
+import 'package:atlan_wan_android_flutter/pages.dart';
 
 import 'package:flutter/material.dart';
 
@@ -11,15 +12,15 @@ class WanAndroidMain extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: Constants.APP_NAME,
+      title: appName,
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
       home: SplashPage(),
-      initialRoute: Constants.PAGE_ROUTE_SPLASH,
+      initialRoute: Pages.ROUTE_SPLASH,
       routes: {
-        Constants.PAGE_ROUTE_SPLASH : (BuildContext context) => new SplashPage(),
-        Constants.PAGE_ROUTE_HOME: (BuildContext context) => new HomePage(),
+        Pages.ROUTE_SPLASH : (BuildContext context) => new SplashPage(),
+        Pages.ROUTE_HOME: (BuildContext context) => new HomePage(),
       },
     );
   }
@@ -27,7 +28,7 @@ class WanAndroidMain extends StatelessWidget {
 
 Map<String, WidgetBuilder> buildRoutes() {
   return <String, WidgetBuilder>{
-    Constants.PAGE_ROUTE_SPLASH : (BuildContext context) => new SplashPage(),
-    Constants.PAGE_ROUTE_HOME: (BuildContext context) => new HomePage(),
+    Pages.ROUTE_SPLASH : (BuildContext context) => new SplashPage(),
+    Pages.ROUTE_HOME: (BuildContext context) => new HomePage(),
   };
 }
