@@ -17,10 +17,10 @@ class WanAndroidMain extends StatelessWidget {
         primarySwatch: Colors.red,
       ),
       home: SplashPage(),
-      initialRoute: Pages.ROUTE_SPLASH,
+      initialRoute: Pages.splash,
       routes: {
-        Pages.ROUTE_SPLASH : (BuildContext context) => new SplashPage(),
-        Pages.ROUTE_HOME: (BuildContext context) => new HomePage(),
+        Pages.splash : (BuildContext context) => new SplashPage(),
+        Pages.home: (BuildContext context) => new HomePage(),
       },
     );
   }
@@ -28,7 +28,7 @@ class WanAndroidMain extends StatelessWidget {
 
 Map<String, WidgetBuilder> buildRoutes() {
   return <String, WidgetBuilder>{
-    Pages.ROUTE_SPLASH : (BuildContext context) => new SplashPage(),
-    Pages.ROUTE_HOME: (BuildContext context) => new HomePage(),
+    Pages.splash : (BuildContext context) => new SplashPage(),
+    Pages.home: (BuildContext context) => new HomePage(),
   };
 }

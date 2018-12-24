@@ -89,7 +89,7 @@ class _DrawerViewState extends State<DrawerView> {
 
     return Container(
 //      color: Colors.blue,
-      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
       child: Column(
         children: <Widget>[
 //          Expanded(

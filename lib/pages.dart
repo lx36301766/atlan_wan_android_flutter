@@ -2,7 +2,8 @@
 
 class Pages {
 
-  static final ROUTE_SPLASH = '/splash';
-  static final ROUTE_HOME = '/home';
+  static final splash = '/splash';
+  static final home = '/home';
 
 }
+
