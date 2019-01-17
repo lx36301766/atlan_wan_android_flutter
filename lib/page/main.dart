@@ -1,5 +1,10 @@
 import 'package:atlan_wan_android_flutter/constants.dart';
-import 'package:atlan_wan_android_flutter/view/drawer_view.dart';
+import 'package:atlan_wan_android_flutter/page/classification_list.dart';
+import 'package:atlan_wan_android_flutter/page/drawer_view.dart';
+import 'package:atlan_wan_android_flutter/page/home_list.dart';
+import 'package:atlan_wan_android_flutter/page/navigation_list.dart';
+import 'package:atlan_wan_android_flutter/page/project_list.dart';
+import 'package:atlan_wan_android_flutter/page/wechat_public_list.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -64,8 +69,26 @@ class _MainPageState extends State<MainPage> {
 
   }
 
+//  var _body;
+//
+//  initData() {
+//    _body = new IndexedStack(
+//      children: <Widget>[new HomeListPage(), new TreePage(), new MyInfoPage()],
+//      index: _tabIndex,
+//    );
+//  }
+
   Widget buildBody() {
-    return Text("687");
+    return IndexedStack(
+      index: _pageIndex,
+      children: <Widget>[
+        HomeListPage(),
+        ClassificationListPage(),
+        NavigationListPage(),
+        ProjectListPage(),
+        WechatPublicListPage(),
+      ],
+    );
   }
 
   Widget buildBottomNavigation() {
