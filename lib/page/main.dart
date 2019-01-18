@@ -69,15 +69,6 @@ class _MainPageState extends State<MainPage> {
 
   }
 
-//  var _body;
-//
-//  initData() {
-//    _body = new IndexedStack(
-//      children: <Widget>[new HomeListPage(), new TreePage(), new MyInfoPage()],
-//      index: _tabIndex,
-//    );
-//  }
-
   Widget buildBody() {
     return IndexedStack(
       index: _pageIndex,

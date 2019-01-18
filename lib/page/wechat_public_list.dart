@@ -16,8 +16,8 @@ class _WechatPublicListPageState extends State<WechatPublicListPage> {
   Widget build(BuildContext context) {
 
     Widget list = ListView.builder(
-      itemBuilder: null,
-      itemCount: 5,
+      itemBuilder: (context, i) => buildItem(i),
+      itemCount: 50,
       controller: _scrollController,
     );
 
@@ -28,8 +28,12 @@ class _WechatPublicListPageState extends State<WechatPublicListPage> {
     );
   }
 
-  void _pullToRefresh() {
+  Future<void> _pullToRefresh() {
+    return null;
+  }
 
+  Widget buildItem(int i) {
+    return Text("i=$i");
   }
 
 }
