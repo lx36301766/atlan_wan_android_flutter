@@ -42,7 +42,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _onLogoClick() {
-    Navigator.pushNamed(context, Pages.home);
+    Navigator.popAndPushNamed(context, Pages.home);
 //    ApiRequester.getHomeList(1).then((resp){
 //      print(resp.toString());
 //    }, onError: (e) {
