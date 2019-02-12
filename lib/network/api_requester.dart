@@ -18,10 +18,10 @@ class ApiRequester {
   }
 
   static Future<List<HomeBannerBean>> getHomeBanner() async {
-    List data = await fetchGet(BASE_URL + API_HOME_BANNER);
+    var data = await fetchGet(BASE_URL + API_HOME_BANNER);
     List<HomeBannerBean> ret = List();
     data.forEach((item) => ret.add(HomeBannerBean.fromJson(item)));
-    return data;
+    return ret;
   }
 
   static Future<List<HomeCommonWebsiteBean>> getHomeCommonWebsite() async {
