@@ -97,7 +97,13 @@ class _DrawerViewState extends State<DrawerView> {
 //          ),
           Expanded(
             flex: 3,
-            child: list,
+              child: list,
+//            child: NotificationListener<OverscrollIndicatorNotification>(
+//              onNotification: (overscroll) {
+//                overscroll.disallowGlow();
+//              },
+//              child: list,
+//            ),
           )
         ],
       ),
