@@ -27,7 +27,7 @@ class _HomeListPageState extends State<HomeListPage> {
 
   List<HomeListDataBean> _homeListData = List<HomeListDataBean>();
 
-//  HomeListBean _homeListBean;
+  HomeListBean _homeListBean;
 
   @override
   void initState() {
@@ -86,8 +86,13 @@ class _HomeListPageState extends State<HomeListPage> {
     //滑到最底部刷新
 //    print("pixels=${_scrollController.position.pixels} , maxScrollExtent=${_scrollController.position.maxScrollExtent}");
     if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-//      _loadData();
       print("到底啦！！！");
+//      // 模拟滑到底了
+//      if (_listPageIndex < 3) {
+//        _listPageIndex++;
+//      } else {
+//        _listPageIndex = _homeListBean.pageCount;
+//      }
       _listPageIndex++;
       _requestListData();
     }
@@ -110,6 +115,7 @@ class _HomeListPageState extends State<HomeListPage> {
     ApiRequester.getHomeList(_listPageIndex).then((HomeListBean bean) {
       print(bean.toString());
       setState(() {
+        _homeListBean = bean;
         _homeListData.addAll(bean.datas);
       });
     }, onError: (e) {
@@ -143,10 +149,11 @@ class _HomeListPageState extends State<HomeListPage> {
         ),
       );
     } else if (index == _homeListData.length + 1) {
+      String loadMoreText = _homeListBean.pageCount == _listPageIndex ? "我是有底线的" : "加载中...";
       return Center(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 20),
-          child: Text("加载中..."),
+          child: Text(loadMoreText),
         ),
       );
     } else {
