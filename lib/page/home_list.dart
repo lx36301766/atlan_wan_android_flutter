@@ -18,19 +18,22 @@ class HomeListPage extends StatefulWidget {
 
 class _HomeListPageState extends State<HomeListPage> {
 
-  ScrollController _scrollController = new ScrollController();
-
-  PageController _pageController = new PageController(initialPage: 0);
+  ScrollController _scrollController;
+  PageController _pageController;
 
   int _listPageIndex = 0;
 
   List<HomeBannerBean> _bannerListData;
 
-  HomeListBean _homeListBean;
+  List<HomeListDataBean> _homeListData = List<HomeListDataBean>();
+
+//  HomeListBean _homeListBean;
 
   @override
   void initState() {
     super.initState();
+    _scrollController = new ScrollController()..addListener(_scrollListener);
+    _pageController = new PageController(initialPage: 0);
     _requestBannerData();
     _requestListData();
   }
@@ -47,22 +50,47 @@ class _HomeListPageState extends State<HomeListPage> {
     Widget list = ListView.builder(
       physics: AlwaysScrollableScrollPhysics(),
       itemBuilder: (context, i) => _buildItem(i),
-      itemCount: (_homeListBean == null || _homeListBean.datas == null) ? 0 : _homeListBean.datas.length,
-      controller: _scrollController,
+      itemCount: _homeListData == null ? 0 : _homeListData.length + 2,
+//      controller: _scrollController,
     );
-    return LiquidPullToRefresh(
-      color: appIconColor,
-      child: list,
-      onRefresh: _pullToRefresh,
+
+    var _pullToRefreshWidget = NotificationListener<ScrollNotification>(
+      onNotification: _onNotification,
+      // RefreshIndicator / LiquidPullToRefresh
+      child: new LiquidPullToRefresh(
+        scrollController: _scrollController,
+        color: appIconColor,
+        onRefresh: _pullToRefresh,
+        child: list,
+      ),
     );
+    return _pullToRefreshWidget;
   }
 
   Future<Null> _pullToRefresh() async {
+
     _pageController.jumpToPage(0);
     _requestBannerData();
+
+    _homeListData.clear();
     _listPageIndex = 0;
     _requestListData();
     return null;
+  }
+
+  bool _onNotification(ScrollNotification scrollNotification) {
+    return false;
+  }
+
+  void _scrollListener() {
+    //滑到最底部刷新
+//    print("pixels=${_scrollController.position.pixels} , maxScrollExtent=${_scrollController.position.maxScrollExtent}");
+    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+//      _loadData();
+      print("到底啦！！！");
+      _listPageIndex++;
+      _requestListData();
+    }
   }
 
   void _requestBannerData() {
@@ -82,7 +110,7 @@ class _HomeListPageState extends State<HomeListPage> {
     ApiRequester.getHomeList(_listPageIndex).then((HomeListBean bean) {
       print(bean.toString());
       setState(() {
-        _homeListBean = bean;
+        _homeListData.addAll(bean.datas);
       });
     }, onError: (e) {
       print(e);
@@ -114,8 +142,15 @@ class _HomeListPageState extends State<HomeListPage> {
           ),
         ),
       );
+    } else if (index == _homeListData.length + 1) {
+      return Center(
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 20),
+          child: Text("加载中..."),
+        ),
+      );
     } else {
-      HomeListDataBean data = _homeListBean.datas[index];
+      HomeListDataBean data = _homeListData[index - 1];
 
       //去掉html中的高亮
       data.title = data.title
