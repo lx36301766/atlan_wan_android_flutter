@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:atlan_wan_android_flutter/constants.dart';
 import 'package:atlan_wan_android_flutter/network/entity/home_banner_bean.dart';
+import 'package:atlan_wan_android_flutter/pages.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:atlan_wan_android_flutter/network/api_requester.dart';
 import 'package:atlan_wan_android_flutter/network/entity/home_list_bean.dart';
@@ -19,6 +20,7 @@ class HomeListPage extends StatefulWidget {
 class _HomeListPageState extends State<HomeListPage> {
 
   ScrollController _scrollController;
+
   PageController _pageController;
 
   int _listPageIndex = 0;
@@ -49,7 +51,7 @@ class _HomeListPageState extends State<HomeListPage> {
   Widget build(BuildContext context) {
     Widget list = ListView.builder(
       physics: AlwaysScrollableScrollPhysics(),
-      itemBuilder: (context, i) => _buildItem(i),
+      itemBuilder: (context, i) => _buildItem(context, i),
       itemCount: _homeListData == null ? 0 : _homeListData.length + 2,
 //      controller: _scrollController,
     );
@@ -123,13 +125,18 @@ class _HomeListPageState extends State<HomeListPage> {
     });
   }
 
-  Widget _buildItem(int index) {
+  Widget _buildItem(BuildContext context, int index) {
     if (index == 0) {
       return AspectRatio(
         aspectRatio: 9 / 5,
         child: Card(
           elevation: 5.0,
+          shape: Border(),
+          margin: EdgeInsets.all(0.0),
           child: GestureDetector(
+            onTap: () {
+              Pages.openWebView(context, _bannerListData[index].url);
+            },
             child: PageView.builder(
               controller: _pageController,
               itemCount: _bannerListData == null ? 0 : _bannerListData.length,
@@ -149,21 +156,20 @@ class _HomeListPageState extends State<HomeListPage> {
         ),
       );
     } else if (index == _homeListData.length + 1) {
-      String loadMoreText = _homeListBean.pageCount == _listPageIndex ? "我是有底线的" : "加载中...";
+      print("_homeListBean.pageCount=${_homeListBean?.pageCount}, _listPageIndex=$_listPageIndex");
+      String loadMore = _homeListBean?.pageCount == _listPageIndex ? "我是有底线的": "加载中...";
       return Center(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 20),
-          child: Text(loadMoreText),
+          child: Text(loadMore),
         ),
       );
     } else {
       HomeListDataBean data = _homeListData[index - 1];
-
       //去掉html中的高亮
       data.title = data.title
           .replaceAll(RegExp("(<em[^>]*>)|(</em>)"), "")
           .replaceAll("&mdash;", "-");
-
       data.desc = (null == data.desc)
           ? ""
           : data.desc

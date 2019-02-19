@@ -1,10 +1,10 @@
 import 'package:atlan_wan_android_flutter/constants.dart';
-import 'package:atlan_wan_android_flutter/page/classification_list.dart';
-import 'package:atlan_wan_android_flutter/page/drawer_view.dart';
-import 'package:atlan_wan_android_flutter/page/home_list.dart';
-import 'package:atlan_wan_android_flutter/page/navigation_list.dart';
-import 'package:atlan_wan_android_flutter/page/project_list.dart';
-import 'package:atlan_wan_android_flutter/page/wechat_public_list.dart';
+import 'package:atlan_wan_android_flutter/page/main_page_list/classification_list.dart';
+import 'package:atlan_wan_android_flutter/page/custom_view/drawer_view.dart';
+import 'package:atlan_wan_android_flutter/page/main_page_list/home_list.dart';
+import 'package:atlan_wan_android_flutter/page/main_page_list/navigation_list.dart';
+import 'package:atlan_wan_android_flutter/page/main_page_list/project_list.dart';
+import 'package:atlan_wan_android_flutter/page/main_page_list/wechat_public_list.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {

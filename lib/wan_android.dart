@@ -1,6 +1,5 @@
 import 'package:atlan_wan_android_flutter/constants.dart';
-import 'package:atlan_wan_android_flutter/page/main.dart';
-import 'package:atlan_wan_android_flutter/page/splash.dart';
+import 'package:atlan_wan_android_flutter/page/splash_page.dart';
 import 'package:atlan_wan_android_flutter/pages.dart';
 
 import 'package:flutter/material.dart';
@@ -26,19 +25,9 @@ class AtlanWanAndroid extends StatelessWidget {
       ),
       home: SplashPage(),
       initialRoute: Pages.splash,
-      routes: {
-        Pages.splash : (BuildContext context) => new SplashPage(),
-        Pages.home: (BuildContext context) => new MainPage(),
-      },
+      routes: buildRoutes(),
     );
   }
-}
-
-Map<String, WidgetBuilder> buildRoutes() {
-  return <String, WidgetBuilder>{
-    Pages.splash : (BuildContext context) => new SplashPage(),
-    Pages.home: (BuildContext context) => new MainPage(),
-  };
 }
 
 class MyBehavior extends ScrollBehavior {
