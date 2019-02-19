@@ -27,7 +27,7 @@ class _HomeListPageState extends State<HomeListPage> {
 
   List<HomeBannerBean> _bannerListData;
 
-  List<HomeListDataBean> _homeListData = List<HomeListDataBean>();
+  List<HomeListDataBean> _homeListData = [];
 
   HomeListBean _homeListBean;
 

@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:atlan_wan_android_flutter/network/api_resp.dart';
 import 'package:atlan_wan_android_flutter/network/entity/home_banner_bean.dart';
 import 'package:atlan_wan_android_flutter/network/entity/home_common_website_bean.dart';
@@ -19,21 +21,21 @@ class ApiRequester {
 
   static Future<List<HomeBannerBean>> getHomeBanner() async {
     var data = await fetchGet(BASE_URL + API_HOME_BANNER);
-    List<HomeBannerBean> ret = List();
+    List<HomeBannerBean> ret = [];
     data.forEach((item) => ret.add(HomeBannerBean.fromJson(item)));
     return ret;
   }
 
   static Future<List<HomeCommonWebsiteBean>> getHomeCommonWebsite() async {
     var data = await fetchGet(BASE_URL + API_COMMON_WEBSITE);
-    List<HomeCommonWebsiteBean> ret = List();
+    List<HomeCommonWebsiteBean> ret = [];
     data.forEach((item) => ret.add(HomeCommonWebsiteBean.fromJson(item)));
     return ret;
   }
 
   static Future<List<HomeHotKeyBean>> getHomeHotKey() async {
     var data = await fetchGet(BASE_URL + API_SEARCH_HOTKEY);
-    List<HomeHotKeyBean> ret = List();
+    List<HomeHotKeyBean> ret = [];
     data.forEach((item) => ret.add(HomeHotKeyBean.fromJson(item)));
     return ret;
   }
