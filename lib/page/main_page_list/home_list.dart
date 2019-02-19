@@ -1,6 +1,7 @@
 
 import 'dart:async';
 
+import 'package:html_unescape/html_unescape.dart';
 import 'package:atlan_wan_android_flutter/constants.dart';
 import 'package:atlan_wan_android_flutter/network/entity/home_banner_bean.dart';
 import 'package:atlan_wan_android_flutter/pages.dart';
@@ -31,6 +32,8 @@ class _HomeListPageState extends State<HomeListPage> {
 
   HomeListBean _homeListBean;
 
+  HtmlUnescape _htmlUnescape = HtmlUnescape();
+
   @override
   void initState() {
     super.initState();
@@ -51,7 +54,7 @@ class _HomeListPageState extends State<HomeListPage> {
   Widget build(BuildContext context) {
     Widget list = ListView.builder(
       physics: AlwaysScrollableScrollPhysics(),
-      itemBuilder: (context, i) => _buildItem(context, i),
+      itemBuilder: (context, i) => _buildItem(i),
       itemCount: _homeListData == null ? 0 : _homeListData.length + 2,
 //      controller: _scrollController,
     );
@@ -125,7 +128,7 @@ class _HomeListPageState extends State<HomeListPage> {
     });
   }
 
-  Widget _buildItem(BuildContext context, int index) {
+  Widget _buildItem(int index) {
     if (index == 0) {
       return AspectRatio(
         aspectRatio: 9 / 5,
@@ -166,17 +169,8 @@ class _HomeListPageState extends State<HomeListPage> {
       );
     } else {
       HomeListDataBean data = _homeListData[index - 1];
-      //去掉html中的高亮
-      data.title = data.title
-          .replaceAll(RegExp("(<em[^>]*>)|(</em>)"), "")
-          .replaceAll("&mdash;", "-");
-      data.desc = (null == data.desc)
-          ? ""
-          : data.desc
-          .replaceAll(RegExp("(<em[^>]*>)|(</em>)"), "")
-          .replaceAll("&mdash;", "-")
-          .replaceAll(RegExp("\n{2,}"), "\n")
-          .replaceAll(RegExp("\s{2,}"), " ");
+      data.title = _htmlUnescape.convert(data.title);
+      data.desc = _htmlUnescape.convert(data.desc);
 
       return Container(
 //      color: Colors.blue,
@@ -186,7 +180,9 @@ class _HomeListPageState extends State<HomeListPage> {
           child: InkWell(
             splashColor: Color(0xFFf0f8FF),
             highlightColor: appIconColor,
-            onTap: () {},
+            onTap: () {
+              Pages.openWebView(context, _homeListData[index - 1].link);
+            },
             child: Padding(
               padding: EdgeInsets.symmetric(vertical:5, horizontal:15),
               child: Column(

@@ -25,14 +25,16 @@ class Pages {
 //    }));
     Navigator.of(context).push(PageRouteBuilder(pageBuilder: (BuildContext context, _, __) {
       return WebViewPage(url: url);
-    }, transitionsBuilder: (_, Animation<double> animation, __, Widget child) {
-      return FadeTransition(
-        opacity: animation,
-        child: RotationTransition(
-          turns: Tween<double>(begin: 0.5, end: 1.0).animate(animation),
-        ),
-      );
-    }));
+    }, 
+    // transitionsBuilder: (_, Animation<double> animation, __, Widget child) {
+    //   return FadeTransition(
+    //     opacity: animation,
+    //     child: RotationTransition(
+    //       turns: Tween<double>(begin: 0.5, end: 1.0).animate(animation),
+    //     ),
+    //   );
+    // }
+    ));
   }
 
 }
