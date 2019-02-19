@@ -6,6 +6,7 @@ import 'package:atlan_wan_android_flutter/network/entity/home_banner_bean.dart';
 import 'package:atlan_wan_android_flutter/network/entity/home_common_website_bean.dart';
 import 'package:atlan_wan_android_flutter/network/entity/home_hot_key_bean.dart';
 import 'package:atlan_wan_android_flutter/network/entity/home_list_bean.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -13,6 +14,8 @@ import 'api_url.dart';
 
 
 class ApiRequester {
+
+  static HtmlUnescape _htmlUnescape = HtmlUnescape();
 
   static Future<HomeListBean> getHomeList(int page) async {
     var data = await fetchGet(BASE_URL + API_HOME_LIST + page.toString());
@@ -42,11 +45,9 @@ class ApiRequester {
 
 
 
-
-
   static Future fetchGet(String url) async {
     final response = await http.get(url + "/json");
-    var map = json.decode(response.body);
+    var map = json.decode(_htmlUnescape.convert(response.body));
     return ApiResp.fromJson(map).data;
   }
 

@@ -138,7 +138,8 @@ class _HomeListPageState extends State<HomeListPage> {
           margin: EdgeInsets.all(0.0),
           child: GestureDetector(
             onTap: () {
-              Pages.openWebView(context, _bannerListData[index].url);
+              var data = _bannerListData[index];
+              Pages.openWebView(context, data.title, data.url);
             },
             child: PageView.builder(
               controller: _pageController,
@@ -169,8 +170,8 @@ class _HomeListPageState extends State<HomeListPage> {
       );
     } else {
       HomeListDataBean data = _homeListData[index - 1];
-      data.title = _htmlUnescape.convert(data.title);
-      data.desc = _htmlUnescape.convert(data.desc);
+//      data.title = _htmlUnescape.convert(data.title);
+//      data.desc = _htmlUnescape.convert(data.desc);
 
       return Container(
 //      color: Colors.blue,
@@ -181,7 +182,8 @@ class _HomeListPageState extends State<HomeListPage> {
             splashColor: Color(0xFFf0f8FF),
             highlightColor: appIconColor,
             onTap: () {
-              Pages.openWebView(context, _homeListData[index - 1].link);
+              var data = _homeListData[index - 1];
+              Pages.openWebView(context, data.title, data.link);
             },
             child: Padding(
               padding: EdgeInsets.symmetric(vertical:5, horizontal:15),

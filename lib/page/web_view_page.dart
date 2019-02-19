@@ -4,9 +4,10 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPage extends StatefulWidget {
 
+  final String title;
   final String url;
 
-  WebViewPage({this.url});
+  WebViewPage({this.title, this.url});
 
   @override
   _WebViewPageState createState() => _WebViewPageState();
@@ -18,7 +19,7 @@ class _WebViewPageState extends State<WebViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter WebView example'),
+        title: Text(widget.title),
         // This drop down menu demonstrates that Flutter widgets can be shown over the web view.
 //        actions: <Widget>[
 //          NavigationControls(_controller.future),

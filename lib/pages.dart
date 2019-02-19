@@ -19,12 +19,12 @@ class Pages {
   static final home = '/home';
   static final webView = '/webView';
 
-  static void openWebView(BuildContext context, String url) {
+  static void openWebView(BuildContext context, String title, String url) {
 //    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) {
 //      return WebViewPage(url: url);
 //    }));
     Navigator.of(context).push(PageRouteBuilder(pageBuilder: (BuildContext context, _, __) {
-      return WebViewPage(url: url);
+      return WebViewPage(title: title, url: url);
     }, 
     // transitionsBuilder: (_, Animation<double> animation, __, Widget child) {
     //   return FadeTransition(
