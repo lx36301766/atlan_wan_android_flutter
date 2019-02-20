@@ -32,8 +32,6 @@ class _HomeListPageState extends State<HomeListPage> {
 
   HomeListBean _homeListBean;
 
-  HtmlUnescape _htmlUnescape = HtmlUnescape();
-
   @override
   void initState() {
     super.initState();
@@ -170,8 +168,6 @@ class _HomeListPageState extends State<HomeListPage> {
       );
     } else {
       HomeListDataBean data = _homeListData[index - 1];
-//      data.title = _htmlUnescape.convert(data.title);
-//      data.desc = _htmlUnescape.convert(data.desc);
 
       return Container(
 //      color: Colors.blue,

@@ -1,6 +1,7 @@
 import 'package:atlan_wan_android_flutter/page/main_page.dart';
 import 'package:atlan_wan_android_flutter/page/splash_page.dart';
 import 'package:atlan_wan_android_flutter/page/web_view_page.dart';
+import 'package:atlan_wan_android_flutter/page/web_view_page2.dart';
 import 'package:flutter/material.dart';
 
 
@@ -8,7 +9,7 @@ Map<String, WidgetBuilder> buildRoutes() {
   return <String, WidgetBuilder>{
     Pages.splash : (BuildContext context) => new SplashPage(),
     Pages.home: (BuildContext context) => new MainPage(),
-    Pages.webView: (BuildContext context) => new WebViewPage(),
+    Pages.webView: (BuildContext context) => new WebViewPage2(),
   };
 }
 
@@ -24,7 +25,7 @@ class Pages {
 //      return WebViewPage(url: url);
 //    }));
     Navigator.of(context).push(PageRouteBuilder(pageBuilder: (BuildContext context, _, __) {
-      return WebViewPage(title: title, url: url);
+      return WebViewPage2(title: title, url: url);
     }, 
     // transitionsBuilder: (_, Animation<double> animation, __, Widget child) {
     //   return FadeTransition(
