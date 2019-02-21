@@ -52,7 +52,7 @@ class _WebViewPageState2 extends State<WebViewPage2> {
       withLocalStorage: true,
       hidden: true,
       initialChild: Container(
-        color: Colors.redAccent,
+        color: Colors.white,
         child: const Center(
           child: Text('Waiting.....'),
         ),

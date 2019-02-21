@@ -171,7 +171,7 @@ class _HomeListPageState extends State<HomeListPage> {
 
       return Container(
 //      color: Colors.blue,
-        padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+        padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
         child: Card(
           elevation: 5.0,
           child: InkWell(
@@ -182,7 +182,7 @@ class _HomeListPageState extends State<HomeListPage> {
               Pages.openWebView(context, data.title, data.link);
             },
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical:5, horizontal:15),
+              padding: EdgeInsets.symmetric(vertical:5, horizontal:12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -203,7 +203,7 @@ class _HomeListPageState extends State<HomeListPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text("${data.superChapterName} / ${data.chapterName}",
+                        Text("${data.author} / ${data.superChapterName}-${data.chapterName}",
                           style: TextStyle(
                             fontSize: 12.0,
                             color: Colors.grey.shade500,
