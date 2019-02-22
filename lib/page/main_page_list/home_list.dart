@@ -101,29 +101,42 @@ class _HomeListPageState extends State<HomeListPage> {
     }
   }
 
-  void _requestBannerData() {
-    ApiRequester.getHomeBanner().then((resp){
-      print(resp.toString());
-      if (resp != null && resp.length > 0) {
-        setState(() {
-          _bannerListData = resp;
-        });
-      }
-    }, onError: (e) {
-      print(e);
-    });
+  void _requestBannerData() async {
+    List<HomeBannerBean> data = await ApiRequester.getHomeBanner();
+    print(data.toString());
+    if (data != null && data.length > 0) {
+      setState(() {
+        _bannerListData = data;
+      });
+    }
+//    ApiRequester.getHomeBanner().then((resp){
+//      print(resp.toString());
+//      if (resp != null && resp.length > 0) {
+//        setState(() {
+//          _bannerListData = resp;
+//        });
+//      }
+//    }, onError: (e) {
+//      print(e);
+//    });
   }
 
-  void _requestListData() {
-    ApiRequester.getHomeList(_listPageIndex).then((HomeListBean bean) {
-      print(bean.toString());
-      setState(() {
-        _homeListBean = bean;
-        _homeListData.addAll(bean.datas);
-      });
-    }, onError: (e) {
-      print(e);
+  void _requestListData() async {
+    HomeListBean bean = await ApiRequester.getHomeList(_listPageIndex);
+    print(bean.toString());
+    setState(() {
+      _homeListBean = bean;
+      _homeListData.addAll(bean.datas);
     });
+//    ApiRequester.getHomeList(_listPageIndex).then((HomeListBean bean) {
+//      print(bean.toString());
+//      setState(() {
+//        _homeListBean = bean;
+//        _homeListData.addAll(bean.datas);
+//      });
+//    }, onError: (e) {
+//      print(e);
+//    });
   }
 
   Widget _buildItem(int index) {

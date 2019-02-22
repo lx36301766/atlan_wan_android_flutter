@@ -1,14 +1,14 @@
 
 import 'package:flutter/material.dart';
 
-class ClassificationListPage extends StatefulWidget {
+class KnowledgeSystemListPage extends StatefulWidget {
 
   @override
-  _ClassificationListPageState createState() => _ClassificationListPageState();
+  _KnowledgeSystemListPageState createState() => _KnowledgeSystemListPageState();
 
 }
 
-class _ClassificationListPageState extends State<ClassificationListPage> {
+class _KnowledgeSystemListPageState extends State<KnowledgeSystemListPage> {
 
   ScrollController _scrollController = new ScrollController();
 

@@ -16,6 +16,8 @@ Map<String, WidgetBuilder> buildRoutes() {
 
 class Pages {
 
+  Pages._();
+
   static final splash = '/splash';
   static final home = '/home';
   static final webView = '/webView';

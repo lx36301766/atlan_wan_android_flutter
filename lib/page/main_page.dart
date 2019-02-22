@@ -1,5 +1,5 @@
 import 'package:atlan_wan_android_flutter/constants.dart';
-import 'package:atlan_wan_android_flutter/page/main_page_list/classification_list.dart';
+import 'package:atlan_wan_android_flutter/page/main_page_list/knowledge_system_list.dart';
 import 'package:atlan_wan_android_flutter/widget/drawer_widget.dart';
 import 'package:atlan_wan_android_flutter/page/main_page_list/home_list.dart';
 import 'package:atlan_wan_android_flutter/page/main_page_list/navigation_list.dart';
@@ -75,7 +75,7 @@ class _MainPageState extends State<MainPage> {
       index: _pageIndex,
       children: <Widget>[
         HomeListPage(),
-        ClassificationListPage(),
+        KnowledgeSystemListPage(),
         NavigationListPage(),
         ProjectListPage(),
         WechatPublicListPage(),

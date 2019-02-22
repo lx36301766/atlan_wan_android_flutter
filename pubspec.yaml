@@ -29,10 +29,13 @@ dependencies:
   flutter_webview_plugin: ^0.3.0+2
 #  pull_to_refresh: ^1.1.6
   liquid_pull_to_refresh: ^1.1.0
-  flutter_redux: ^0.5.3
   cached_network_image: ^0.5.1
-  carousel_slider: ^1.0.1
   html_unescape: 1.0.1+2
+#  sprintf: ^4.0.2
+
+  carousel_slider: ^1.0.1
+  banner_view: "^1.1.2"
+  flutter_redux: ^0.5.3
 
 dev_dependencies:
   flutter_test:
