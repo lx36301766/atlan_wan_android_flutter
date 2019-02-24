@@ -1,4 +1,5 @@
 
+import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:flutter/material.dart';
 
 class WechatPublicListPage extends StatefulWidget {
@@ -8,7 +9,7 @@ class WechatPublicListPage extends StatefulWidget {
 
 }
 
-class _WechatPublicListPageState extends State<WechatPublicListPage> {
+class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage> {
 
   ScrollController _scrollController = new ScrollController();
 

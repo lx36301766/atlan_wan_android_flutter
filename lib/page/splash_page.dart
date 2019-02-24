@@ -1,10 +1,7 @@
 import 'dart:async';
 
-import 'package:atlan_wan_android_flutter/constants.dart';
-import 'package:atlan_wan_android_flutter/network/api_requester.dart';
-import 'package:atlan_wan_android_flutter/pages.dart';
+import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -41,33 +38,8 @@ class _SplashPageState extends State<SplashPage> {
     _timer.cancel();
   }
 
-  void _onLogoClick() {
+  void _onLogoClick() async {
     Navigator.popAndPushNamed(context, Pages.home);
-
-//    ApiRequester.getHomeList(1).then((resp){
-//      print(resp.toString());
-//    }, onError: (e) {
-//      print(e);
-//    });
-//
-//    ApiRequester.getHomeBanner().then((resp){
-//      print(resp.toString());
-//    }, onError: (e) {
-//      print(e);
-//    });
-//
-//    ApiRequester.getHomeCommonWebsite().then((resp){
-//      print(resp.toString());
-//    }, onError: (e) {
-//      print(e);
-//    });
-//
-//    ApiRequester.getHomeHotKey().then((resp){
-//      print(resp.toString());
-//    }, onError: (e) {
-//      print(e);
-//    });
-
   }
 
 }

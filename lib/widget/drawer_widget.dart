@@ -1,5 +1,6 @@
 
-import 'package:atlan_wan_android_flutter/constants.dart';
+import 'package:atlan_wan_android_flutter/util/constants.dart';
+import 'package:atlan_wan_android_flutter/network/api_requester.dart';
 import 'package:flutter/material.dart';
 
 class DrawerView extends StatefulWidget {
@@ -67,7 +68,7 @@ class _DrawerViewState extends State<DrawerView> {
         ListTile(
           leading: Icon(Icons.settings, color: appIconColor),
           title: Text("设置"),
-          onTap: () {},
+          onTap: _onTestClick,
         ),
         Divider(),
         AboutListTile(
@@ -99,4 +100,46 @@ class _DrawerViewState extends State<DrawerView> {
       ),
     );
   }
+
+
+  void _onTestClick() async {
+
+//    ApiRequester.getHomeList(1).then((resp){
+//      print(resp.toString());
+//    }, onError: (e) {
+//      print(e);
+//    });
+//
+//    ApiRequester.getHomeBanner().then((resp){
+//      print(resp.toString());
+//    }, onError: (e) {
+//      print(e);
+//    });
+//
+//    ApiRequester.getHomeCommonWebsite().then((resp){
+//      print(resp.toString());
+//    }, onError: (e) {
+//      print(e);
+//    });
+//
+//    ApiRequester.getHomeHotKey().then((resp){
+//      print(resp.toString());
+//    }, onError: (e) {
+//      print(e);
+//    });
+
+    ApiRequester.getKnowledgeSystem().then((resp){
+      print(resp.toString());
+    }, onError: (e) {
+      print(e);
+    });
+
+    ApiRequester.getKnowledgeSystemChildren(0, 60).then((resp){
+      print(resp.toString());
+    }, onError: (e) {
+      print(e);
+    });
+
+  }
+
 }

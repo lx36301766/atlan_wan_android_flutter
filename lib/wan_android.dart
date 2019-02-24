@@ -1,6 +1,6 @@
-import 'package:atlan_wan_android_flutter/constants.dart';
+import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/page/splash_page.dart';
-import 'package:atlan_wan_android_flutter/pages.dart';
+import 'package:atlan_wan_android_flutter/util/pages.dart';
 
 import 'package:flutter/material.dart';
 

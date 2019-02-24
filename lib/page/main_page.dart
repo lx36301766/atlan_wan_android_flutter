@@ -1,4 +1,5 @@
-import 'package:atlan_wan_android_flutter/constants.dart';
+
+import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/page/main_page_list/knowledge_system_list.dart';
 import 'package:atlan_wan_android_flutter/widget/drawer_widget.dart';
 import 'package:atlan_wan_android_flutter/page/main_page_list/home_list.dart';
@@ -15,6 +16,14 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   int _pageIndex = 0;
+
+  PageController _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: this._pageIndex);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,8 +80,18 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget buildBody() {
-    return IndexedStack(
-      index: _pageIndex,
+//    return IndexedStack(
+//      index: _pageIndex,
+//      children: <Widget>[
+//        HomeListPage(),
+//        KnowledgeSystemListPage(),
+//        NavigationListPage(),
+//        ProjectListPage(),
+//        WechatPublicListPage(),
+//      ],
+//    );
+    return PageView(
+      physics: AlwaysScrollableScrollPhysics(),
       children: <Widget>[
         HomeListPage(),
         KnowledgeSystemListPage(),
@@ -80,6 +99,12 @@ class _MainPageState extends State<MainPage> {
         ProjectListPage(),
         WechatPublicListPage(),
       ],
+      onPageChanged: (int page) {
+        setState(() {
+          this._pageIndex = page;
+        });
+      },
+      controller: _pageController,
     );
   }
 
@@ -90,9 +115,11 @@ class _MainPageState extends State<MainPage> {
         iconSize: 24,
         fixedColor: appIconColor,
         onTap: (int index) {
-          setState(() {
-            this._pageIndex = index;
-          });
+//          setState(() {
+//            this._pageIndex = index;
+//          });
+          _pageController.animateToPage(index,
+              duration: const Duration(milliseconds: 300), curve: Curves.ease);
         },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(

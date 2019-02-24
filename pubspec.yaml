@@ -31,11 +31,13 @@ dependencies:
   liquid_pull_to_refresh: ^1.1.0
   cached_network_image: ^0.5.1
   html_unescape: 1.0.1+2
-#  sprintf: ^4.0.2
 
+# unused
   carousel_slider: ^1.0.1
-  banner_view: "^1.1.2"
+  banner_view: ^1.1.2
   flutter_redux: ^0.5.3
+  fluttertoast: ^2.2.6
+  rxdart: ^0.21.0
 
 dev_dependencies:
   flutter_test:

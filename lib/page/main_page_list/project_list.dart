@@ -1,4 +1,5 @@
 
+import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:flutter/material.dart';
 
 class ProjectListPage extends StatefulWidget {
@@ -8,7 +9,7 @@ class ProjectListPage extends StatefulWidget {
 
 }
 
-class _ProjectListPageState extends State<ProjectListPage> {
+class _ProjectListPageState extends KeepAliveState<ProjectListPage> {
 
   ScrollController _scrollController = new ScrollController();
 

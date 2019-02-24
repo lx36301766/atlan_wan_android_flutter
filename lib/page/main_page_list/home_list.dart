@@ -1,10 +1,10 @@
 
 import 'dart:async';
 
-import 'package:html_unescape/html_unescape.dart';
-import 'package:atlan_wan_android_flutter/constants.dart';
+import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
+import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/network/entity/home_banner_bean.dart';
-import 'package:atlan_wan_android_flutter/pages.dart';
+import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:atlan_wan_android_flutter/network/api_requester.dart';
 import 'package:atlan_wan_android_flutter/network/entity/home_list_bean.dart';
@@ -18,7 +18,7 @@ class HomeListPage extends StatefulWidget {
 
 }
 
-class _HomeListPageState extends State<HomeListPage> {
+class _HomeListPageState extends KeepAliveState<HomeListPage> {
 
   ScrollController _scrollController;
 
@@ -35,8 +35,8 @@ class _HomeListPageState extends State<HomeListPage> {
   @override
   void initState() {
     super.initState();
-    _scrollController = new ScrollController()..addListener(_scrollListener);
-    _pageController = new PageController(initialPage: 0);
+    _scrollController = ScrollController()..addListener(_scrollListener);
+    _pageController = PageController(initialPage: 0);
     _requestBannerData();
     _requestListData();
   }
@@ -60,7 +60,7 @@ class _HomeListPageState extends State<HomeListPage> {
     var _pullToRefreshWidget = NotificationListener<ScrollNotification>(
       onNotification: _onNotification,
       // RefreshIndicator / LiquidPullToRefresh
-      child: new LiquidPullToRefresh(
+      child: LiquidPullToRefresh(
         scrollController: _scrollController,
         color: appIconColor,
         onRefresh: _pullToRefresh,
@@ -158,10 +158,10 @@ class _HomeListPageState extends State<HomeListPage> {
               itemBuilder: (BuildContext context, int index) {
                 return Center(
                   child: CachedNetworkImage(
-                    placeholder: new CircularProgressIndicator(
+                    placeholder: CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(appIconColor),
                     ),
-                    errorWidget: new Icon(Icons.error),
+                    errorWidget: Icon(Icons.error),
                     imageUrl: _bannerListData[index].imagePath,
                   ),
                 );
