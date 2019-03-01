@@ -181,6 +181,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
       );
     } else {
       HomeListDataBean data = _homeListData[index - 1];
+      data.title = htmlUnescape.convert(data.title);
 
       return Container(
 //      color: Colors.blue,

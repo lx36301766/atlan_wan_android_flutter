@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 
 Map<String, WidgetBuilder> buildRoutes() {
   return <String, WidgetBuilder>{
-    Pages.splash : (BuildContext context) => new SplashPage(),
-    Pages.home: (BuildContext context) => new MainPage(),
-    Pages.webView: (BuildContext context) => new WebViewPage2(),
+    Pages.splash : (BuildContext context) => SplashPage(),
+    Pages.home: (BuildContext context) => MainPage(),
+    Pages.webView: (BuildContext context) => WebViewPage2(),
   };
 }
 

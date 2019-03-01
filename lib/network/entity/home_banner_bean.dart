@@ -26,5 +26,4 @@ class HomeBannerBean {
     return 'HomeBannerBean{desc: $desc, id: $id, imagePath: $imagePath, isVisible: $isVisible, order: $order, title: $title, type: $type, url: $url}';
   }
 
-
 }
