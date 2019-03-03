@@ -8,8 +8,11 @@ part of 'knowledge_system_bean.dart';
 
 KnowledgeSystemBean _$KnowledgeSystemBeanFromJson(Map<String, dynamic> json) {
   return KnowledgeSystemBean(
-      (json['children'] as List)?.map((e) => e == null ? null :
-          KnowledgeSystemBean.fromJson(e as Map<String, dynamic>))?.toList(),
+      (json['children'] as List)
+          ?.map((e) => e == null
+              ? null
+              : KnowledgeSystemBean.fromJson(e as Map<String, dynamic>))
+          ?.toList(),
       json['courseId'] as int,
       json['id'] as int,
       json['name'] as String,

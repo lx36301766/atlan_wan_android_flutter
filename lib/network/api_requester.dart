@@ -7,6 +7,8 @@ import 'package:atlan_wan_android_flutter/network/entity/home_common_website_bea
 import 'package:atlan_wan_android_flutter/network/entity/home_hot_key_bean.dart';
 import 'package:atlan_wan_android_flutter/network/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/network/entity/knowledge_system_bean.dart';
+import 'package:atlan_wan_android_flutter/network/entity/navigation_bean.dart';
+import 'package:atlan_wan_android_flutter/network/entity/project_bean.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -15,44 +17,59 @@ import 'api_url.dart';
 
 class ApiRequester {
 
+  // 首页接口
+
   static Future<HomeListBean> getHomeList(int page) async {
     var data = await fetchGet(apiHomeList + page.toString());
     return HomeListBean.fromJson(data);
   }
 
   static Future<List<HomeBannerBean>> getHomeBanner() async {
-    var data = await fetchGet(apiHomeBanner);
-    List<HomeBannerBean> ret = [];
-    data.forEach((item) => ret.add(HomeBannerBean.fromJson(item)));
-    return ret;
+    List data = await fetchGet(apiHomeBanner);
+    return List.generate(data.length, (int index) => HomeBannerBean.fromJson(data[index]));
   }
 
   static Future<List<HomeCommonWebsiteBean>> getHomeCommonWebsite() async {
-    var data = await fetchGet(apiCommonWebsite);
-    List<HomeCommonWebsiteBean> ret = [];
-    data.forEach((item) => ret.add(HomeCommonWebsiteBean.fromJson(item)));
-    return ret;
+    List data = await fetchGet(apiCommonWebsite);
+    return List.generate(data.length, (int index) => HomeCommonWebsiteBean.fromJson(data[index]));
   }
 
   static Future<List<HomeHotKeyBean>> getHomeHotKey() async {
-    var data = await fetchGet(apiSearchHotKey);
-    List<HomeHotKeyBean> ret = [];
-    data.forEach((item) => ret.add(HomeHotKeyBean.fromJson(item)));
-    return ret;
+    List data = await fetchGet(apiSearchHotKey);
+    return List.generate(data.length, (int index) => HomeHotKeyBean.fromJson(data[index]));
   }
 
+  // 体系接口
 
   static Future<List<KnowledgeSystemBean>> getKnowledgeSystem() async {
-    var data = await fetchGet(apiKnowledgeSystem);
-    List<KnowledgeSystemBean> ret = [];
-    data.forEach((item) => ret.add(KnowledgeSystemBean.fromJson(item)));
-    return ret;
+    List data = await fetchGet(apiKnowledgeSystem);
+    return List.generate(data.length, (int index) => KnowledgeSystemBean.fromJson(data[index]));
   }
 
   static Future<HomeListBean> getKnowledgeSystemChildren(int page, int id) async {
     var data = await fetchGet(apiHomeList + page.toString(), {"cid": "$id"});
     return HomeListBean.fromJson(data);
   }
+
+  // 导航接口
+
+  static Future<List<NavigationBean>> getNavigation() async {
+    List data = await fetchGet(apiNavigation);
+    return List.generate(data.length, (int index) => NavigationBean.fromJson(data[index]));
+  }
+
+  // 项目接口
+  static Future<List<ProjectBean>> getProject() async {
+    List data = await fetchGet(apiNavigation);
+    return List.generate(data.length, (int index) => ProjectBean.fromJson(data[index]));
+  }
+
+  static Future<HomeListBean> getProjectList(int page, int id) async {
+    var data = await fetchGet(apiProjectList + page.toString(), {"cid": "$id"});
+    return HomeListBean.fromJson(data);
+  }
+
+  // 公共号接口
 
 
 

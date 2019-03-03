@@ -19,6 +19,16 @@ class _MainPageState extends State<MainPage> {
 
   PageController _pageController;
 
+  String _titleName = appName;
+
+  var _buttonItemList = [
+    BottomItemInfo("首页", Icons.home),
+    BottomItemInfo("体系", Icons.cloud),
+    BottomItemInfo("导航", Icons.navigation),
+    BottomItemInfo("项目", Icons.folder),
+    BottomItemInfo("公共号", Icons.public),
+  ];
+
   @override
   void initState() {
     super.initState();
@@ -41,7 +51,7 @@ class _MainPageState extends State<MainPage> {
   Widget buildAppBar() {
     return AppBar(
       backgroundColor: Colors.cyan,
-      title: Text(appName),
+      title: Text(_titleName),
       centerTitle: true,
 //      bottom: PreferredSize(
 //          child: Container(
@@ -118,33 +128,23 @@ class _MainPageState extends State<MainPage> {
 //          setState(() {
 //            this._pageIndex = index;
 //          });
+          _titleName = _buttonItemList[_pageIndex].name;
           _pageController.animateToPage(index,
               duration: const Duration(milliseconds: 300), curve: Curves.ease);
         },
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text("首页"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.cloud,
-//                color: appIconColor,
-            ),
-            title: Text("体系"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.navigation),
-            title: Text("导航"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.folder),
-            title: Text("项目"),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.public),
-            title: Text("公共号"),
-          ),
-        ]);
+        items: List.generate(_buttonItemList.length, (int index) => BottomNavigationBarItem(
+          icon: Icon(_buttonItemList[index].icon),
+          title: Text(_buttonItemList[index].name)
+        )));
   }
+
+}
+
+class BottomItemInfo {
+
+  String name;
+  IconData icon;
+
+  BottomItemInfo(this.name, this.icon);
 
 }

@@ -18,29 +18,17 @@ class KnowledgeSystemListPage extends StatefulWidget {
 
 class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPage> {
 
-  ScrollController _scrollController = ScrollController();
-
-//  AnimationController _animationController;
-//  Animation<double> _iconTurns;
-//  static final Animatable<double> _easeInTween = CurveTween(curve: Curves.easeIn);
-//  static final Animatable<double> _halfTween = Tween<double>(begin: 0.0, end: 0.5);
-
   var _knowledgeSystemData = <KnowledgeSystemBean>[];
 
   @override
   void initState() {
     super.initState();
-    _scrollController = ScrollController();
-//    _animationController = AnimationController(duration: Duration(milliseconds: 200), vsync: this);
-//    _iconTurns = _animationController.drive(_halfTween.chain(_easeInTween));
     _requestKnowledgeSystemData();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _scrollController?.dispose();
-//    _animationController?.dispose();
   }
 
   void _requestKnowledgeSystemData() async {
@@ -66,7 +54,6 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
       onNotification: (scrollNotification) => false,
       // RefreshIndicator / LiquidPullToRefresh
       child: LiquidPullToRefresh(
-        scrollController: _scrollController,
         color: appIconColor,
         onRefresh: _pullToRefresh,
         child: list,
@@ -81,28 +68,38 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
   }
 
   Widget _buildItem(KnowledgeSystemBean data) {
-    var titles = <ListTile>[];
-    data.children.forEach((child) =>
-        titles.add(
-            ListTile(
-              title: Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                      top: BorderSide(color: appIconColor),
-                      bottom: BorderSide(color: appIconColor),
-                    )
-                ),
-                constraints: BoxConstraints.expand(width: 33, height: 44),
-                child: Center(
-                  child: Text(child.name,
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      fontStyle: FontStyle.normal,
-                      wordSpacing: 5.0,
-                    ),),
-                ),
-              ),
-            )));
+    var titles = <Widget>[];
+    for (KnowledgeSystemBean itemBean in data.children) {
+      titles.add(Divider());
+      titles.add( ListTile(
+        onTap: () {
+
+        },
+        dense: true,
+        contentPadding: EdgeInsets.symmetric(horizontal: 0),
+        title: Container(
+          decoration: BoxDecoration(
+//              border: Border(
+//                 top: BorderSide(color: appIconColor),
+//                 bottom: BorderSide(color: appIconColor),
+//              )
+//            border: Border.all(
+//              color: Colors.black,
+//              width: 1.0,
+//            )
+          ),
+//          constraints: BoxConstraints.expand(width: 15, height: 35),
+          child: Center(
+            child: Text(itemBean.name,
+              style: TextStyle(
+                fontSize: 13.0,
+                fontStyle: FontStyle.normal,
+                wordSpacing: 5.0,
+              ),),
+          ),
+        ),
+      ));
+    }
     return Column(
       children: <Widget>[
         CustomExpansionTile(
