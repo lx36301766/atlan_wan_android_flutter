@@ -39,9 +39,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: Drawer(
-        child: DrawerView(),
-      ),
+      drawer: Drawer(child: DrawerView()),
       appBar: buildAppBar(),
       body: buildBody(),
       bottomNavigationBar: buildBottomNavigation(),
@@ -65,13 +63,6 @@ class _MainPageState extends State<MainPage> {
 //          preferredSize: const Size.fromHeight(30.0)
 //      ),
       actions: <Widget>[
-//        IconButton(
-//          icon: Icon(Icons.shopping_cart),
-//          tooltip: 'Open shopping cart',
-//          onPressed: () {
-//            // ...
-//          },
-//        ),
         PopupMenuButton(
 //          icon: Icon(
 //            icon:
@@ -101,7 +92,7 @@ class _MainPageState extends State<MainPage> {
 //      ],
 //    );
     return PageView(
-      physics: AlwaysScrollableScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
         HomeListPage(),
         KnowledgeSystemListPage(),

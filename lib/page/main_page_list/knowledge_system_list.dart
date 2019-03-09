@@ -43,7 +43,6 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
 
   @override
   Widget build(BuildContext context) {
-
     Widget list = ListView.builder(
       itemBuilder: (context, i) => _buildItem(_knowledgeSystemData[i]),
       itemCount: _knowledgeSystemData.length,
