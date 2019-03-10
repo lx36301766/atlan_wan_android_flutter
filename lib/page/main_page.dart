@@ -103,6 +103,7 @@ class _MainPageState extends State<MainPage> {
       onPageChanged: (int page) {
         setState(() {
           this._pageIndex = page;
+          _titleName = _buttonItemList[_pageIndex].name;
         });
       },
       controller: _pageController,
@@ -119,7 +120,6 @@ class _MainPageState extends State<MainPage> {
 //          setState(() {
 //            this._pageIndex = index;
 //          });
-          _titleName = _buttonItemList[_pageIndex].name;
           _pageController.animateToPage(index,
               duration: const Duration(milliseconds: 300), curve: Curves.ease);
         },

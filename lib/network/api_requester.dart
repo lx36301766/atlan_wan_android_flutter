@@ -19,10 +19,7 @@ class ApiRequester {
 
   // 首页接口
 
-  static Future<HomeListBean> getHomeList(int page) async {
-    var data = await fetchGet(apiHomeList + page.toString());
-    return HomeListBean.fromJson(data);
-  }
+  static Future<HomeListBean> getHomeList(int page) async => HomeListBean.fromJson(await fetchGet(apiHomeList + page.toString()));
 
   static Future<List<HomeBannerBean>> getHomeBanner() async {
     List data = await fetchGet(apiHomeBanner);
@@ -60,7 +57,7 @@ class ApiRequester {
 
   // 项目接口
   static Future<List<ProjectBean>> getProject() async {
-    List data = await fetchGet(apiNavigation);
+    List data = await fetchGet(apiProject);
     return List.generate(data.length, (int index) => ProjectBean.fromJson(data[index]));
   }
 
@@ -80,6 +77,7 @@ class ApiRequester {
       arguments.forEach((key, value) => url += "$key=$value&");
       url = url.substring(0, url.length - 1);
     }
+    print("request url = $url");
     final response = await http.get(url);
     // var map = json.decode(_htmlUnescape.convert(response.body));
     var map = json.decode(response.body);

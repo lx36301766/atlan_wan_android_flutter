@@ -49,16 +49,16 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
 //      controller: _scrollController,
     );
 
-    var _pullToRefreshWidget = NotificationListener<ScrollNotification>(
-      onNotification: (scrollNotification) => false,
-      // RefreshIndicator / LiquidPullToRefresh
-      child: LiquidPullToRefresh(
-        color: appIconColor,
-        onRefresh: _pullToRefresh,
-        child: list,
-      ),
-    );
-    return _pullToRefreshWidget;
+//    var _pullToRefreshWidget = NotificationListener<ScrollNotification>(
+//      onNotification: (scrollNotification) => false,
+//      // RefreshIndicator / LiquidPullToRefresh
+//      child: LiquidPullToRefresh(
+//        color: appIconColor,
+//        onRefresh: _pullToRefresh,
+//        child: list,
+//      ),
+//    );
+    return list;
   }
 
   Future<void> _pullToRefresh() async {
