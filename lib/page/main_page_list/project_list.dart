@@ -25,7 +25,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
 
   int _listPageIndex = 0;
 
-  HomeListBean _homeListBean; 
+  var _homeListBeans = <int, HomeListBean> {};
 
   @override
   void initState() {
@@ -40,11 +40,13 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
       setState(() {
         _projectData = data;
         _tabController = TabController(length: _projectData.length, vsync: this)..addListener(() {
-          print("change selected tab index = ${_tabController.index}");
-          setState(() {
-            _selectedItemIndex = _tabController.index;
-            _requestProjectListData();
-          });
+          if (_tabController.indexIsChanging) {
+            print("change selected tab index = ${_tabController.index}");
+            setState(() {
+              _selectedItemIndex = _tabController.index;
+              _requestProjectListData();
+            });
+          }
         });
       });
       _requestProjectListData();
@@ -52,23 +54,26 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
   }
 
   void _requestProjectListData() async {
-    HomeListBean data = await ApiRequester.getProjectList(_listPageIndex, _projectData[_selectedItemIndex].id);
-    print(data);
-    if (_homeListBean != null && _homeListBean.datas != null && _homeListBean.datas.length > 0) {
-//      setState(() {
-//        _homeListBean = data;
-//      });
+    HomeListBean dataBean = await ApiRequester.getProjectList(_listPageIndex, _projectData[_selectedItemIndex].id);
+    print(dataBean);
+    if (dataBean != null && dataBean.datas != null && dataBean.datas.length > 0) {
+      setState(() {
+        _homeListBeans[_selectedItemIndex] = dataBean;
+      });
     }
   }
 
+  HomeListBean getSelectedListBean() => _homeListBeans[_selectedItemIndex];
+
   @override
   Widget build(BuildContext context) {
-    List<Tab> tabs = List.generate(_projectData.length, (int index) => Tab(text: _projectData[index].name));
+    List<Tab> tabs = List.generate(_projectData.length, (int index) =>
+        Tab(text: htmlUnescape.convert(_projectData[index].name)));
     return Scaffold(
       appBar: _tabController == null ? null : _buildPageSlider(tabs),
       body: _tabController == null ? EmptyHolder() : TabBarView(
         controller: _tabController,
-        children: tabs.map((Tab tab) => _buildListItem(tab)).toList(),
+        children: List.generate(tabs.length, (int index) => _buildContent(index)),
       ),
     );
   }
@@ -93,8 +98,28 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
     );
   }
 
-  Widget _buildListItem(Tab tab) {
-//    HomeListDataBean data = _homeListBean.datas[tab.];
+  Widget _buildContent(int pageIndex) {
+    List<HomeListDataBean> data = _homeListBeans[pageIndex]?.datas;
+    if (data == null) {
+      return EmptyHolder();
+    } else {
+      return ListView.builder(
+        physics: AlwaysScrollableScrollPhysics(),
+        itemBuilder: (context, i) => _buildItem(i, data),
+        itemCount: data.length + 1,
+      );
+    }
+  }
+
+  Widget _buildItem(int listIndex, List<HomeListDataBean> data) {
+    if (listIndex == data.length) {
+      return _buildLoadMore();
+    } else {
+      return _buildListItem();
+    }
+  }
+
+  Widget _buildListItem() {
     return Container(
       padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
       child: Card(
@@ -112,11 +137,22 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
                   valueColor: AlwaysStoppedAnimation<Color>(appIconColor),
                 ),
                 errorWidget: Icon(Icons.error),
-                imageUrl: "http://www.wanandroid.com/blogimgs/92f34dfb-a3ae-44fe-ad1a-d1ff22c773e5.png",
+                imageUrl: "http://img0.bdstatic.com/static/searchresult/img/logo-2X_32a8193.png",
               )
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildLoadMore() {
+    print("_homeListBean.pageCount=${getSelectedListBean()?.pageCount}, _listPageIndex=$_listPageIndex");
+    String loadMore = getSelectedListBean()?.pageCount == _listPageIndex ? "我是有底线的": "加载中...";
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 20),
+        child: Text(loadMore),
       ),
     );
   }
