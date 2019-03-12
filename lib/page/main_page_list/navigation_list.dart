@@ -94,9 +94,7 @@ class _NavigationListPageState extends KeepAliveState<NavigationListPage> {
     return InkWell(
       splashColor: Color(0xFFf0f8FF),
       highlightColor: appIconColor,
-      onTap: () {
-        Pages.openWebView(context, data.title, data.link);
-      },
+      onTap: () => Pages.openWebView(context, data.title, data.link),
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(12.0),
