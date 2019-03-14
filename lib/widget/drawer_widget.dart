@@ -127,18 +127,36 @@ class _DrawerViewState extends State<DrawerView> {
 //    }, onError: (e) {
 //      print(e);
 //    });
-
-    ApiRequester.getKnowledgeSystem().then((resp){
-      print(resp.toString());
-    }, onError: (e) {
-      print(e);
-    });
-
-    ApiRequester.getKnowledgeSystemChildren(0, 60).then((resp){
-      print(resp.toString());
-    }, onError: (e) {
-      print(e);
-    });
+//
+//    ApiRequester.getKnowledgeSystem().then((resp){
+//      print(resp.toString());
+//    }, onError: (e) {
+//      print(e);
+//    });
+//
+//    ApiRequester.getKnowledgeSystemChildren(0, 60).then((resp){
+//      print(resp.toString());
+//    }, onError: (e) {
+//      print(e);
+//    });
+//
+//    ApiRequester.getWeChatAuthorList().then((resp){
+//      print(resp.toString());
+//    }, onError: (e) {
+//      print(e);
+//    });
+//
+//    ApiRequester.getWeChatArticleList(1, 408).then((resp){
+//      print(resp.toString());
+//    }, onError: (e) {
+//      print(e);
+//    });
+//
+//    ApiRequester.getWeChatArticleList(1, 408, "java").then((resp){
+//      print(resp.toString());
+//    }, onError: (e) {
+//      print(e);
+//    });
 
   }
 

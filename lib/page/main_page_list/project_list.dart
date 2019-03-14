@@ -2,7 +2,6 @@
 import 'package:atlan_wan_android_flutter/network/api_requester.dart';
 import 'package:atlan_wan_android_flutter/network/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/network/entity/knowledge_system_bean.dart';
-import 'package:atlan_wan_android_flutter/network/entity/project_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
@@ -20,7 +19,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
 
   TabController _tabController;
 
-  var _projectData = <ProjectBean>[];
+  var _projectData = <KnowledgeSystemBean>[];
 
   int _selectedItemIndex = 0;
 
@@ -35,7 +34,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
   }
 
   void _requestProjectData() async {
-    List<ProjectBean> data = await ApiRequester.getProject();
+    List<KnowledgeSystemBean> data = await ApiRequester.getProject();
     print(data);
     if (data != null && data.length > 0) {
       setState(() {
@@ -133,7 +132,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
           child: InkWell(
             splashColor: Color(0xFFf0f8FF),
             highlightColor: appIconColor,
-//            onTap: () => Pages.openWebView(context, dataBean.title, dataBean.link),
+            onTap: () => Pages.openWebView(context, dataBean.title, dataBean.link),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Row(
@@ -145,36 +144,16 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(title,
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
+                          Text(title, style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic)),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: Text(desc,
-                              style: TextStyle(
-                                fontSize: 9,
-                                color: Colors.grey.shade500
-                              ),
-                            ),
+                            child: Text(desc, style: TextStyle(fontSize: 9, color: Colors.grey.shade500)),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Text(name,
-                                style: TextStyle(
-                                  fontSize: 10,
-                                  color: Colors.grey.shade600
-                                ),
-                              ),
-                              Text(dataBean.niceDate,
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    color: Colors.grey.shade600
-                                ),
-                              ),
+                              Text(name, style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
+                              Text(dataBean.niceDate, style: TextStyle(fontSize: 10, color: Colors.grey.shade600)),
                             ],
                           )
                         ],

@@ -51,12 +51,7 @@ const String apiProjectList = "project/list/";
 // http://wanandroid.com/wxarticle/chapters/json
 const String apiWXList = "wxarticle/chapters/";
 
-// X.2 查看某个公众号历史数据
+// X.2/3 查看某个公众号历史数据 / 在某个公众号中搜索历史文章
 // http://wanandroid.com/wxarticle/list/405/1/json
 const String apiWXListItem = "wxarticle/list/";
-
-// X.3 在某个公众号中搜索历史文章
-// http://wanandroid.com/wxarticle/list/405/1/json?k=Java
-const String apiWXSearchArticle = "wxarticle/list/";
-
 

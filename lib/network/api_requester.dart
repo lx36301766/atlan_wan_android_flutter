@@ -8,7 +8,6 @@ import 'package:atlan_wan_android_flutter/network/entity/home_hot_key_bean.dart'
 import 'package:atlan_wan_android_flutter/network/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/network/entity/knowledge_system_bean.dart';
 import 'package:atlan_wan_android_flutter/network/entity/navigation_bean.dart';
-import 'package:atlan_wan_android_flutter/network/entity/project_bean.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -56,9 +55,9 @@ class ApiRequester {
   }
 
   // 项目接口
-  static Future<List<ProjectBean>> getProject() async {
+  static Future<List<KnowledgeSystemBean>> getProject() async {
     List data = await fetchGet(apiProject);
-    return List.generate(data.length, (int index) => ProjectBean.fromJson(data[index]));
+    return List.generate(data.length, (int index) => KnowledgeSystemBean.fromJson(data[index]));
   }
 
   static Future<HomeListBean> getProjectList(int page, int id) async {
@@ -67,6 +66,16 @@ class ApiRequester {
   }
 
   // 公共号接口
+  static Future<List<KnowledgeSystemBean>> getWeChatAuthorList() async {
+    List data = await fetchGet(apiWXList);
+    return List.generate(data.length, (int index) => KnowledgeSystemBean.fromJson(data[index]));
+  }
+
+  static Future<HomeListBean> getWeChatArticleList(int page, int id, [String searchKey]) async {
+    String urlPathSuffix = apiWXListItem + id.toString() + "/" + page.toString();
+    var data = await fetchGet(urlPathSuffix, searchKey == null ? null : {"k": "$searchKey"});
+    return HomeListBean.fromJson(data);
+  }
 
 
 
