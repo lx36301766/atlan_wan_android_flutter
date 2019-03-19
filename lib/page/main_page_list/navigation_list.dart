@@ -82,8 +82,12 @@ class _NavigationListPageState extends KeepAliveState<NavigationListPage> {
         dense: true,
         selected: false,
         onTap: () {
-          _selectItemIndex = index;
-          _requestKnowledgeSystemData();
+          if (_selectItemIndex != index) {
+            setState(() {
+              _selectItemIndex = index;
+            });
+            _requestKnowledgeSystemData();
+          }
         },
       ),
     );

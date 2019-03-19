@@ -1,13 +1,13 @@
 
 import 'dart:async';
 
-import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
-import 'package:atlan_wan_android_flutter/util/constants.dart';
+import 'package:atlan_wan_android_flutter/network/api_requester.dart';
 import 'package:atlan_wan_android_flutter/network/entity/home_banner_bean.dart';
+import 'package:atlan_wan_android_flutter/network/entity/home_list_bean.dart';
+import 'package:atlan_wan_android_flutter/util/constants.dart';
+import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:atlan_wan_android_flutter/network/api_requester.dart';
-import 'package:atlan_wan_android_flutter/network/entity/home_list_bean.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 

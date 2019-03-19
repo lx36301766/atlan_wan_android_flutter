@@ -1,10 +1,25 @@
+import 'dart:io';
+
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/page/splash_page.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(AtlanWanAndroid());
+//void main() => runApp(AtlanWanAndroid());
+
+void main() {
+
+  runApp(AtlanWanAndroid());
+
+    //判断如果是Android版本的话 设置Android状态栏透明沉浸式
+  if(Platform.isAndroid){
+    //写在组件渲染之后，是为了在渲染后进行设置赋值，覆盖状态栏，写在渲染之前对MaterialApp组件会覆盖这个值。
+    SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(statusBarColor: Colors.transparent);
+    SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  }
+}
 
 class AtlanWanAndroid extends StatelessWidget {
 

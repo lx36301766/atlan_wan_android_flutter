@@ -34,6 +34,7 @@ dependencies:
 
 # unused
   carousel_slider: ^1.0.1
+  
   banner_view: ^1.1.2
   flutter_redux: ^0.5.3
   fluttertoast: ^2.2.6

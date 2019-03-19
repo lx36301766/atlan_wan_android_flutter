@@ -1,11 +1,10 @@
-
-import 'package:atlan_wan_android_flutter/util/constants.dart';
-import 'package:atlan_wan_android_flutter/page/main_page_list/knowledge_system_list.dart';
-import 'package:atlan_wan_android_flutter/widget/drawer_widget.dart';
 import 'package:atlan_wan_android_flutter/page/main_page_list/home_list.dart';
+import 'package:atlan_wan_android_flutter/page/main_page_list/knowledge_system_list.dart';
 import 'package:atlan_wan_android_flutter/page/main_page_list/navigation_list.dart';
 import 'package:atlan_wan_android_flutter/page/main_page_list/project_list.dart';
 import 'package:atlan_wan_android_flutter/page/main_page_list/wechat_public_list.dart';
+import 'package:atlan_wan_android_flutter/util/constants.dart';
+import 'package:atlan_wan_android_flutter/widget/drawer_widget.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
@@ -14,7 +13,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-
   int _pageIndex = 0;
 
   PageController _pageController;
@@ -67,18 +65,18 @@ class _MainPageState extends State<MainPage> {
 //          icon: Icon(
 //            icon:
 //          ),
-          itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-                PopupMenuItem<String>(child: const Text('Doge'), value: 'Doge'),
-                PopupMenuItem<String>(child: const Text('Lion'), value: 'Lion'),
-              ],
-          onSelected: _onPopMenuSelected),
+            itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+                  PopupMenuItem<String>(
+                      child: const Text('Doge'), value: 'Doge'),
+                  PopupMenuItem<String>(
+                      child: const Text('Lion'), value: 'Lion'),
+                ],
+            onSelected: _onPopMenuSelected),
       ],
     );
   }
 
-  void _onPopMenuSelected(String value) {
-
-  }
+  void _onPopMenuSelected(String value) {}
 
   Widget buildBody() {
 //    return IndexedStack(
@@ -123,19 +121,17 @@ class _MainPageState extends State<MainPage> {
           _pageController.animateToPage(index,
               duration: const Duration(milliseconds: 300), curve: Curves.ease);
         },
-        items: List.generate(_buttonItemList.length, (int index) => BottomNavigationBarItem(
-          icon: Icon(_buttonItemList[index].icon),
-          title: Text(_buttonItemList[index].name)
-        )));
+        items: List.generate(
+            _buttonItemList.length,
+            (int index) => BottomNavigationBarItem(
+                icon: Icon(_buttonItemList[index].icon),
+                title: Text(_buttonItemList[index].name))));
   }
-
 }
 
 class BottomItemInfo {
-
   String name;
   IconData icon;
 
   BottomItemInfo(this.name, this.icon);
-
 }

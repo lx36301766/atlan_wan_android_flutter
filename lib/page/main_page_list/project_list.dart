@@ -144,10 +144,18 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(title, style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic)),
+                          Text(title, 
+                            style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: Text(desc, style: TextStyle(fontSize: 9, color: Colors.grey.shade500)),
+                            child: Text(desc, 
+                              style: TextStyle(fontSize: 9, color: Colors.grey.shade500),
+                              maxLines: 5,
+                              overflow: TextOverflow.fade,
+                            ),
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
