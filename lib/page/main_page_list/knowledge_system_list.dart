@@ -67,38 +67,25 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
   }
 
   Widget _buildItem(KnowledgeSystemBean data) {
-    var titles = <Widget>[];
-    for (KnowledgeSystemBean itemBean in data.children) {
-      titles.add(Divider());
-      titles.add( ListTile(
-        onTap: () {
 
-        },
-        dense: true,
-        contentPadding: EdgeInsets.symmetric(horizontal: 0),
-        title: Container(
-          decoration: BoxDecoration(
-//              border: Border(
-//                 top: BorderSide(color: appIconColor),
-//                 bottom: BorderSide(color: appIconColor),
-//              )
-//            border: Border.all(
-//              color: Colors.black,
-//              width: 1.0,
-//            )
-          ),
-//          constraints: BoxConstraints.expand(width: 15, height: 35),
-          child: Center(
-            child: Text(itemBean.name,
-              style: TextStyle(
-                fontSize: 13.0,
-                fontStyle: FontStyle.normal,
-                wordSpacing: 5.0,
-              ),),
-          ),
-        ),
-      ));
-    }
+//    for (KnowledgeSystemBean itemBean in data.children) {
+//      titles.add(Divider());
+//      titles.add( ListTile(
+//        onTap: () {},
+//        dense: true,
+//        contentPadding: EdgeInsets.symmetric(horizontal: 0),
+//        title: Container(
+//          child: Center(
+//            child: Text(itemBean.name,
+//              style: TextStyle(
+//                fontSize: 13.0,
+//                fontStyle: FontStyle.normal,
+//                wordSpacing: 5.0,
+//              ),),
+//          ),
+//        ),
+//      ));
+//    }
     return Column(
       children: <Widget>[
         CustomExpansionTile(
@@ -111,7 +98,37 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
               wordSpacing: 5.0,
             ),
           ),
-          children: titles
+          children: <Widget>[
+            Divider(color: appIconColor),
+            Padding(
+              padding: const EdgeInsets.only(left: 4, right: 4, bottom: 6),
+              child: Wrap(
+                spacing: 8.0,
+                runSpacing: 0.0,
+                alignment: WrapAlignment.spaceAround,
+                children: data.children.map((itemData) {
+                  return ActionChip(
+                    labelPadding: const EdgeInsets.symmetric(horizontal: 8),
+                    backgroundColor: Colors.grey.shade200,
+                    shadowColor: appIconColor,
+                    label: Text(itemData.name, style: TextStyle(fontSize: 12.0)),
+                    onPressed: () {
+
+                    },
+                  );
+//                  return InkWell(
+//                    child: Container(
+//                      child: Text(itemData.name, style: TextStyle(color: appIconColor, fontSize: 13.0)),
+//                      padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+//                    ),
+//                    onTap: () {
+//
+//                    },
+//                  );
+                }).toList(),
+              ),
+            )
+          ],
         ),
 //        Divider(
 //          color: appIconColor,
