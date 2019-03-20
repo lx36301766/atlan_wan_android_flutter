@@ -120,7 +120,6 @@ class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage> wi
 
   Widget _buildCardItem(HomeListDataBean dataBean) {
     var title = htmlUnescape.convert(dataBean.title);
-    var desc = htmlUnescape.convert(dataBean.desc);
     return Container(
       padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
       child: Card(
