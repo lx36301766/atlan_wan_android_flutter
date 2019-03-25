@@ -138,7 +138,7 @@ class _ExpansionTileState extends State<CustomExpansionTile> with SingleTickerPr
 
   Widget _buildChildren(BuildContext context, Widget child) {
 //    final Color borderSideColor = _borderColor.value ?? Colors.transparent;
-    final Color borderSideColor = appIconColor;
+    final Color borderSideColor = appMainColor;
 
     return Container(
       decoration: BoxDecoration(

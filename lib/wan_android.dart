@@ -37,7 +37,7 @@ class AtlanWanAndroid extends StatelessWidget {
       title: appName,
       theme: ThemeData(
 //        primarySwatch: Colors.blue,
-        primaryColor: appIconColor,
+        primaryColor: appMainColor,
       ),
       home: SplashPage(),
       initialRoute: Pages.splash,

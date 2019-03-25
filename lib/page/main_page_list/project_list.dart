@@ -1,7 +1,7 @@
 
 import 'package:atlan_wan_android_flutter/network/api_requester.dart';
-import 'package:atlan_wan_android_flutter/network/entity/home_list_bean.dart';
-import 'package:atlan_wan_android_flutter/network/entity/knowledge_system_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
@@ -88,9 +88,9 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
           isScrollable: true,
           unselectedLabelColor: Colors.black38,
           indicatorWeight: 1.0,
-          indicatorColor: appIconColor,
+          indicatorColor: appMainColor,
           indicatorSize: TabBarIndicatorSize.label,
-          labelColor: appIconColor,
+          labelColor: appMainColor,
           controller: _tabController,
           tabs: tabs,
         ),
@@ -131,7 +131,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
           elevation: 5.0,
           child: InkWell(
             splashColor: Color(0xFFf0f8FF),
-            highlightColor: appIconColor,
+            highlightColor: appMainColor,
             onTap: () => Pages.openWebView(context, dataBean.title, dataBean.link),
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -172,7 +172,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
                   Expanded(
                     child: CachedNetworkImage(
                       placeholder: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(appIconColor),
+                        valueColor: AlwaysStoppedAnimation<Color>(appMainColor),
                       ),
                       errorWidget: Icon(Icons.error),
                       imageUrl: dataBean.envelopePic,
@@ -187,7 +187,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
       ),
     );
   }
-
+  
   Widget _buildLoadMore() {
     print("_homeListBean.pageCount=${getSelectedListBean()?.pageCount}, _listPageIndex=$_listPageIndex");
     String loadMore = getSelectedListBean()?.pageCount == _listPageIndex ? "我是有底线的": "加载中...";

@@ -2,7 +2,7 @@
 import 'dart:async';
 
 import 'package:atlan_wan_android_flutter/network/api_requester.dart';
-import 'package:atlan_wan_android_flutter/network/entity/knowledge_system_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/widget/custom_expansion_tile.dart';
@@ -89,7 +89,7 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
     return Column(
       children: <Widget>[
         CustomExpansionTile(
-          leading: Icon(Icons.reorder, color: appIconColor),
+          leading: Icon(Icons.reorder, color: appMainColor),
           title: Text(data.name,
             style: TextStyle(
               fontSize: 15.0,
@@ -99,7 +99,7 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
             ),
           ),
           children: <Widget>[
-            Divider(color: appIconColor),
+            Divider(color: appMainColor),
             Padding(
               padding: const EdgeInsets.only(left: 4, right: 4, bottom: 6),
               child: Wrap(
@@ -110,7 +110,7 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
                   return ActionChip(
                     labelPadding: const EdgeInsets.symmetric(horizontal: 8),
                     backgroundColor: Colors.grey.shade200,
-                    shadowColor: appIconColor,
+                    shadowColor: appMainColor,
                     label: Text(itemData.name, style: TextStyle(fontSize: 12.0)),
                     onPressed: () {
 

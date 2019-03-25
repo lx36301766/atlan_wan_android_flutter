@@ -113,7 +113,7 @@ class _MainPageState extends State<MainPage> {
         currentIndex: _pageIndex,
         type: BottomNavigationBarType.fixed,
         iconSize: 24,
-        fixedColor: appIconColor,
+        fixedColor: appMainColor,
         onTap: (int index) {
 //          setState(() {
 //            this._pageIndex = index;
