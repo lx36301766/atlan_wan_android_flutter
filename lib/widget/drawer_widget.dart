@@ -26,7 +26,7 @@ class _DrawerViewState extends State<DrawerView> {
               padding: EdgeInsets.only(top:20),
               child: CircleAvatar(
                 child: Icon(Icons.person_pin_circle,
-                  color: appIconColor,
+                  color: appMainColor,
                 ),
                 backgroundColor: Colors.tealAccent.shade100,
               ),
@@ -47,32 +47,32 @@ class _DrawerViewState extends State<DrawerView> {
         Padding(
           padding: EdgeInsets.only(top: 8),
           child: ListTile(
-            leading: Icon(Icons.web, color: appIconColor),
+            leading: Icon(Icons.web, color: appMainColor),
             title: Text("常用网站"),
             onTap: () {},
           ),
         ),
         Divider(),
         ListTile(
-          leading: Icon(Icons.collections, color: appIconColor),
+          leading: Icon(Icons.collections, color: appMainColor),
           title: Text("收藏"),
           onTap: () {},
         ),
         Divider(),
         ListTile(
-          leading: Icon(Icons.toc, color: appIconColor),
+          leading: Icon(Icons.toc, color: appMainColor),
           title: Text("TODO"),
           onTap: () {},
         ),
         Divider(),
         ListTile(
-          leading: Icon(Icons.settings, color: appIconColor),
+          leading: Icon(Icons.settings, color: appMainColor),
           title: Text("设置"),
           onTap: _onTestClick,
         ),
         Divider(),
         AboutListTile(
-          icon: Icon(Icons.info_outline, color: appIconColor),
+          icon: Icon(Icons.info_outline, color: appMainColor),
           child: Text("关于"),
         ),
       ],

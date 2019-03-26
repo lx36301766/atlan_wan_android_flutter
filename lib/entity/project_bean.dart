@@ -1,5 +1,5 @@
 
-import 'package:atlan_wan_android_flutter/network/entity/knowledge_system_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
 
 class ProjectBean extends KnowledgeSystemBean {
 

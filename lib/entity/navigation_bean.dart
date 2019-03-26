@@ -1,5 +1,5 @@
 
-import 'package:atlan_wan_android_flutter/network/entity/home_list_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'navigation_bean.g.dart';

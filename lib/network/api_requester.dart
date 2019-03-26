@@ -2,12 +2,12 @@
 import 'dart:async';
 
 import 'package:atlan_wan_android_flutter/network/api_resp.dart';
-import 'package:atlan_wan_android_flutter/network/entity/home_banner_bean.dart';
-import 'package:atlan_wan_android_flutter/network/entity/home_common_website_bean.dart';
-import 'package:atlan_wan_android_flutter/network/entity/home_hot_key_bean.dart';
-import 'package:atlan_wan_android_flutter/network/entity/home_list_bean.dart';
-import 'package:atlan_wan_android_flutter/network/entity/knowledge_system_bean.dart';
-import 'package:atlan_wan_android_flutter/network/entity/navigation_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/home_banner_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/home_common_website_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/home_hot_key_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/navigation_bean.dart';
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;

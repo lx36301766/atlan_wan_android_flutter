@@ -2,7 +2,7 @@
 import 'dart:async';
 
 import 'package:atlan_wan_android_flutter/network/api_requester.dart';
-import 'package:atlan_wan_android_flutter/network/entity/navigation_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/navigation_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
@@ -51,7 +51,7 @@ class _NavigationListPageState extends KeepAliveState<NavigationListPage> {
 
     Widget list2 = ListView.separated(
       itemBuilder: (context, i) => _buildNavigationItem(i),
-      separatorBuilder: (BuildContext context, int index) => Divider(height:1.0,color: appIconColor),
+      separatorBuilder: (BuildContext context, int index) => Divider(height:1.0,color: appMainColor),
       itemCount: _navigationData.length > _selectItemIndex ?
               _navigationData[_selectItemIndex].articles.length : 0,
       controller: _scrollController,
@@ -99,7 +99,7 @@ class _NavigationListPageState extends KeepAliveState<NavigationListPage> {
     var data = _navigationData[_selectItemIndex].articles[index];
     return InkWell(
       splashColor: Color(0xFFf0f8FF),
-      highlightColor: appIconColor,
+      highlightColor: appMainColor,
       onTap: () => Pages.openWebView(context, data.title, data.link),
       child: Center(
         child: Padding(

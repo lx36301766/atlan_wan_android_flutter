@@ -2,8 +2,8 @@
 import 'dart:async';
 
 import 'package:atlan_wan_android_flutter/network/api_requester.dart';
-import 'package:atlan_wan_android_flutter/network/entity/home_banner_bean.dart';
-import 'package:atlan_wan_android_flutter/network/entity/home_list_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/home_banner_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
@@ -62,7 +62,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
       // RefreshIndicator / LiquidPullToRefresh
       child: LiquidPullToRefresh(
         scrollController: _scrollController,
-        color: appIconColor,
+        color: appMainColor,
         onRefresh: _pullToRefresh,
         child: list,
       ),
@@ -100,7 +100,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
   Future<void> _requestBannerData() async {
     List<HomeBannerBean> data = await ApiRequester.getHomeBanner();
     print(data.toString());
-    if (data != null && data.length > 0) {
+    if (data != null && data.length > 0 && mounted) {
       setState(() {
         _bannerListData = data;
       });
@@ -110,10 +110,12 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
   Future<void> _requestListData() async {
     HomeListBean bean = await ApiRequester.getHomeList(_listPageIndex);
     print(bean.toString());
-    setState(() {
-      _homeListBean = bean;
-      _homeListData.addAll(bean.datas);
-    });
+    if (mounted) {
+      setState(() {
+        _homeListBean = bean;
+        _homeListData.addAll(bean.datas);
+      });
+    }
   }
 
   Widget _buildItem(int index) {
@@ -145,7 +147,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
               return Center(
                 child: CachedNetworkImage(
                   placeholder: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(appIconColor),
+                    valueColor: AlwaysStoppedAnimation<Color>(appMainColor),
                   ),
                   errorWidget: Icon(Icons.error),
                   imageUrl: _bannerListData[index].imagePath,
@@ -179,7 +181,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
         elevation: 5.0,
         child: InkWell(
           splashColor: Color(0xFFf0f8FF),
-          highlightColor: appIconColor,
+          highlightColor: appMainColor,
           onTap: () {
             var data = _homeListData[index - 1];
             Pages.openWebView(context, data.title, data.link);
