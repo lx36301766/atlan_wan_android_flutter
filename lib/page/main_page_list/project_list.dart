@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:atlan_wan_android_flutter/network/api_requester.dart';
 import 'package:atlan_wan_android_flutter/network/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/network/entity/knowledge_system_bean.dart';
@@ -8,6 +10,7 @@ import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:loadmore/loadmore.dart';
 
 class ProjectListPage extends StatefulWidget {
 
@@ -33,7 +36,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
     _requestProjectData();
   }
 
-  void _requestProjectData() async {
+  Future<void> _requestProjectData() async {
     List<KnowledgeSystemBean> data = await ApiRequester.getProject();
     print(data);
     if (data != null && data.length > 0) {
@@ -53,14 +56,17 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
     }
   }
 
-  void _requestProjectListData() async {
+  Future<bool> _requestProjectListData() async {
     HomeListBean dataBean = await ApiRequester.getProjectList(_listPageIndex, _projectData[_selectedItemIndex].id);
     print(dataBean);
     if (dataBean != null && dataBean.datas != null && dataBean.datas.length > 0) {
       setState(() {
+        _listPageIndex++;
         _homeListBeans[_selectedItemIndex] = dataBean;
       });
+      return true;
     }
+    return false;
   }
 
   HomeListBean getSelectedListBean() => _homeListBeans[_selectedItemIndex];
@@ -103,20 +109,24 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
     if (data == null) {
       return EmptyHolder();
     } else {
-      return ListView.builder(
-        physics: AlwaysScrollableScrollPhysics(),
-        itemBuilder: (context, i) => _buildListItem(i, data),
-        itemCount: data.length + 1,
+      return LoadMore(
+        onLoadMore: _requestProjectListData,
+        child: ListView.builder(
+          physics: AlwaysScrollableScrollPhysics(),
+          itemBuilder: (context, i) => _buildListItem(i, data),
+          itemCount: data.length + 1,
+        ),
       );
     }
   }
 
   Widget _buildListItem(int listIndex, List<HomeListDataBean> data) {
-    if (listIndex == data.length) {
-      return _buildLoadMore();
-    } else {
-      return _buildCardItem(data[listIndex]);
-    }
+    // if (listIndex == data.length) {
+    //   return _buildLoadMore();
+    // } else {
+    //   return _buildCardItem(data[listIndex]);
+    // }
+    return _buildCardItem(data[listIndex]);
   }
 
   Widget _buildCardItem(HomeListDataBean dataBean) {

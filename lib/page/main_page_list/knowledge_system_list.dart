@@ -31,7 +31,7 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
     super.dispose();
   }
 
-  void _requestKnowledgeSystemData() async {
+  Future<void> _requestKnowledgeSystemData() async {
     List<KnowledgeSystemBean> data = await ApiRequester.getKnowledgeSystem();
     print(data);
     if (data != null && data.length > 0) {
@@ -61,10 +61,10 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
     return list;
   }
 
-  Future<void> _pullToRefresh() async {
-    _requestKnowledgeSystemData();
-    return null;
-  }
+  // Future<void> _pullToRefresh() async {
+  //   _requestKnowledgeSystemData();
+  //   return null;
+  // }
 
   Widget _buildItem(KnowledgeSystemBean data) {
 
@@ -99,13 +99,13 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
             ),
           ),
           children: <Widget>[
-            Divider(color: appIconColor),
+            // Divider(color: appIconColor),
             Padding(
-              padding: const EdgeInsets.only(left: 4, right: 4, bottom: 6),
+              padding: const EdgeInsets.only(left: 4, right: 4, bottom: 6, top: 2),
               child: Wrap(
                 spacing: 8.0,
                 runSpacing: 0.0,
-                alignment: WrapAlignment.spaceAround,
+                alignment: WrapAlignment.start,
                 children: data.children.map((itemData) {
                   return ActionChip(
                     labelPadding: const EdgeInsets.symmetric(horizontal: 8),
