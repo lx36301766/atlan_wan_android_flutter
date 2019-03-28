@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:atlan_wan_android_flutter/network/api_requester.dart';
 import 'package:atlan_wan_android_flutter/entity/navigation_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
@@ -28,7 +30,7 @@ class _NavigationListPageState extends KeepAliveState<NavigationListPage> {
     _requestKnowledgeSystemData();
   }
 
-  void _requestKnowledgeSystemData() async {
+  Future<void> _requestKnowledgeSystemData() async {
     List<NavigationBean> data = await ApiRequester.getNavigation();
     print(data);
     if (data != null && data.length > 0) {

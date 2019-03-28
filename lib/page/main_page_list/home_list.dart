@@ -97,7 +97,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
     }
   }
 
-  void _requestBannerData() async {
+  Future<void> _requestBannerData() async {
     List<HomeBannerBean> data = await ApiRequester.getHomeBanner();
     print(data.toString());
     if (data != null && data.length > 0 && mounted) {
@@ -107,7 +107,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
     }
   }
 
-  void _requestListData() async {
+  Future<void> _requestListData() async {
     HomeListBean bean = await ApiRequester.getHomeList(_listPageIndex);
     print(bean.toString());
     if (mounted) {

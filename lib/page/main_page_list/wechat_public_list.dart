@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:atlan_wan_android_flutter/network/api_requester.dart';
 import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
@@ -32,7 +34,7 @@ class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage> wi
     _requestProjectData();
   }
 
-  void _requestProjectData() async {
+  Future<void> _requestProjectData() async {
     List<KnowledgeSystemBean> data = await ApiRequester.getWeChatAuthorList();
     print(data);
     if (data != null && data.length > 0) {
