@@ -39,7 +39,8 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _onLogoClick() async {
-    Navigator.popAndPushNamed(context, Pages.home);
+    //Navigator.popAndPushNamed(context, Pages.home);
+    Navigator.of(context).pushReplacementNamed(Pages.home);
   }
 
 }

@@ -171,8 +171,12 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
                   ),
                   Expanded(
                     child: CachedNetworkImage(
-                      placeholder: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(appMainColor),
+                      placeholder: Center(
+                        child: SizedBox(
+                            child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(appMainColor),
+                          ),
+                        ),
                       ),
                       errorWidget: Icon(Icons.error),
                       imageUrl: dataBean.envelopePic,
