@@ -146,10 +146,10 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
             itemBuilder: (BuildContext context, int index) {
               return Center(
                 child: CachedNetworkImage(
-                  placeholder: CircularProgressIndicator(
+                  placeholder: (context, url) => CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(appMainColor),
                   ),
-                  errorWidget: Icon(Icons.error),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
                   imageUrl: _bannerListData[index].imagePath,
                 ),
               );

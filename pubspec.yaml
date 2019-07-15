@@ -29,7 +29,7 @@ dependencies:
   flutter_webview_plugin: ^0.3.0+2
   # pull_to_refresh: ^1.1.6
   liquid_pull_to_refresh: ^1.1.0
-  cached_network_image: ^0.5.1
+  cached_network_image: ^0.8.0
   html_unescape: 1.0.1+2
   loadmore: ^1.0.3
 
