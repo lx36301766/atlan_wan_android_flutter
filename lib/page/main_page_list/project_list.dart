@@ -121,12 +121,12 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
   }
 
   Widget _buildListItem(int listIndex, List<HomeListDataBean> data) {
-    // if (listIndex == data.length) {
-    //   return _buildLoadMore();
-    // } else {
-    //   return _buildCardItem(data[listIndex]);
-    // }
-    return _buildCardItem(data[listIndex]);
+     if (listIndex == data.length) {
+       return _buildLoadMore();
+     } else {
+       return _buildCardItem(data[listIndex]);
+     }
+//    return _buildCardItem(data[listIndex]);
   }
 
   Widget _buildCardItem(HomeListDataBean dataBean) {

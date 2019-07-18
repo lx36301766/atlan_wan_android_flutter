@@ -37,10 +37,13 @@ dependencies:
   carousel_slider: ^1.0.1
   
   banner_view: ^1.1.2
-  flutter_redux: ^0.5.3
-  fluttertoast: ^2.2.6
+#  fluttertoast: ^2.2.6
   rxdart: ^0.21.0
 
+  provider: ^3.0.0+1
+  scoped_model: ^1.0.1
+  flutter_redux: ^0.5.3
+  fish_redux: ^0.2.4
 
   # # 汉字转拼音库 https://github.com/flutterchina/lpinyin
   # lpinyin: ^1.0.7
