@@ -47,6 +47,19 @@ const String apiProject = "project/tree";
 const String apiProjectList = "project/list/";
 
 
+// 5.1 登录 - POST（username，password）
+// https://www.wanandroid.com/user/login
+const String apiLogin = "user/login";
+
+// 5.2 注册 - POST（username，password，repassword）
+// https://www.wanandroid.com/user/register
+const String apiRegister = "user/register";
+
+// 5.3 退出
+// https://www.wanandroid.com/user/logout/json
+const String apiLogout = "user/logout";
+
+
 // X.1 获取公众号列表
 
 // http://wanandroid.com/wxarticle/chapters/json
