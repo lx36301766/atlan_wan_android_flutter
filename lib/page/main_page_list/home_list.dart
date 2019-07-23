@@ -50,6 +50,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     Widget list = ListView.builder(
       physics: AlwaysScrollableScrollPhysics(),
       itemBuilder: (context, i) => _buildItem(i),

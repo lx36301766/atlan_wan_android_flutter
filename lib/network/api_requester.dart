@@ -82,7 +82,7 @@ class ApiRequester {
   }
 
   // 注册接口
-  static Future/**TODO**/ postRegister(String userName, String password, String repassword) async {
+  static Future postRegister(String userName, String password, String repassword) async {
     var data = await fetchPost(apiRegister, {"userName": userName, "password": password, "repassword": repassword});
     // FIXME
     return HomeListBean.fromJson(data);

@@ -9,7 +9,7 @@ class EmptyHolder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(null != msg ? msg : "Loading..."),
+      child: Text(null != msg ? msg : "加载中..."),
     );
   }
 }

@@ -26,9 +26,11 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
 
   int _selectedItemIndex = 0;
 
-  int _listPageIndex = 0;
+  var _listPageIndexes;
 
-  var _homeListBeans = <int, HomeListBean> {};
+  bool _isLastPage = false;
+
+  var _homeListBeans = <int, List<HomeListDataBean>> {};
 
   @override
   void initState() {
@@ -42,37 +44,46 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
     if (data != null && data.length > 0) {
       setState(() {
         _projectData = data;
+        _listPageIndexes = List.generate(_projectData.length,  (int index) => 0);
         _tabController = TabController(length: _projectData.length, vsync: this)..addListener(() {
-          if (_tabController.indexIsChanging) {
+          if (_tabController.index.toDouble() == _tabController.animation.value) {
             print("change selected tab index = ${_tabController.index}");
             setState(() {
               _selectedItemIndex = _tabController.index;
-              _requestProjectListData();
+              _requestProjectListData(_selectedItemIndex);
             });
           }
         });
       });
-      _requestProjectListData();
+      _requestProjectListData(_selectedItemIndex);
     }
   }
 
-  Future<bool> _requestProjectListData() async {
-    HomeListBean dataBean = await ApiRequester.getProjectList(_listPageIndex, _projectData[_selectedItemIndex].id);
+  Future<bool> _requestProjectListData(int index) async {
+    HomeListBean dataBean = await ApiRequester.getProjectList(_listPageIndexes[index], _projectData[index].id);
     print(dataBean);
-    if (dataBean != null && dataBean.datas != null && dataBean.datas.length > 0) {
-      setState(() {
-        _listPageIndex++;
-        _homeListBeans[_selectedItemIndex] = dataBean;
-      });
-      return true;
+    if (dataBean == null) {
+      return false;
     }
-    return false;
+    setState(() {
+      _isLastPage = dataBean.pageCount < 2 || dataBean.over;
+      print("_isLastPage=$_isLastPage");
+      if (_homeListBeans[index] == null) {
+        _homeListBeans[index] = List<HomeListDataBean>();
+      }
+      if (dataBean.datas != null && dataBean.datas.length > 0) {
+        _listPageIndexes[index]++;
+        _homeListBeans[index].addAll(dataBean.datas);
+      }
+    });
+    return true;
   }
 
-  HomeListBean getSelectedListBean() => _homeListBeans[_selectedItemIndex];
+  Future<bool> _onLoadMore() async => _requestProjectListData(_selectedItemIndex);
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     List<Tab> tabs = List.generate(_projectData.length, (int index) =>
         Tab(text: htmlUnescape.convert(_projectData[index].name)));
     return Scaffold(
@@ -105,28 +116,35 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
   }
 
   Widget _buildContent(int pageIndex) {
-    List<HomeListDataBean> data = _homeListBeans[pageIndex]?.datas;
+    List<HomeListDataBean> data = _homeListBeans[pageIndex];
     if (data == null) {
       return EmptyHolder();
     } else {
       return LoadMore(
-        onLoadMore: _requestProjectListData,
+        isFinish: _isLastPage,
+        onLoadMore: _onLoadMore,
+        textBuilder: (status) {
+          if (status == LoadMoreStatus.nomore && data.isEmpty) {
+            return "暂无数据";
+          }
+          return DefaultLoadMoreTextBuilder.chinese(status);
+        },
         child: ListView.builder(
           physics: AlwaysScrollableScrollPhysics(),
           itemBuilder: (context, i) => _buildListItem(i, data),
-          itemCount: data.length + 1,
+          itemCount: data.length,
         ),
       );
     }
   }
 
   Widget _buildListItem(int listIndex, List<HomeListDataBean> data) {
-     if (listIndex == data.length) {
-       return _buildLoadMore();
-     } else {
-       return _buildCardItem(data[listIndex]);
-     }
-//    return _buildCardItem(data[listIndex]);
+//     if (listIndex == data.length) {
+//       return _buildLoadMore();
+//     } else {
+//       return _buildCardItem(data[listIndex]);
+//     }
+    return _buildCardItem(data[listIndex]);
   }
 
   Widget _buildCardItem(HomeListDataBean dataBean) {
@@ -202,16 +220,16 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
     );
   }
   
-  Widget _buildLoadMore() {
-    print("_homeListBean.pageCount=${getSelectedListBean()?.pageCount}, _listPageIndex=$_listPageIndex");
-    String loadMore = getSelectedListBean()?.pageCount == _listPageIndex ? "我是有底线的": "加载中...";
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 20),
-        child: Text(loadMore),
-      ),
-    );
-  }
+//  Widget _buildLoadMore() {
+//    print("_homeListBean.pageCount=${getSelectedListBean()?.pageCount}, _listPageIndex=$_listPageIndex");
+//    String loadMore = getSelectedListBean()?.pageCount == _listPageIndex ? "我是有底线的": "加载中...";
+//    return Center(
+//      child: Padding(
+//        padding: EdgeInsets.symmetric(vertical: 20),
+//        child: Text(loadMore),
+//      ),
+//    );
+//  }
 
   @override
   void dispose() {

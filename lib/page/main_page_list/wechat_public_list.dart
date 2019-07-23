@@ -68,6 +68,7 @@ class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage> wi
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     List<Tab> tabs = List.generate(_projectData.length, (int index) =>
         Tab(text: htmlUnescape.convert(_projectData[index].name)));
     return Scaffold(
