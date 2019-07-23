@@ -64,6 +64,16 @@ class HomeListDataBean {
 
   Map<String, dynamic> toJson() => _$HomeListDataBeanToJson(this);
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is HomeListDataBean &&
+              runtimeType == other.runtimeType &&
+              id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
+
 }
 
 

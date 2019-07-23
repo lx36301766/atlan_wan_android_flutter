@@ -1,5 +1,6 @@
 
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:atlan_wan_android_flutter/network/api_requester.dart';
 import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
@@ -30,7 +31,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
 
   bool _isLastPage = false;
 
-  var _homeListBeans = <int, List<HomeListDataBean>> {};
+  Map<int, Set<HomeListDataBean>> _homeListBeans = {};
 
   @override
   void initState() {
@@ -69,7 +70,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
       _isLastPage = dataBean.pageCount < 2 || dataBean.over;
       print("_isLastPage=$_isLastPage");
       if (_homeListBeans[index] == null) {
-        _homeListBeans[index] = List<HomeListDataBean>();
+        _homeListBeans[index] = LinkedHashSet<HomeListDataBean>();
       }
       if (dataBean.datas != null && dataBean.datas.length > 0) {
         _listPageIndexes[index]++;
@@ -116,10 +117,10 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
   }
 
   Widget _buildContent(int pageIndex) {
-    List<HomeListDataBean> data = _homeListBeans[pageIndex];
-    if (data == null) {
+    if (_homeListBeans[pageIndex] == null) {
       return EmptyHolder();
     } else {
+      List<HomeListDataBean> data = List.from(_homeListBeans[pageIndex]);
       return LoadMore(
         isFinish: _isLastPage,
         onLoadMore: _onLoadMore,
@@ -131,20 +132,20 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
         },
         child: ListView.builder(
           physics: AlwaysScrollableScrollPhysics(),
-          itemBuilder: (context, i) => _buildListItem(i, data),
+          itemBuilder: (context, i) => _buildListItem(i, data[i]),
           itemCount: data.length,
         ),
       );
     }
   }
 
-  Widget _buildListItem(int listIndex, List<HomeListDataBean> data) {
+  Widget _buildListItem(int listIndex, HomeListDataBean dataBean) {
 //     if (listIndex == data.length) {
 //       return _buildLoadMore();
 //     } else {
 //       return _buildCardItem(data[listIndex]);
 //     }
-    return _buildCardItem(data[listIndex]);
+    return _buildCardItem(dataBean);
   }
 
   Widget _buildCardItem(HomeListDataBean dataBean) {
