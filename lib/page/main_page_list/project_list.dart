@@ -132,20 +132,11 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
         },
         child: ListView.builder(
           physics: AlwaysScrollableScrollPhysics(),
-          itemBuilder: (context, i) => _buildListItem(i, data[i]),
+          itemBuilder: (context, i) => _buildCardItem(data[i]),
           itemCount: data.length,
         ),
       );
     }
-  }
-
-  Widget _buildListItem(int listIndex, HomeListDataBean dataBean) {
-//     if (listIndex == data.length) {
-//       return _buildLoadMore();
-//     } else {
-//       return _buildCardItem(data[listIndex]);
-//     }
-    return _buildCardItem(dataBean);
   }
 
   Widget _buildCardItem(HomeListDataBean dataBean) {
