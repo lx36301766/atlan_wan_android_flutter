@@ -43,6 +43,7 @@ class _NavigationListPageState extends KeepAliveState<NavigationListPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     Widget list1 = ListView.separated(
       itemBuilder: (context, i) => _buildNavigation(i),
       separatorBuilder: (BuildContext context, int index) => Divider(height:1.0,color: Colors.black26),

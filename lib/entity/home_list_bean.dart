@@ -89,5 +89,4 @@ class HomeListDataTagBean {
 
   Map<String, dynamic> toJson() => _$HomeListDataTagBeanToJson(this);
 
-
 }

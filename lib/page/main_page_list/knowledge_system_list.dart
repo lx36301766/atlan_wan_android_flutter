@@ -43,6 +43,7 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     Widget list = ListView.builder(
       itemBuilder: (context, i) => _buildItem(_knowledgeSystemData[i]),
       itemCount: _knowledgeSystemData.length,
@@ -65,6 +66,8 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
   //   _requestKnowledgeSystemData();
   //   return null;
   // }
+
+//  PageStorageKey<_KnowledgeSystemListPageState> _key = PageStorageKey();
 
   Widget _buildItem(KnowledgeSystemBean data) {
 
@@ -89,6 +92,7 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
     return Column(
       children: <Widget>[
         CustomExpansionTile(
+          key: PageStorageKey<KnowledgeSystemBean>(data),
           leading: Icon(Icons.reorder, color: appMainColor),
           title: Text(data.name,
             style: TextStyle(

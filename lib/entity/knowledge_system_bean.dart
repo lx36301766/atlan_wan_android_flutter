@@ -22,6 +22,24 @@ class KnowledgeSystemBean {
 
   Map<String, dynamic> toJson() => _$KnowledgeSystemBeanToJson(this);
 
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is KnowledgeSystemBean &&
+              runtimeType == other.runtimeType &&
+              courseId == other.courseId &&
+              id == other.id &&
+              name == other.name &&
+              parentChapterId == other.parentChapterId;
+
+  @override
+  int get hashCode =>
+      courseId.hashCode ^
+      id.hashCode ^
+      name.hashCode ^
+      parentChapterId.hashCode;
+
   @override
   String toString() {
     return 'KnowledgeSystemBean{children: $children, courseId: $courseId, id: $id, name: $name, order: $order, parentChapterId: $parentChapterId, userControlSetTop: $userControlSetTop, visible: $visible}';
