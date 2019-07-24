@@ -1,6 +1,5 @@
 
 import 'dart:async';
-import 'dart:collection';
 
 import 'package:atlan_wan_android_flutter/network/api_requester.dart';
 import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
@@ -9,31 +8,25 @@ import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:loadmore/loadmore.dart';
 
 class WechatPublicListPage extends StatefulWidget {
 
   @override
   _WechatPublicListPageState createState() => _WechatPublicListPageState();
-
 }
 
-class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage>
-    with TickerProviderStateMixin {
+class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage> with TickerProviderStateMixin {
 
   TabController _tabController;
 
-  var _wechatAuthorData = <KnowledgeSystemBean>[];
+  var _projectData = <KnowledgeSystemBean>[];
 
   int _selectedItemIndex = 0;
 
-  var _listPageIndexes;
+  int _listPageIndex = 0;
 
-  bool _isLastPage = false;
-
-  Map<int, Set<HomeListDataBean>> _homeListBeans = {};
+  var _homeListBeans = <int, HomeListBean> {};
 
   @override
   void initState() {
@@ -46,49 +39,38 @@ class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage>
     print(data);
     if (data != null && data.length > 0) {
       setState(() {
-        _wechatAuthorData = data;
-        _listPageIndexes = List.generate(_wechatAuthorData.length,  (int index) => 0);
-        _tabController = TabController(length: _wechatAuthorData.length, vsync: this)..addListener(() {
+        _projectData = data;
+        _tabController = TabController(length: _projectData.length, vsync: this)..addListener(() {
           if (_tabController.index.toDouble() == _tabController.animation.value) {
             print("change selected tab index = ${_tabController.index}");
             setState(() {
               _selectedItemIndex = _tabController.index;
-              _requestWeChatArticleListData(_selectedItemIndex);
+              _requestWeChatArticleListData();
             });
           }
         });
       });
-      _requestWeChatArticleListData(_selectedItemIndex);
+      _requestWeChatArticleListData();
     }
   }
 
-  Future<bool> _requestWeChatArticleListData(int index) async {
-    HomeListBean dataBean = await ApiRequester.getWeChatArticleList(_listPageIndexes[index], _wechatAuthorData[index].id);
+  void _requestWeChatArticleListData() async {
+    HomeListBean dataBean = await ApiRequester.getWeChatArticleList(_listPageIndex, _projectData[_selectedItemIndex].id);
     print(dataBean);
-    if (dataBean == null) {
-      return false;
+    if (dataBean != null && dataBean.datas != null && dataBean.datas.length > 0) {
+      setState(() {
+        _homeListBeans[_selectedItemIndex] = dataBean;
+      });
     }
-    setState(() {
-      _isLastPage = dataBean.pageCount < 2 || dataBean.over;
-      print("_isLastPage=$_isLastPage");
-      if (_homeListBeans[index] == null) {
-        _homeListBeans[index] = LinkedHashSet<HomeListDataBean>();
-      }
-      if (dataBean.datas != null && dataBean.datas.length > 0) {
-        _listPageIndexes[index]++;
-        _homeListBeans[index].addAll(dataBean.datas);
-      }
-    });
-    return true;
   }
 
-  Future<bool> _onLoadMore() async => _requestWeChatArticleListData(_selectedItemIndex);
+  HomeListBean getSelectedListBean() => _homeListBeans[_selectedItemIndex];
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    List<Tab> tabs = List.generate(_wechatAuthorData.length, (int index) =>
-        Tab(text: htmlUnescape.convert(_wechatAuthorData[index].name)));
+    List<Tab> tabs = List.generate(_projectData.length, (int index) =>
+        Tab(text: htmlUnescape.convert(_projectData[index].name)));
     return Scaffold(
       appBar: _tabController == null ? null : _buildPageSlider(tabs),
       body: _tabController == null ? EmptyHolder() : TabBarView(
@@ -119,25 +101,23 @@ class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage>
   }
 
   Widget _buildContent(int pageIndex) {
-    if (_homeListBeans[pageIndex] == null) {
+    List<HomeListDataBean> data = _homeListBeans[pageIndex]?.datas;
+    if (data == null) {
       return EmptyHolder();
     } else {
-      List<HomeListDataBean> data = List.from(_homeListBeans[pageIndex]);
-      return LoadMore(
-        isFinish: _isLastPage,
-        onLoadMore: _onLoadMore,
-        textBuilder: (status) {
-          if (status == LoadMoreStatus.nomore && data.isEmpty) {
-            return "暂无数据";
-          }
-          return DefaultLoadMoreTextBuilder.chinese(status);
-        },
-        child: ListView.builder(
-          physics: AlwaysScrollableScrollPhysics(),
-          itemBuilder: (context, i) => _buildCardItem(data[i]),
-          itemCount: data.length,
-        ),
+      return ListView.builder(
+        physics: AlwaysScrollableScrollPhysics(),
+        itemBuilder: (context, i) => _buildListItem(i, data),
+        itemCount: data.length + 1,
       );
+    }
+  }
+
+  Widget _buildListItem(int listIndex, List<HomeListDataBean> data) {
+    if (listIndex == data.length) {
+      return _buildLoadMore();
+    } else {
+      return _buildCardItem(data[listIndex]);
     }
   }
 
@@ -167,6 +147,17 @@ class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage>
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildLoadMore() {
+    print("_homeListBean.pageCount=${getSelectedListBean()?.pageCount}, _listPageIndex=$_listPageIndex");
+    String loadMore = getSelectedListBean()?.pageCount == _listPageIndex ? "我是有底线的": "加载中...";
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 20),
+        child: Text(loadMore),
       ),
     );
   }
