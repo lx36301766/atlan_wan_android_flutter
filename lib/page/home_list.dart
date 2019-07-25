@@ -7,6 +7,7 @@ import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
+import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
@@ -51,6 +52,9 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    if (_bannerListData == null && _homeListData.isEmpty) {
+      return EmptyHolder();
+    }
     Widget list = ListView.builder(
       physics: AlwaysScrollableScrollPhysics(),
       itemBuilder: (context, i) => _buildItem(i),

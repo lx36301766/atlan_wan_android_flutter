@@ -82,8 +82,6 @@ class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage>
     return true;
   }
 
-  Future<bool> _onLoadMore() async => _requestWeChatArticleListData(_selectedItemIndex);
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -126,7 +124,7 @@ class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage>
       return KeepAliveStateContainer(
         child: LoadMore(
           isFinish: _isLastPage,
-          onLoadMore: _onLoadMore,
+          onLoadMore: ()=> _requestWeChatArticleListData(_selectedItemIndex),
           textBuilder: (status) {
             if (status == LoadMoreStatus.nomore && data.isEmpty) {
               return "暂无数据";

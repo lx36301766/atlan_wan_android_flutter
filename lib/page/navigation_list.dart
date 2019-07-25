@@ -6,6 +6,7 @@ import 'package:atlan_wan_android_flutter/entity/navigation_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
+import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
 import 'package:flutter/material.dart';
 
 class NavigationListPage extends StatefulWidget {
@@ -35,7 +36,9 @@ class _NavigationListPageState extends KeepAliveState<NavigationListPage> {
     print(data);
     if (data != null && data.length > 0) {
       setState(() {
-        _scrollController.jumpTo(0);
+        if (_navigationData.isNotEmpty) {
+          _scrollController.jumpTo(0);
+        }
         _navigationData = data;
       });
     }
@@ -44,6 +47,9 @@ class _NavigationListPageState extends KeepAliveState<NavigationListPage> {
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    if (_navigationData.isEmpty) {
+      return EmptyHolder();
+    }
     Widget list1 = ListView.separated(
       itemBuilder: (context, i) => _buildNavigation(i),
       separatorBuilder: (BuildContext context, int index) => Divider(height:1.0,color: Colors.black26),

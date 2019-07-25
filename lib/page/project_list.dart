@@ -80,8 +80,6 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
     return true;
   }
 
-  Future<bool> _onLoadMore() async => _requestProjectListData(_selectedItemIndex);
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -124,7 +122,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
       return KeepAliveStateContainer(
         child: LoadMore(
           isFinish: _isLastPage,
-          onLoadMore: _onLoadMore,
+          onLoadMore: ()=> _requestProjectListData(_selectedItemIndex),
           textBuilder: (status) {
             if (status == LoadMoreStatus.nomore && data.isEmpty) {
               return "暂无数据";

@@ -5,7 +5,9 @@ import 'package:atlan_wan_android_flutter/network/api_requester.dart';
 import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
+import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/custom_expansion_tile.dart';
+import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
@@ -44,6 +46,9 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    if (_knowledgeSystemData.isEmpty) {
+      return EmptyHolder();
+    }
     Widget list = ListView.builder(
       itemBuilder: (context, i) => _buildItem(_knowledgeSystemData[i]),
       itemCount: _knowledgeSystemData.length,
@@ -117,7 +122,7 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
                     shadowColor: appMainColor,
                     label: Text(itemData.name, style: TextStyle(fontSize: 12.0)),
                     onPressed: () {
-
+                      Pages.openClassificationList(context, itemData);
                     },
                   );
 //                  return InkWell(
