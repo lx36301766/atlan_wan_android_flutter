@@ -39,7 +39,7 @@ class AtlanWanAndroid extends StatelessWidget {
 //        primarySwatch: Colors.blue,
         primaryColor: appMainColor,
       ),
-      home: SplashPage(),
+      // initialRoute 名字必须为 '/'，不然要报错
       initialRoute: Pages.splash,
       routes: buildRoutes(),
     );

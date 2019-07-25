@@ -91,7 +91,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
       appBar: _tabController == null ? null : _buildPageSlider(tabs),
       body: _tabController == null ? EmptyHolder() : TabBarView(
         controller: _tabController,
-        children: List.generate(tabs.length, (int index) => _buildContent(index)),
+        children: List.generate(tabs.length, (int index) => _buildContent(_homeListBeans[index])),
       ),
     );
   }
@@ -116,24 +116,26 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
     );
   }
 
-  Widget _buildContent(int pageIndex) {
-    if (_homeListBeans[pageIndex] == null) {
+  Widget _buildContent(Set<HomeListDataBean> dataSet) {
+    if (dataSet == null) {
       return EmptyHolder();
     } else {
-      List<HomeListDataBean> data = List.from(_homeListBeans[pageIndex]);
-      return LoadMore(
-        isFinish: _isLastPage,
-        onLoadMore: _onLoadMore,
-        textBuilder: (status) {
-          if (status == LoadMoreStatus.nomore && data.isEmpty) {
-            return "暂无数据";
-          }
-          return DefaultLoadMoreTextBuilder.chinese(status);
-        },
-        child: ListView.builder(
-          physics: AlwaysScrollableScrollPhysics(),
-          itemBuilder: (context, i) => _buildCardItem(data[i]),
-          itemCount: data.length,
+      List<HomeListDataBean> data = List.from(dataSet);
+      return KeepAliveStateContainer(
+        child: LoadMore(
+          isFinish: _isLastPage,
+          onLoadMore: _onLoadMore,
+          textBuilder: (status) {
+            if (status == LoadMoreStatus.nomore && data.isEmpty) {
+              return "暂无数据";
+            }
+            return DefaultLoadMoreTextBuilder.chinese(status);
+          },
+          child: ListView.builder(
+            physics: AlwaysScrollableScrollPhysics(),
+            itemBuilder: (context, i) => _buildCardItem(data[i]),
+            itemCount: data.length,
+          ),
         ),
       );
     }
@@ -144,6 +146,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
     var desc = htmlUnescape.convert(dataBean.desc);
     var name = "${dataBean.author}-${dataBean.chapterName}";
     return AspectRatio(
+      key: PageStorageKey(dataBean),
       aspectRatio: 5 / 2,
       child: Container(
         padding: EdgeInsets.fromLTRB(8, 0, 8, 0),

@@ -1,8 +1,8 @@
-import 'package:atlan_wan_android_flutter/page/main_page_list/home_list.dart';
-import 'package:atlan_wan_android_flutter/page/main_page_list/knowledge_system_list.dart';
-import 'package:atlan_wan_android_flutter/page/main_page_list/navigation_list.dart';
-import 'package:atlan_wan_android_flutter/page/main_page_list/project_list.dart';
-import 'package:atlan_wan_android_flutter/page/main_page_list/wechat_public_list.dart';
+import 'package:atlan_wan_android_flutter/page/home_list.dart';
+import 'package:atlan_wan_android_flutter/page/knowledge_system_list.dart';
+import 'package:atlan_wan_android_flutter/page/navigation_list.dart';
+import 'package:atlan_wan_android_flutter/page/project_list.dart';
+import 'package:atlan_wan_android_flutter/page/wechat_public_list.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/widget/drawer_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,18 +13,19 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
   int _pageIndex = 0;
 
   PageController _pageController;
 
   String _titleName = appName;
 
-  var _buttonItemList = [
-    BottomItemInfo("首页", Icons.home),
-    BottomItemInfo("体系", Icons.cloud),
-    BottomItemInfo("导航", Icons.navigation),
-    BottomItemInfo("项目", Icons.folder),
-    BottomItemInfo("公共号", Icons.public),
+  List<BottomItemInfo> _buttonItemList = [
+    BottomItemInfo("首页", Icons.home, HomeListPage()),
+    BottomItemInfo("体系", Icons.cloud, KnowledgeSystemListPage()),
+    BottomItemInfo("导航", Icons.navigation, NavigationListPage()),
+    BottomItemInfo("项目", Icons.folder, ProjectListPage()),
+    BottomItemInfo("公共号", Icons.public, WechatPublicListPage()),
   ];
 
   @override
@@ -46,7 +47,7 @@ class _MainPageState extends State<MainPage> {
 
   Widget buildAppBar() {
     return AppBar(
-      backgroundColor: Colors.cyan,
+      backgroundColor: appMainColor,
       title: Text(_titleName),
       centerTitle: true,
 //      bottom: PreferredSize(
@@ -91,13 +92,7 @@ class _MainPageState extends State<MainPage> {
 //    );
     return PageView(
       physics: NeverScrollableScrollPhysics(),
-      children: <Widget>[
-        HomeListPage(),
-        KnowledgeSystemListPage(),
-        NavigationListPage(),
-        ProjectListPage(),
-        WechatPublicListPage(),
-      ],
+      children: _buttonItemList.map((item) => item.widget).toList(),
       onPageChanged: (int page) {
         setState(() {
           this._pageIndex = page;
@@ -121,17 +116,20 @@ class _MainPageState extends State<MainPage> {
           _pageController.animateToPage(index,
               duration: const Duration(milliseconds: 300), curve: Curves.ease);
         },
-        items: List.generate(
-            _buttonItemList.length,
-            (int index) => BottomNavigationBarItem(
-                icon: Icon(_buttonItemList[index].icon),
-                title: Text(_buttonItemList[index].name))));
+        items: _buttonItemList.map((item) => BottomNavigationBarItem(
+            icon: Icon(item.icon),
+            title: Text(item.name),
+        )).toList()
+    );
   }
 }
 
 class BottomItemInfo {
+
   String name;
   IconData icon;
+  Widget widget;
 
-  BottomItemInfo(this.name, this.icon);
+  BottomItemInfo(this.name, this.icon, this.widget);
+
 }

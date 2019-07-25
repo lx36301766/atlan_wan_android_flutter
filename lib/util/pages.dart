@@ -18,7 +18,7 @@ class Pages {
 
   Pages._();
 
-  static final splash = '/splash';
+  static final splash = '/';
   static final home = '/home';
   static final webView = '/webView';
 

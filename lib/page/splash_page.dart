@@ -13,7 +13,7 @@ class _SplashPageState extends State<SplashPage> {
   Timer _timer;
 
   _SplashPageState() {
-    _timer = Timer(const Duration(seconds: 1), () {
+    _timer = Timer(const Duration(seconds: 3), () {
 //      SystemNavigator.pop();
       _onLogoClick();
     });

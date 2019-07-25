@@ -1,4 +1,5 @@
 
+import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -21,7 +22,7 @@ class _WebViewPageState2 extends State<WebViewPage2> {
     return WebviewScaffold(
       url: widget.url,
       appBar: AppBar(
-        backgroundColor: Colors.cyan,
+        backgroundColor: appMainColor,
         title: Text(widget.title),
         leading: BackButton(),
         actions: <Widget>[
