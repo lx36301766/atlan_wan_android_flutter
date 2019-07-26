@@ -212,21 +212,29 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
                   padding: EdgeInsets.only(top: 5, bottom: 10),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
-                      Text("${data.author} / ${data.superChapterName}-${data.chapterName}",
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.grey.shade500,
-                          fontWeight: FontWeight.w400,
-                          wordSpacing: 2.0,
+                      Flexible(
+                        flex: 4,
+                        child: Text
+                          ("${data.author} / ${data.superChapterName}-${data.chapterName}",
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.grey.shade500,
+                            fontWeight: FontWeight.w400,
+                            wordSpacing: 2.0,
+                          ),
                         ),
                       ),
-                      Text(data.niceDate,
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.grey.shade500,
-                          fontWeight: FontWeight.w400,
-                          wordSpacing: 2.0,
+                      Flexible(
+                        flex: 1,
+                        child: Text(data.niceDate,
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.grey.shade500,
+                            fontWeight: FontWeight.w400,
+                            wordSpacing: 2.0,
+                          ),
                         ),
                       ),
                     ],

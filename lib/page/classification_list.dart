@@ -44,6 +44,7 @@ class _ClassificationListState extends State<ClassificationListPage> {
     }
     if (data.datas.isNotEmpty) {
       setState(() {
+        _isLastPage = data.pageCount < 2 || data.over;
         if (page == 0) {
           _classificationListData.clear();
         }
@@ -75,17 +76,14 @@ class _ClassificationListState extends State<ClassificationListPage> {
 //      controller: _scrollController,
     );
 
-    var _pullToRefreshWidget = NotificationListener<ScrollNotification>(
-      onNotification: (ScrollNotification scrollNotification) => false,
-      // RefreshIndicator / LiquidPullToRefresh
-      child: LiquidPullToRefresh(
-//        scrollController: _scrollController,
-        color: appMainColor,
-        onRefresh: ()=> _requestKnowledgeSystemData(0),
-        child: list,
-      ),
-    );
+//    var _pullToRefreshWidget = LiquidPullToRefresh(
+////        scrollController: _scrollController,
+//      color: appMainColor,
+//      onRefresh: ()=> _requestKnowledgeSystemData(0),
+//      child: list,
+//    );
 //    return _pullToRefreshWidget;
+
     return LoadMore(
       isFinish: _isLastPage,
       onLoadMore: () => _requestKnowledgeSystemData(++_listPageIndex),
@@ -95,7 +93,7 @@ class _ClassificationListState extends State<ClassificationListPage> {
         }
         return DefaultLoadMoreTextBuilder.chinese(status);
       },
-      child: _pullToRefreshWidget,
+      child: list,
     );
   }
 
@@ -136,20 +134,26 @@ class _ClassificationListState extends State<ClassificationListPage> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("${data.author} / ${data.superChapterName}-${data.chapterName}",
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.grey.shade500,
-                          fontWeight: FontWeight.w400,
-                          wordSpacing: 2.0,
+                      Flexible(
+                        flex: 4,
+                        child: Text("${data.author} / ${data.superChapterName}-${data.chapterName}",
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.grey.shade500,
+                            fontWeight: FontWeight.w400,
+                            wordSpacing: 2.0,
+                          ),
                         ),
                       ),
-                      Text(data.niceDate,
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.grey.shade500,
-                          fontWeight: FontWeight.w400,
-                          wordSpacing: 2.0,
+                      Flexible(
+                        flex: 1,
+                        child: Text(data.niceDate,
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.grey.shade500,
+                            fontWeight: FontWeight.w400,
+                            wordSpacing: 2.0,
+                          ),
                         ),
                       ),
                     ],

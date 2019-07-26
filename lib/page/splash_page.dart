@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:flutter/material.dart';
 
@@ -22,11 +23,14 @@ class _SplashPageState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amberAccent,
+      backgroundColor: appMainColor,
       body: Center(
-        child: FlatButton(
-          child: Image.asset('image/logo.png'),
-          onPressed: _onLogoClick
+        child: Padding(
+          padding: const EdgeInsets.all(50.0),
+          child: FlatButton(
+            child: Image.asset('image/logo.png'),
+            onPressed: _onLogoClick
+          ),
         ),
       )
     );

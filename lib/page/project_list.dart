@@ -45,7 +45,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
     if (data != null && data.length > 0) {
       setState(() {
         _projectData = data;
-        _listPageIndexes = List.generate(_projectData.length,  (int index) => 0);
+        _listPageIndexes = List.generate(_projectData.length,  (int index) => 1);
         _tabController = TabController(length: _projectData.length, vsync: this)..addListener(() {
           if (_tabController.index.toDouble() == _tabController.animation.value) {
             print("change selected tab index = ${_tabController.index}");
