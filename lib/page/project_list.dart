@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'dart:collection';
 
-import 'package:atlan_wan_android_flutter/network/api_requester.dart';
+import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
@@ -40,7 +40,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
   }
 
   Future<void> _requestProjectData() async {
-    List<KnowledgeSystemBean> data = await ApiRequester.getProject();
+    List<KnowledgeSystemBean> data = await Api.getProject();
     print(data);
     if (data != null && data.length > 0) {
       setState(() {
@@ -61,7 +61,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
   }
 
   Future<bool> _requestProjectListData(int index) async {
-    HomeListBean dataBean = await ApiRequester.getProjectList(_listPageIndexes[index], _projectData[index].id);
+    HomeListBean dataBean = await Api.getProjectList(_listPageIndexes[index], _projectData[index].id);
     print(dataBean);
     if (dataBean == null) {
       return false;

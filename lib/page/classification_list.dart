@@ -2,7 +2,7 @@
 
 import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
-import 'package:atlan_wan_android_flutter/network/api_requester.dart';
+import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
@@ -37,7 +37,7 @@ class _ClassificationListState extends State<ClassificationListPage> {
 
   Future<bool> _requestKnowledgeSystemData(int page) async {
     _listPageIndex = page;
-    var data = await ApiRequester.getKnowledgeSystemChildren(page, widget.rootBean.id);
+    var data = await Api.getKnowledgeSystemChildren(page, widget.rootBean.id);
     print(data);
     if (data == null) {
       return false;

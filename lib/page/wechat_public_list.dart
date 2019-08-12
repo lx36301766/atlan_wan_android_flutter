@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'dart:collection';
 
-import 'package:atlan_wan_android_flutter/network/api_requester.dart';
+import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
@@ -42,7 +42,7 @@ class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage>
   }
 
   Future<void> _requestWeChatAuthorListData() async {
-    List<KnowledgeSystemBean> data = await ApiRequester.getWeChatAuthorList();
+    List<KnowledgeSystemBean> data = await Api.getWeChatAuthorList();
     print(data);
     if (data != null && data.length > 0) {
       setState(() {
@@ -63,7 +63,7 @@ class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage>
   }
 
   Future<bool> _requestWeChatArticleListData(int index) async {
-    HomeListBean dataBean = await ApiRequester.getWeChatArticleList(_listPageIndexes[index], _wechatAuthorData[index].id);
+    HomeListBean dataBean = await Api.getWeChatArticleList(_listPageIndexes[index], _wechatAuthorData[index].id);
     print(dataBean);
     if (dataBean == null) {
       return false;

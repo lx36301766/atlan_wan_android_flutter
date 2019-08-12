@@ -1,7 +1,7 @@
 
 import 'dart:async';
 
-import 'package:atlan_wan_android_flutter/network/api_requester.dart';
+import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:atlan_wan_android_flutter/entity/home_banner_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
@@ -103,7 +103,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
   }
 
   Future<void> _requestBannerData() async {
-    List<HomeBannerBean> data = await ApiRequester.getHomeBanner();
+    List<HomeBannerBean> data = await Api.getHomeBanner();
     print(data.toString());
     if (data != null && data.length > 0 && mounted) {
       setState(() {
@@ -113,7 +113,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
   }
 
   Future<void> _requestListData() async {
-    HomeListBean bean = await ApiRequester.getHomeList(_listPageIndex);
+    HomeListBean bean = await Api.getHomeList(_listPageIndex);
     print(bean.toString());
     if (mounted) {
       setState(() {

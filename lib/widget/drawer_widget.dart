@@ -1,6 +1,6 @@
 
 import 'package:atlan_wan_android_flutter/util/constants.dart';
-import 'package:atlan_wan_android_flutter/network/api_requester.dart';
+import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:flutter/material.dart';
 
 class DrawerView extends StatefulWidget {

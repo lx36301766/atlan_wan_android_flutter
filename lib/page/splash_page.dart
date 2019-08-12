@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:atlan_wan_android_flutter/network/dio_manager.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:flutter/material.dart';
@@ -14,9 +15,10 @@ class _SplashPageState extends State<SplashPage> {
   Timer _timer;
 
   _SplashPageState() {
-    _timer = Timer(const Duration(seconds: 3), () {
-//      SystemNavigator.pop();
-      _onLogoClick();
+    DioManager.init().then((_) {
+      _timer = Timer(const Duration(seconds: 3), () {
+        _onLogoClick();
+      });
     });
   }
 
@@ -43,8 +45,8 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _onLogoClick() async {
-    //Navigator.popAndPushNamed(context, Pages.home);
     Navigator.of(context).pushReplacementNamed(Pages.home);
+//    ApiRequester.postLogin("lx364301766", "5393147");
   }
 
 }
