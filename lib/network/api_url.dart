@@ -4,7 +4,7 @@
 ///
 
 
-const baseUrl = "http://www.wanandroid.com/";
+const baseUrl = "https://www.wanandroid.com/";
 
 
 // 1.1 首页文章列表

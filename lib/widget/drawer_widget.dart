@@ -17,7 +17,13 @@ class _DrawerViewState extends State<DrawerView> {
       curve: Curves.bounceInOut,
       duration: const Duration(milliseconds: 1000),
       child: FlatButton(
-        onPressed: () {},
+        onPressed: () {
+          Api.login("lx364301766", "5393147").then((resp) {
+            print(resp.toString());
+          }, onError: (e) {
+            print(e);
+          });
+        },
 //        splashColor: Color(0x00FFFF0F),
 //        highlightColor: Color(0x00FF0FFF),
         child: Column(
@@ -62,13 +68,16 @@ class _DrawerViewState extends State<DrawerView> {
         ListTile(
           leading: Icon(Icons.toc, color: appMainColor),
           title: Text("TODO"),
-          onTap: () {},
+          onTap: () {
+          },
         ),
         Divider(),
         ListTile(
           leading: Icon(Icons.settings, color: appMainColor),
           title: Text("设置"),
-          onTap: _onTestClick,
+          onTap: () {
+
+          },
         ),
         Divider(),
         AboutListTile(
@@ -101,63 +110,5 @@ class _DrawerViewState extends State<DrawerView> {
     );
   }
 
-
-  void _onTestClick() async {
-
-//    ApiRequester.getHomeList(1).then((resp){
-//      print(resp.toString());
-//    }, onError: (e) {
-//      print(e);
-//    });
-//
-//    ApiRequester.getHomeBanner().then((resp){
-//      print(resp.toString());
-//    }, onError: (e) {
-//      print(e);
-//    });
-//
-//    ApiRequester.getHomeCommonWebsite().then((resp){
-//      print(resp.toString());
-//    }, onError: (e) {
-//      print(e);
-//    });
-//
-//    ApiRequester.getHomeHotKey().then((resp){
-//      print(resp.toString());
-//    }, onError: (e) {
-//      print(e);
-//    });
-//
-//    ApiRequester.getKnowledgeSystem().then((resp){
-//      print(resp.toString());
-//    }, onError: (e) {
-//      print(e);
-//    });
-//
-//    ApiRequester.getKnowledgeSystemChildren(0, 60).then((resp){
-//      print(resp.toString());
-//    }, onError: (e) {
-//      print(e);
-//    });
-//
-//    ApiRequester.getWeChatAuthorList().then((resp){
-//      print(resp.toString());
-//    }, onError: (e) {
-//      print(e);
-//    });
-//
-//    ApiRequester.getWeChatArticleList(1, 408).then((resp){
-//      print(resp.toString());
-//    }, onError: (e) {
-//      print(e);
-//    });
-//
-//    ApiRequester.getWeChatArticleList(1, 408, "java").then((resp){
-//      print(resp.toString());
-//    }, onError: (e) {
-//      print(e);
-//    });
-
-  }
 
 }

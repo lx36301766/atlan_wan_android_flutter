@@ -1,3 +1,4 @@
+import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:atlan_wan_android_flutter/page/home_list.dart';
 import 'package:atlan_wan_android_flutter/page/knowledge_system_list.dart';
 import 'package:atlan_wan_android_flutter/page/navigation_list.dart';
@@ -68,16 +69,50 @@ class _MainPageState extends State<MainPage> {
 //          ),
             itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
                   PopupMenuItem<String>(
-                      child: const Text('Doge'), value: 'Doge'),
+                    child: const Text('register'),
+                    value: 'register',
+                  ),
                   PopupMenuItem<String>(
-                      child: const Text('Lion'), value: 'Lion'),
+                    child: const Text('login'),
+                    value: 'login',
+                  ),
+                  PopupMenuItem<String>(
+                    child: const Text('logout'),
+                    value: 'logout',
+                  ),
                 ],
             onSelected: _onPopMenuSelected),
       ],
     );
   }
 
-  void _onPopMenuSelected(String value) {}
+  void _onPopMenuSelected(String value) {
+    print("_onPopMenuSelected, value=$value");
+    switch(value) {
+      case 'register':
+        var userName = "1222334442";
+        Api.register(userName, userName, userName).then((resp) {
+          print(resp.toString());
+        }, onError: (e) {
+          print(e);
+        });
+        break;
+      case 'login':
+        Api.login("lx364301766", "5393147").then((resp) {
+          print(resp.toString());
+        }, onError: (e) {
+          print(e);
+        });
+        break;
+      case 'logout':
+        Api.logout().then((resp) {
+          print("logout success");
+        }, onError: (e) {
+          print(e);
+        });
+        break;
+    }
+  }
 
   Widget buildBody() {
 //    return IndexedStack(

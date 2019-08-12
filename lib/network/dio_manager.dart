@@ -10,11 +10,20 @@ import 'api_url.dart';
 
 class DioManager {
 
-  static var _dio = Dio();
+  static final DioManager _singleton = DioManager._internal();
 
-  static Future<void> init() async {
+  factory DioManager() {
+    return _singleton;
+  }
 
-    _dio.options.baseUrl = baseUrl;
+  DioManager._internal();
+
+
+  var _dio = Dio();
+
+  Future<void> initialize() async {
+
+//    _dio.options.baseUrl = baseUrl;
     _dio.options.connectTimeout = 5 * 1000;
     _dio.options.sendTimeout = 5 * 1000;
     _dio.options.receiveTimeout = 3 * 1000;
@@ -25,12 +34,12 @@ class DioManager {
 
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path + "/dioCookie";
-    print('DioUtil : http cookie path = $tempPath');
+    print('http cookie path = $tempPath');
     _dio.interceptors.add(CookieManager(PersistCookieJar(dir: tempPath)));
 
   }
 
-  static Future fetchGet(String path, [ Map<String, String> arguments ] ) async {
+  Future fetchGet(String path, [ Map<String, String> arguments ] ) async {
     var url = baseUrl + path + "/json";
     if (arguments != null) {
       url += "?";
@@ -39,13 +48,15 @@ class DioManager {
     }
     print("fetchGet url = $url");
     final response = await _dio.get(url);
+    print("fetchGet response = $response");
     return ApiResp.fromJson(response.data).data;
   }
 
-  static Future fetchPost(String path, [ Map<String, String> arguments ] ) async {
+  Future fetchPost(String path, [ Map<String, String> arguments ] ) async {
     var url = baseUrl + path;
-    print("fetchPost url = $url, body=$arguments");
-    final response = await _dio.post(url, queryParameters: arguments);
+    print("fetchPost1 url = $url, body=$arguments");
+    final response = await _dio.post(url, data: FormData.from(arguments));
+    print("fetchPost response = $response");
     return ApiResp.fromJson(response.data).data;
   }
 

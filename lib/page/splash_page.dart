@@ -12,11 +12,9 @@ class SplashPage extends StatefulWidget {
 
 class _SplashPageState extends State<SplashPage> {
 
-  Timer _timer;
-
   _SplashPageState() {
-    DioManager.init().then((_) {
-      _timer = Timer(const Duration(seconds: 3), () {
+    DioManager().initialize().then((_) {
+      Future.delayed(Duration(seconds: 3), () {
         _onLogoClick();
       });
     });
@@ -41,7 +39,6 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void dispose() {
     super.dispose();
-    _timer.cancel();
   }
 
   void _onLogoClick() async {
