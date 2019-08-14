@@ -29,6 +29,7 @@ class GetCollectListItemBean {
   String author;
   int chapterId;
   String chapterName;
+  int courseId;
   String desc;
   String envelopePic;
   String link;
@@ -41,8 +42,9 @@ class GetCollectListItemBean {
   int visible;
   int zan;
 
-  GetCollectListItemBean(this.id, this.author, this.chapterId, this.chapterName, this.desc, this.envelopePic, this.link,
-      this.niceDate, this.origin, this.originId, this.publishTime, this.title, this.userId, this.visible, this.zan);
+  GetCollectListItemBean(this.id, this.author, this.chapterId, this.chapterName, this.courseId,this.desc,
+      this.envelopePic, this.link, this.niceDate, this.origin, this.originId, this.publishTime, this.title,
+      this.userId, this.visible, this.zan);
 
   factory GetCollectListItemBean.fromJson(Map<String, dynamic> json) => _$GetCollectListItemBeanFromJson(json);
 

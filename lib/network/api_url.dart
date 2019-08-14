@@ -71,11 +71,11 @@ const String apiGetCollect = "lg/collect/list/";
 
 // 6.2 收藏站内文章 - POST
 // https://www.wanandroid.com/lg/collect/1165/json
-const String apiAddCollect = "lg/collect/";
+const String apiAddCollectInside = "lg/collect/";
 
 // 6.3 收藏站外文章 - POST (title，author，link)
 // https://www.wanandroid.com/lg/collect/add/json
-const String apiAddCollectOutside = "lg/collect/add";
+const String apiAddCollectOutside = "lg/collect/add/json";
 
 // 6.4.1 取消收藏-文章列表
 // https://www.wanandroid.com/lg/uncollect_originId/2333/json

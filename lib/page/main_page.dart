@@ -84,6 +84,14 @@ class _MainPageState extends State<MainPage> {
                     child: const Text('getCollect'),
                     value: 'getCollect',
                   ),
+                  PopupMenuItem<String>(
+                    child: const Text('addCollectInside'),
+                    value: 'addCollectInside',
+                  ),
+                  PopupMenuItem<String>(
+                    child: const Text('addCollectOutside'),
+                    value: 'addCollectOutside',
+                  ),
                 ],
             onSelected: _onPopMenuSelected),
       ],
@@ -117,6 +125,20 @@ class _MainPageState extends State<MainPage> {
         break;
       case 'getCollect':
         Api.getCollectList(0).then((resp) {
+          print(resp.toString());
+        }, onError: (e) {
+          print(e);
+        });
+        break;
+      case 'addCollectInside':
+        Api.addCollectInside(8920).then((resp) {
+          print("addCollectInside success");
+        }, onError: (e) {
+          print(e);
+        });
+        break;
+      case 'addCollectOutside':
+        Api.addCollectOutside("lx", "123", "345").then((resp) {
           print(resp.toString());
         }, onError: (e) {
           print(e);

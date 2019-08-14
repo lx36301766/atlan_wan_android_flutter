@@ -55,7 +55,8 @@ class DioManager {
   Future fetchPost(String path, [ Map<String, String> arguments ] ) async {
     var url = baseUrl + path;
     print("fetchPost url = $url, body=$arguments");
-    final response = await _dio.post(url, data: FormData.from(arguments));
+    var data = arguments == null ? FormData() : FormData.from(arguments);
+    final response = await _dio.post(url, data: data);
     print("fetchPost response = $response");
     return ApiResp.fromJson(response.data).data;
   }

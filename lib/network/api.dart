@@ -95,4 +95,14 @@ class Api {
     return GetCollectListBean.fromJson(data);
   }
 
+  static Future<void> addCollectInside(int id) async {
+    await DioManager().fetchPost(apiAddCollectInside + id.toString() + '/json');
+    return null;
+  }
+
+  static Future<GetCollectListBean> addCollectOutside(String title, String author, String link) async {
+    var data = await DioManager().fetchPost(apiAddCollectOutside, {"title": title, "author": author, "link": link});
+    return GetCollectListBean.fromJson(data);
+  }
+
 }
