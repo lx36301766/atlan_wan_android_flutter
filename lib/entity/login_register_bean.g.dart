@@ -20,12 +20,13 @@ LoginRegisterBean _$LoginRegisterBeanFromJson(Map<String, dynamic> json) {
       json['type'] as int);
 }
 
-Map<String, dynamic> _$LoginRegisterBeanToJson(LoginRegisterBean instance) => <String, dynamic>{
+Map<String, dynamic> _$LoginRegisterBeanToJson(LoginRegisterBean instance) =>
+    <String, dynamic>{
+      'id': instance.id,
       'admin': instance.admin,
       'collectIds': instance.collectIds,
       'email': instance.email,
       'icon': instance.icon,
-      'id': instance.id,
       'username': instance.username,
       'nickname': instance.nickname,
       'password': instance.password,

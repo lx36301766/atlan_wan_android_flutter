@@ -1,6 +1,7 @@
 
 import 'dart:async';
 
+import 'package:atlan_wan_android_flutter/entity/get_collect_list_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/home_banner_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/home_common_website_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/home_hot_key_bean.dart';
@@ -74,19 +75,24 @@ class Api {
     return HomeListBean.fromJson(data);
   }
 
-  // 登录接口
+  // 登录/注册接口
   static Future<LoginRegisterBean> login(String userName, String password) async {
     var data = await DioManager().fetchPost(apiLogin, {"username": userName, "password": password});
     return LoginRegisterBean.fromJson(data);
   }
 
-  // 注册接口
   static Future<LoginRegisterBean> register(String userName, String password, String repassword) async {
     var data = await DioManager().fetchPost(apiRegister, {"userName": userName, "password": password, "repassword": repassword});
     return LoginRegisterBean.fromJson(data);
   }
 
-  // 退出
   static Future<void> logout() => DioManager().fetchGet(apiLogout);
+
+
+  // 收藏相关接口
+  static Future<GetCollectListBean> getCollectList(int page) async {
+    var data = await DioManager().fetchGet(apiGetCollect + page.toString());
+    return GetCollectListBean.fromJson(data);
+  }
 
 }

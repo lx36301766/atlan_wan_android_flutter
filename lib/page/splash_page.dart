@@ -14,9 +14,7 @@ class _SplashPageState extends State<SplashPage> {
 
   _SplashPageState() {
     DioManager().initialize().then((_) {
-      Future.delayed(Duration(seconds: 3), () {
-        _onLogoClick();
-      });
+      Future.delayed(Duration(seconds: 3), _onLogoClick);
     });
   }
 
@@ -41,7 +39,7 @@ class _SplashPageState extends State<SplashPage> {
     super.dispose();
   }
 
-  void _onLogoClick() async {
+  void _onLogoClick() {
     Navigator.of(context).pushReplacementNamed(Pages.home);
 //    ApiRequester.postLogin("lx364301766", "5393147");
   }

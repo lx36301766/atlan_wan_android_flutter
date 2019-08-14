@@ -24,6 +24,7 @@ const String apiCommonWebsite = "friend";
 const String apiSearchHotKey = "hotkey";
 
 
+
 // 2.1 体系数据
 // http://www.wanandroid.com/tree/json
 const String apiKnowledgeSystem = "tree";
@@ -33,9 +34,11 @@ const String apiKnowledgeSystem = "tree";
 const String apiKnowledgeSystemChildren = "article/list/";
 
 
+
 // 3.1 导航数据
 // http://www.wanandroid.com/navi/json
 const String apiNavigation = "navi";
+
 
 
 // 4.1 项目分类
@@ -45,6 +48,7 @@ const String apiProject = "project/tree";
 // 4.2 项目列表数据
 // http://www.wanandroid.com/project/list/1/json?cid=294
 const String apiProjectList = "project/list/";
+
 
 
 // 5.1 登录 - POST（username，password）
@@ -58,6 +62,45 @@ const String apiRegister = "user/register";
 // 5.3 退出
 // https://www.wanandroid.com/user/logout/json
 const String apiLogout = "user/logout";
+
+
+
+// 6.1 收藏文章列表
+// https://www.wanandroid.com/lg/collect/list/0/json
+const String apiGetCollect = "lg/collect/list/";
+
+// 6.2 收藏站内文章 - POST
+// https://www.wanandroid.com/lg/collect/1165/json
+const String apiAddCollect = "lg/collect/";
+
+// 6.3 收藏站外文章 - POST (title，author，link)
+// https://www.wanandroid.com/lg/collect/add/json
+const String apiAddCollectOutside = "lg/collect/add";
+
+// 6.4.1 取消收藏-文章列表
+// https://www.wanandroid.com/lg/uncollect_originId/2333/json
+const String apiDeleteCollect = "lg/uncollect_originId/";
+
+// 6.4.2 取消收藏-我的收藏页面（该页面包含自己录入的内容）
+// https://www.wanandroid.com/lg/uncollect/2805/json
+const String apiDeleteCollect2 = "lg/uncollect/";
+
+// 6.5 收藏网站列表
+// https://www.wanandroid.com/lg/collect/usertools/json
+const String apiGetCollectWebsite = "lg/collect/usertools";
+
+// 6.6 收藏网址 - POST (name,link)
+// https://www.wanandroid.com/lg/collect/addtool/json
+const String apiAddCollectWebsite = "lg/collect/addtool";
+
+// 6.7 编辑收藏网站 - POST (id,name,link)
+// https://www.wanandroid.com/lg/collect/updatetool/json
+const String apiUpdateCollectWebsite = "lg/collect/updatetool";
+
+// 6.8 删除收藏网站 - POST (id)
+// https://www.wanandroid.com/lg/collect/deletetool/json
+const String apiDeleteCollectWebsite = "lg/collect/deletetool";
+
 
 
 // X.1 获取公众号列表

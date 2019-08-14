@@ -80,6 +80,10 @@ class _MainPageState extends State<MainPage> {
                     child: const Text('logout'),
                     value: 'logout',
                   ),
+                  PopupMenuItem<String>(
+                    child: const Text('getCollect'),
+                    value: 'getCollect',
+                  ),
                 ],
             onSelected: _onPopMenuSelected),
       ],
@@ -90,7 +94,7 @@ class _MainPageState extends State<MainPage> {
     print("_onPopMenuSelected, value=$value");
     switch(value) {
       case 'register':
-        var userName = "1222334442";
+        var userName = "12223ss5534442";
         Api.register(userName, userName, userName).then((resp) {
           print(resp.toString());
         }, onError: (e) {
@@ -107,6 +111,13 @@ class _MainPageState extends State<MainPage> {
       case 'logout':
         Api.logout().then((resp) {
           print("logout success");
+        }, onError: (e) {
+          print(e);
+        });
+        break;
+      case 'getCollect':
+        Api.getCollectList(0).then((resp) {
+          print(resp.toString());
         }, onError: (e) {
           print(e);
         });
