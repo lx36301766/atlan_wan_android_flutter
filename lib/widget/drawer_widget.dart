@@ -18,6 +18,9 @@ class _DrawerViewState extends State<DrawerView> {
       duration: const Duration(milliseconds: 1000),
       child: FlatButton(
         onPressed: () {
+
+          showLoginDialog(context);
+
           Api.login("lx364301766", "5393147").then((resp) {
             print(resp.toString());
           }, onError: (e) {
@@ -97,7 +100,7 @@ class _DrawerViewState extends State<DrawerView> {
 //          ),
           Expanded(
             flex: 3,
-              child: list,
+            child: list,
 //            child: NotificationListener<OverscrollIndicatorNotification>(
 //              onNotification: (overscroll) {
 //                overscroll.disallowGlow();
@@ -110,5 +113,79 @@ class _DrawerViewState extends State<DrawerView> {
     );
   }
 
+  void showLoginDialog(BuildContext context) {
+    NavigatorState navigator = context.rootAncestorStateOfType(const TypeMatcher<NavigatorState>());
+    showDialog(
+        context: context,
+        builder: (_) =>
+            Dialog(
+              backgroundColor: appMainColor,
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      Text("登录"),
+                      Text("注册"),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+
+                    ],
+                  )
+                ],
+              ),
+            )
+
+//            SimpleDialog(
+//                title: new Text("SimpleDialog"),
+//                children: <Widget>[
+//                  new SimpleDialogOption(
+//                    child: new Text("SimpleDialogOption One"),
+//                    onPressed: () {
+//                      Navigator.of(context).pop("SimpleDialogOption One");
+//                    },
+//                  ),
+//                  new SimpleDialogOption(
+//                    child: new Text("SimpleDialogOption Two"),
+//                    onPressed: () {
+//                      Navigator.of(context).pop("SimpleDialogOption Two");
+//                    },
+//                  ),
+//                  new SimpleDialogOption(
+//                    child: new Text("SimpleDialogOption Three"),
+//                    onPressed: () {
+//                      Navigator.of(context).pop("SimpleDialogOption Three");
+//                    },
+//                  ),
+//                ],
+//            )
+
+//            AlertDialog(
+//              title: Text("atlan"),
+//              content: Text("context"),
+//              actions: <Widget>[
+//                FlatButton(
+//                    onPressed: () {
+//                      Navigator.of(context).pop();
+//                    },
+//                    child: Text("ok")
+//                ),
+//                FlatButton(
+//                    onPressed: () {
+//                      Navigator.of(context).pop();
+//                    },
+//                    child: Text("cancel1")
+//                ),
+//                FlatButton(
+//                    onPressed: () {
+//                      Navigator.of(context).pop();
+//                    },
+//                    child: Text("cancel")
+//                ),
+//              ],
+//            )
+    );
+  }
 
 }

@@ -47,10 +47,18 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget buildAppBar() {
-    return AppBar(
-      backgroundColor: appMainColor,
-      title: Text(_titleName),
-      centerTitle: true,
+    return PreferredSize(
+      preferredSize: Size.fromHeight(50.0),
+      child: AppBar(
+        shape: StadiumBorder(
+          side: BorderSide(
+            width: 0.5,
+            style: BorderStyle.solid
+          )
+        ),
+        backgroundColor: appMainColor,
+        title: Text(_titleName),
+        centerTitle: true,
 //      bottom: PreferredSize(
 //          child: Container(
 //            padding: EdgeInsets.all(5),

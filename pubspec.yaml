@@ -37,6 +37,9 @@ dependencies:
   html_unescape: 1.0.1+2
   loadmore: ^1.0.3
 
+  random_pk: any
+  font_awesome_flutter: any
+
 # unused
   carousel_slider: ^1.0.1
 
