@@ -113,6 +113,10 @@ class _DrawerViewState extends State<DrawerView> {
     );
   }
 
+  TextEditingController _userNameController = TextEditingController();
+
+  TextEditingController _passwordController = TextEditingController();
+
   void showLoginDialog(BuildContext context) {
     NavigatorState navigator = context.rootAncestorStateOfType(const TypeMatcher<NavigatorState>());
     showDialog(
@@ -124,13 +128,45 @@ class _DrawerViewState extends State<DrawerView> {
                 children: <Widget>[
                   Row(
                     children: <Widget>[
-                      Text("登录"),
-                      Text("注册"),
+                      FlatButton(
+                        child: Text("登录"),
+                        onPressed: () {
+
+                        },
+                      ),
+                      FlatButton(
+                        child: Text("注册"),
+                        onPressed: () {
+
+                        },
+                      ),
                     ],
                   ),
-                  Row(
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-
+                      TextField(
+                        controller: _userNameController,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10.0),
+                            icon: Icon(Icons.phone),
+                            labelText: '请输入你的用户名',
+//                            helperText: '请输入你的用户名2',
+                        ),
+                        autofocus: false,
+                      ),
+                      TextField(
+                        controller: _passwordController,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(10.0),
+                          prefixIcon: Icon(Icons.phone),
+                          labelText: '请输入密码',
+//                          helperText: '请输入密码2',
+                        ),
+                        obscureText: true,
+                      ),
                     ],
                   )
                 ],
