@@ -75,34 +75,35 @@ class _MainPageState extends State<MainPage> {
 //          icon: Icon(
 //            icon:
 //          ),
-            itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-                  PopupMenuItem<String>(
-                    child: const Text('register'),
-                    value: 'register',
-                  ),
-                  PopupMenuItem<String>(
-                    child: const Text('login'),
-                    value: 'login',
-                  ),
-                  PopupMenuItem<String>(
-                    child: const Text('logout'),
-                    value: 'logout',
-                  ),
-                  PopupMenuItem<String>(
-                    child: const Text('getCollect'),
-                    value: 'getCollect',
-                  ),
-                  PopupMenuItem<String>(
-                    child: const Text('addCollectInside'),
-                    value: 'addCollectInside',
-                  ),
-                  PopupMenuItem<String>(
-                    child: const Text('addCollectOutside'),
-                    value: 'addCollectOutside',
-                  ),
-                ],
-            onSelected: _onPopMenuSelected),
-      ],
+              itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
+                    PopupMenuItem<String>(
+                      child: const Text('register'),
+                      value: 'register',
+                    ),
+                    PopupMenuItem<String>(
+                      child: const Text('login'),
+                      value: 'login',
+                    ),
+                    PopupMenuItem<String>(
+                      child: const Text('logout'),
+                      value: 'logout',
+                    ),
+                    PopupMenuItem<String>(
+                      child: const Text('getCollect'),
+                      value: 'getCollect',
+                    ),
+                    PopupMenuItem<String>(
+                      child: const Text('addCollectInside'),
+                      value: 'addCollectInside',
+                    ),
+                    PopupMenuItem<String>(
+                      child: const Text('addCollectOutside'),
+                      value: 'addCollectOutside',
+                    ),
+                  ],
+              onSelected: _onPopMenuSelected),
+        ],
+      ),
     );
   }
 
