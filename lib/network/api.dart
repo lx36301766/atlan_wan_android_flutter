@@ -35,6 +35,12 @@ class Api {
     return List.generate(data.length, (int index) => HomeHotKeyBean.fromJson(data[index]));
   }
 
+  static Future<List<HomeListDataBean>> getArticleTop() async {
+    List data = await DioManager().fetchGet(apiArticleTop);
+    return List.generate(data.length, (int index) => HomeListDataBean.fromJson(data[index]));
+  }
+
+
   // 体系接口
   static Future<List<KnowledgeSystemBean>> getKnowledgeSystem() async {
     List data = await DioManager().fetchGet(apiKnowledgeSystem);
@@ -89,7 +95,7 @@ class Api {
   static Future<void> logout() => DioManager().fetchGet(apiLogout);
 
 
-  // 收藏相关接口
+  // 收藏文章相关接口
   static Future<GetCollectListBean> getCollectList(int page) async {
     var data = await DioManager().fetchGet(apiGetCollect + page.toString());
     return GetCollectListBean.fromJson(data);
@@ -104,5 +110,38 @@ class Api {
     var data = await DioManager().fetchPost(apiAddCollectOutside, {"title": title, "author": author, "link": link});
     return GetCollectListBean.fromJson(data);
   }
+
+  static Future<GetCollectListBean> deleteCollect(int originId) async {
+    var data = await DioManager().fetchPost(apiDeleteCollect + originId.toString());
+    return GetCollectListBean.fromJson(data);
+  }
+
+  static Future<GetCollectListBean> deleteCollect2(int originId) async {
+    var data = await DioManager().fetchPost(apiDeleteCollect2 + originId.toString());
+    return GetCollectListBean.fromJson(data);
+  }
+
+  // 收藏网站相关接口
+  static Future<GetCollectListBean> getCollectWebsite() async {
+    var data = await DioManager().fetchPost(apiGetCollectWebsite);
+    return GetCollectListBean.fromJson(data);
+  }
+
+  static Future<GetCollectListBean> addCollectWebsite(String name, String link) async {
+    var data = await DioManager().fetchPost(apiAddCollectWebsite, {"name": name, "link": link});
+    return GetCollectListBean.fromJson(data);
+  }
+
+  static Future<GetCollectListBean> updateCollectWebsite(int id, String name, String link) async {
+    var data = await DioManager().fetchPost(apiUpdateCollectWebsite, {"id:": "$id", "name": name, "link": link});
+    return GetCollectListBean.fromJson(data);
+  }
+
+  static Future<GetCollectListBean> deleteCollectWebsite(int id) async {
+    var data = await DioManager().fetchPost(apiDeleteCollectWebsite, {"id:": "$id"});
+    return GetCollectListBean.fromJson(data);
+  }
+
+
 
 }

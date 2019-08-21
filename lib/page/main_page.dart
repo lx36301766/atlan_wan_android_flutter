@@ -51,10 +51,10 @@ class _MainPageState extends State<MainPage> {
       preferredSize: Size.fromHeight(50.0),
       child: AppBar(
         shape: StadiumBorder(
-          side: BorderSide(
-            width: 0.5,
-            style: BorderStyle.solid
-          )
+            side: BorderSide(
+                width: 0.5,
+                style: BorderStyle.solid
+            )
         ),
         backgroundColor: appMainColor,
         title: Text(_titleName),
@@ -70,91 +70,47 @@ class _MainPageState extends State<MainPage> {
 //          ),
 //          preferredSize: const Size.fromHeight(30.0)
 //      ),
-      actions: <Widget>[
-        PopupMenuButton(
+        actions: <Widget>[
+          PopupMenuButton(
 //          icon: Icon(
 //            icon:
 //          ),
-              itemBuilder: (BuildContext context) => <PopupMenuItem<String>>[
-                    PopupMenuItem<String>(
-                      child: const Text('register'),
-                      value: 'register',
-                    ),
-                    PopupMenuItem<String>(
-                      child: const Text('login'),
-                      value: 'login',
-                    ),
-                    PopupMenuItem<String>(
-                      child: const Text('logout'),
-                      value: 'logout',
-                    ),
-                    PopupMenuItem<String>(
-                      child: const Text('getCollect'),
-                      value: 'getCollect',
-                    ),
-                    PopupMenuItem<String>(
-                      child: const Text('addCollectInside'),
-                      value: 'addCollectInside',
-                    ),
-                    PopupMenuItem<String>(
-                      child: const Text('addCollectOutside'),
-                      value: 'addCollectOutside',
-                    ),
-                  ],
-              onSelected: _onPopMenuSelected),
+              itemBuilder: (BuildContext context) =>
+                  testApi.keys.map((key) {
+                    return PopupMenuItem(
+                      child: Text(key),
+                      value: key,
+                    );
+                  }).toList(),
+              onSelected: (value) {
+                print("_onPopMenuSelected, value=$value");
+                if (testApi[value] != null) {
+                  testApi[value]().then((resp) {
+                    print(resp);
+                  }, onError: (e) {
+                    print(e);
+                  });
+                }
+              }
+          ),
         ],
       ),
     );
   }
 
-  void _onPopMenuSelected(String value) {
-    print("_onPopMenuSelected, value=$value");
-    switch(value) {
-      case 'register':
-        var userName = "12223ss5534442";
-        Api.register(userName, userName, userName).then((resp) {
-          print(resp.toString());
-        }, onError: (e) {
-          print(e);
-        });
-        break;
-      case 'login':
-        Api.login("lx364301766", "5393147").then((resp) {
-          print(resp.toString());
-        }, onError: (e) {
-          print(e);
-        });
-        break;
-      case 'logout':
-        Api.logout().then((resp) {
-          print("logout success");
-        }, onError: (e) {
-          print(e);
-        });
-        break;
-      case 'getCollect':
-        Api.getCollectList(0).then((resp) {
-          print(resp.toString());
-        }, onError: (e) {
-          print(e);
-        });
-        break;
-      case 'addCollectInside':
-        Api.addCollectInside(8920).then((resp) {
-          print("addCollectInside success");
-        }, onError: (e) {
-          print(e);
-        });
-        break;
-      case 'addCollectOutside':
-        Api.addCollectOutside("lx", "123", "345").then((resp) {
-          print(resp.toString());
-        }, onError: (e) {
-          print(e);
-        });
-        break;
-    }
-  }
+  Map<String, Function> testApi = {
+    "register": () => Api.register("", "", ""),
+    "login": () => Api.login("lx364301766", "5393147"),
+    "logout": () => Api.logout(),
+    "getCollect": () => Api.getCollectList(0),
+    "addCollectInside": () => Api.addCollectInside(8920),
+    "deleteCollect": () => Api.deleteCollect(0),
+    "deleteCollect2": () => Api.deleteCollect2(0),
+    "getCollectWebsite": () => Api.getCollectWebsite(),
+    "addCollectWebsite": () => Api.addCollectWebsite("", ""),
+    "updateCollectWebsite": () => Api.updateCollectWebsite(0, "", ""),
+    "deleteCollectWebsite": () => Api.deleteCollectWebsite(0),
+  };
 
   Widget buildBody() {
 //    return IndexedStack(

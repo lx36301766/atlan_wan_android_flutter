@@ -113,11 +113,18 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
   }
 
   Future<void> _requestListData() async {
+    List<HomeListDataBean> articleTopData;
+    if (_listPageIndex == 0) {
+      articleTopData = await Api.getArticleTop();
+    }
     HomeListBean bean = await Api.getHomeList(_listPageIndex);
     print(bean.toString());
     if (mounted) {
       setState(() {
         _homeListBean = bean;
+        if (articleTopData != null && articleTopData.isNotEmpty) {
+          _homeListData.addAll(articleTopData);
+        }
         _homeListData.addAll(bean.datas);
       });
     }

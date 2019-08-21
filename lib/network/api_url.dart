@@ -7,6 +7,24 @@
 const baseUrl = "https://www.wanandroid.com/";
 
 
+// X.1 获取公众号列表
+
+// http://wanandroid.com/wxarticle/chapters/json
+const String apiWXList = "wxarticle/chapters/";
+
+// X.2/3 查看某个公众号历史数据 / 在某个公众号中搜索历史文章
+// http://wanandroid.com/wxarticle/list/405/1/json
+const String apiWXListItem = "wxarticle/list/";
+
+
+
+
+// 最新项目tab (首页的第二个tab)
+// https://wanandroid.com/article/listproject/0/json
+const String apiListProject = "article/listproject/";
+
+
+
 // 1.1 首页文章列表
 // http://www.wanandroid.com/article/list/0/json
 const String apiHomeList = "article/list/";
@@ -22,6 +40,11 @@ const String apiCommonWebsite = "friend";
 // 1.4 搜索热词
 // http://www.wanandroid.com/hotkey/json
 const String apiSearchHotKey = "hotkey";
+
+// 1.5 置顶文章
+// https://www.wanandroid.com/article/top/json
+const String apiArticleTop = "article/top";
+
 
 
 
@@ -77,13 +100,14 @@ const String apiAddCollectInside = "lg/collect/";
 // https://www.wanandroid.com/lg/collect/add/json
 const String apiAddCollectOutside = "lg/collect/add/json";
 
-// 6.4.1 取消收藏-文章列表
+// 6.4.1 取消收藏-文章列表 - POST (id:拼在链接上)
 // https://www.wanandroid.com/lg/uncollect_originId/2333/json
 const String apiDeleteCollect = "lg/uncollect_originId/";
 
-// 6.4.2 取消收藏-我的收藏页面（该页面包含自己录入的内容）
+// 6.4.2 取消收藏-我的收藏页面（该页面包含自己录入的内容）- POST (id:拼在链接上， originId)
 // https://www.wanandroid.com/lg/uncollect/2805/json
 const String apiDeleteCollect2 = "lg/uncollect/";
+
 
 // 6.5 收藏网站列表
 // https://www.wanandroid.com/lg/collect/usertools/json
@@ -101,14 +125,4 @@ const String apiUpdateCollectWebsite = "lg/collect/updatetool";
 // https://www.wanandroid.com/lg/collect/deletetool/json
 const String apiDeleteCollectWebsite = "lg/collect/deletetool";
 
-
-
-// X.1 获取公众号列表
-
-// http://wanandroid.com/wxarticle/chapters/json
-const String apiWXList = "wxarticle/chapters/";
-
-// X.2/3 查看某个公众号历史数据 / 在某个公众号中搜索历史文章
-// http://wanandroid.com/wxarticle/list/405/1/json
-const String apiWXListItem = "wxarticle/list/";
 
