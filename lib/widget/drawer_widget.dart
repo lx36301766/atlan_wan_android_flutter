@@ -2,6 +2,7 @@
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:flutter/material.dart';
+import 'login_dialog.dart';
 
 class DrawerView extends StatefulWidget {
   @override
@@ -20,6 +21,7 @@ class _DrawerViewState extends State<DrawerView> {
         onPressed: () {
 
           showLoginDialog(context);
+//          Pages.openLoginPage(context);
 
           Api.login("lx364301766", "5393147").then((resp) {
             print(resp.toString());
@@ -121,106 +123,7 @@ class _DrawerViewState extends State<DrawerView> {
     NavigatorState navigator = context.rootAncestorStateOfType(const TypeMatcher<NavigatorState>());
     showDialog(
         context: context,
-        builder: (_) =>
-            Dialog(
-              backgroundColor: appMainColor,
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      FlatButton(
-                        child: Text("登录"),
-                        onPressed: () {
-
-                        },
-                      ),
-                      FlatButton(
-                        child: Text("注册"),
-                        onPressed: () {
-
-                        },
-                      ),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: <Widget>[
-                      TextField(
-                        controller: _userNameController,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(10.0),
-                            icon: Icon(Icons.phone),
-                            labelText: '请输入你的用户名',
-//                            helperText: '请输入你的用户名2',
-                        ),
-                        autofocus: false,
-                      ),
-                      TextField(
-                        controller: _passwordController,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(10.0),
-                          prefixIcon: Icon(Icons.phone),
-                          labelText: '请输入密码',
-//                          helperText: '请输入密码2',
-                        ),
-                        obscureText: true,
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            )
-
-//            SimpleDialog(
-//                title: new Text("SimpleDialog"),
-//                children: <Widget>[
-//                  new SimpleDialogOption(
-//                    child: new Text("SimpleDialogOption One"),
-//                    onPressed: () {
-//                      Navigator.of(context).pop("SimpleDialogOption One");
-//                    },
-//                  ),
-//                  new SimpleDialogOption(
-//                    child: new Text("SimpleDialogOption Two"),
-//                    onPressed: () {
-//                      Navigator.of(context).pop("SimpleDialogOption Two");
-//                    },
-//                  ),
-//                  new SimpleDialogOption(
-//                    child: new Text("SimpleDialogOption Three"),
-//                    onPressed: () {
-//                      Navigator.of(context).pop("SimpleDialogOption Three");
-//                    },
-//                  ),
-//                ],
-//            )
-
-//            AlertDialog(
-//              title: Text("atlan"),
-//              content: Text("context"),
-//              actions: <Widget>[
-//                FlatButton(
-//                    onPressed: () {
-//                      Navigator.of(context).pop();
-//                    },
-//                    child: Text("ok")
-//                ),
-//                FlatButton(
-//                    onPressed: () {
-//                      Navigator.of(context).pop();
-//                    },
-//                    child: Text("cancel1")
-//                ),
-//                FlatButton(
-//                    onPressed: () {
-//                      Navigator.of(context).pop();
-//                    },
-//                    child: Text("cancel")
-//                ),
-//              ],
-//            )
+        builder: (_) => LoginDialog()
     );
   }
 
