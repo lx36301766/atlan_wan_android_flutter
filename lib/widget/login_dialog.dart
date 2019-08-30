@@ -1,21 +1,20 @@
-
-
+import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
+import 'package:atlan_wan_android_flutter/widget/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'custom_dialog.dart';
 
 class LoginDialog extends StatefulWidget {
-
   @override
   _LoginDialogState createState() => _LoginDialogState();
 }
 
 class _LoginDialogState extends State<LoginDialog> {
-
   TextEditingController _userNameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+  TextEditingController _repasswordController = TextEditingController();
 
   bool _isRegister = false;
 
@@ -38,10 +37,9 @@ class _LoginDialogState extends State<LoginDialog> {
                 children: <Widget>[
                   Flexible(
                     child: FlatButton(
-                      child: Text("登录",
-                        style: TextStyle(
-                          color: _isRegister ? Colors.black : appMainColor
-                        ),
+                      child: Text(
+                        "登录",
+                        style: TextStyle(color: _isRegister ? Colors.black : appMainColor),
                       ),
                       onPressed: () {
                         setState(() {
@@ -53,10 +51,9 @@ class _LoginDialogState extends State<LoginDialog> {
                   ),
                   Flexible(
                     child: FlatButton(
-                      child: Text("注册",
-                        style: TextStyle(
-                            color: _isRegister ? appMainColor : Colors.black
-                        ),
+                      child: Text(
+                        "注册",
+                        style: TextStyle(color: _isRegister ? appMainColor : Colors.black),
                       ),
                       onPressed: () {
                         setState(() {
@@ -93,23 +90,60 @@ class _LoginDialogState extends State<LoginDialog> {
                     ),
                     obscureText: true,
                   ),
-                  if (_isRegister) TextField(
-                    controller: _passwordController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      contentPadding: EdgeInsets.all(10.0),
-                      prefixIcon: Icon(Icons.lock),
-                      labelText: '确认密码',
+                  Visibility(
+                    visible: _isRegister,
+                    child: TextField(
+                      controller: _repasswordController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10.0),
+                        prefixIcon: Icon(Icons.lock),
+                        labelText: '确认密码',
+                      ),
+                      obscureText: true,
                     ),
-                    obscureText: true,
                   ),
                 ],
-              )
+              ),
+              Expanded(
+                child: Align(
+                  alignment: FractionalOffset.bottomCenter,
+                  child: FlatButton(
+                    color: appMainColor,
+                    splashColor: appMainColor,
+                    onPressed: () {
+                      var userName = _userNameController.text.trim();
+                      var password = _passwordController.text.trim();
+                      var repassword = _repasswordController.text.trim();
+                      if (_isRegister) {
+                        Api.register(userName, password, repassword).then((resp) {
+                          print(resp);
+                          ToastUtil.show("注册成功,请登录");
+                          setState(() {
+                            _isRegister = false;
+                            FocusScope.of(context).requestFocus(_userNameFocusNode);
+                          });
+                        }, onError: (e) {
+                          print(e);
+                        });
+                      } else {
+                        Api.login(userName, password).then((resp) {
+                          print(resp);
+                          ToastUtil.show("登录成功");
+                          Navigator.pop(context);
+                        }, onError: (e) {
+                          print(e);
+                        });
+                      }
+                    },
+                    child: Text("确认"),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
   }
-
 }

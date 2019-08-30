@@ -23,11 +23,11 @@ class _DrawerViewState extends State<DrawerView> {
           showLoginDialog(context);
 //          Pages.openLoginPage(context);
 
-          Api.login("lx364301766", "5393147").then((resp) {
-            print(resp.toString());
-          }, onError: (e) {
-            print(e);
-          });
+//          Api.login("lx364301766", "5393147").then((resp) {
+//            print(resp.toString());
+//          }, onError: (e) {
+//            print(e);
+//          });
         },
 //        splashColor: Color(0x00FFFF0F),
 //        highlightColor: Color(0x00FF0FFF),

@@ -1,6 +1,7 @@
 
 import 'dart:io';
 
+import 'package:atlan_wan_android_flutter/widget/toast_utils.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
@@ -49,7 +50,7 @@ class DioManager {
     print("fetchGet url = $url");
     final response = await _dio.get(url);
     print("fetchGet response = $response");
-    return ApiResp.fromJson(response.data).data;
+    return parseErrorCode(response).data;
   }
 
   Future fetchPost(String path, [ Map<String, String> arguments ] ) async {
@@ -58,7 +59,15 @@ class DioManager {
     var data = arguments == null ? FormData() : FormData.from(arguments);
     final response = await _dio.post(url, data: data);
     print("fetchPost response = $response");
-    return ApiResp.fromJson(response.data).data;
+    return parseErrorCode(response).data;
+  }
+
+  ApiResp parseErrorCode(Response response) {
+    var resp = ApiResp.fromJson(response.data);
+    if (resp.errorCode != 0) {
+      ToastUtil.show(resp.errorMsg);
+    }
+    return resp;
   }
 
 }

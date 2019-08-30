@@ -88,7 +88,7 @@ class Api {
   }
 
   static Future<LoginRegisterBean> register(String userName, String password, String repassword) async {
-    var data = await DioManager().fetchPost(apiRegister, {"userName": userName, "password": password, "repassword": repassword});
+    var data = await DioManager().fetchPost(apiRegister, {"username": userName, "password": password, "repassword": repassword});
     return LoginRegisterBean.fromJson(data);
   }
 

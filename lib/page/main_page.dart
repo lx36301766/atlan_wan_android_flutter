@@ -99,7 +99,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   Map<String, Function> testApi = {
-    "register": () => Api.register("", "", ""),
+    "register": () => Api.register("12r43654656563", "455123123", "455123123"),
     "login": () => Api.login("lx364301766", "5393147"),
     "logout": () => Api.logout(),
     "getCollect": () => Api.getCollectList(0),
