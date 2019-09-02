@@ -6,6 +6,7 @@ import 'package:atlan_wan_android_flutter/util/pages.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:oktoast/oktoast.dart';
 
 //void main() => runApp(AtlanWanAndroid());
 
@@ -25,23 +26,26 @@ class AtlanWanAndroid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      builder: (context, child) {
-        //how-to-remove-scroll-glow：
-        //https://stackoverflow.com/questions/50899640/how-to-remove-listview-highlight-color-in-flutter
-        return ScrollConfiguration(
-          behavior: MyBehavior(),
-          child: child,
-        );
-      },
-      title: appName,
-      theme: ThemeData(
+    return OKToast(
+      dismissOtherOnShow: true,
+      child: MaterialApp(
+        builder: (context, child) {
+          //how-to-remove-scroll-glow：
+          //https://stackoverflow.com/questions/50899640/how-to-remove-listview-highlight-color-in-flutter
+          return ScrollConfiguration(
+            behavior: MyBehavior(),
+            child: child,
+          );
+        },
+        title: appName,
+        theme: ThemeData(
 //        primarySwatch: Colors.blue,
-        primaryColor: appMainColor,
+          primaryColor: appMainColor,
+        ),
+        // initialRoute 名字必须为 '/'，不然要报错
+        initialRoute: Pages.splash,
+        routes: buildRoutes(),
       ),
-      // initialRoute 名字必须为 '/'，不然要报错
-      initialRoute: Pages.splash,
-      routes: buildRoutes(),
     );
   }
 }

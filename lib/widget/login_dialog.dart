@@ -1,6 +1,6 @@
 import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
-import 'package:atlan_wan_android_flutter/widget/toast_utils.dart';
+import 'package:atlan_wan_android_flutter/util/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -12,6 +12,7 @@ class LoginDialog extends StatefulWidget {
 }
 
 class _LoginDialogState extends State<LoginDialog> {
+
   TextEditingController _userNameController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _repasswordController = TextEditingController();
@@ -25,11 +26,10 @@ class _LoginDialogState extends State<LoginDialog> {
   Widget build(BuildContext context) {
     return CustomDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Padding(
-          padding: const EdgeInsets.all(18.0),
+      child: Padding(
+          padding: const EdgeInsets.symmetric(vertical:5, horizontal:18),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -66,6 +66,7 @@ class _LoginDialogState extends State<LoginDialog> {
                 ],
               ),
               Column(
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   TextField(
@@ -85,7 +86,7 @@ class _LoginDialogState extends State<LoginDialog> {
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.all(10.0),
-                      prefixIcon: Icon(Icons.lock),
+                      prefixIcon: Icon(FontAwesomeIcons.lock),
                       labelText: '请输入密码',
                     ),
                     obscureText: true,
@@ -97,7 +98,7 @@ class _LoginDialogState extends State<LoginDialog> {
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.all(10.0),
-                        prefixIcon: Icon(Icons.lock),
+                        prefixIcon: Icon(FontAwesomeIcons.lock),
                         labelText: '确认密码',
                       ),
                       obscureText: true,
@@ -105,9 +106,10 @@ class _LoginDialogState extends State<LoginDialog> {
                   ),
                 ],
               ),
-              Expanded(
+              Padding(
+                padding: const EdgeInsets.only(top: 10),
                 child: Align(
-                  alignment: FractionalOffset.bottomCenter,
+                  alignment: FractionalOffset.center,
                   child: FlatButton(
                     color: appMainColor,
                     splashColor: appMainColor,
@@ -131,6 +133,7 @@ class _LoginDialogState extends State<LoginDialog> {
                           print(resp);
                           ToastUtil.show("登录成功");
                           Navigator.pop(context);
+
                         }, onError: (e) {
                           print(e);
                         });
@@ -143,7 +146,22 @@ class _LoginDialogState extends State<LoginDialog> {
             ],
           ),
         ),
-      ),
     );
+  }
+}
+
+class _SystemPadding extends StatelessWidget {
+
+  final Widget child;
+
+  _SystemPadding({Key key, this.child}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var mediaQuery = MediaQuery.of(context);
+    return new AnimatedContainer(
+        padding: mediaQuery.padding,
+        duration: const Duration(milliseconds: 300),
+        child: child);
   }
 }

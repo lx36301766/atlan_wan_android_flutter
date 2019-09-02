@@ -1,7 +1,7 @@
 
 import 'dart:io';
 
-import 'package:atlan_wan_android_flutter/widget/toast_utils.dart';
+import 'package:atlan_wan_android_flutter/util/toast_utils.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
@@ -18,7 +18,6 @@ class DioManager {
   }
 
   DioManager._internal();
-
 
   var _dio = Dio();
 

@@ -47,15 +47,8 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget buildAppBar() {
-    return PreferredSize(
-      preferredSize: Size.fromHeight(50.0),
-      child: AppBar(
-        shape: StadiumBorder(
-            side: BorderSide(
-                width: 0.5,
-                style: BorderStyle.solid
-            )
-        ),
+    return AppBar(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(16.0))),
         backgroundColor: appMainColor,
         title: Text(_titleName),
         centerTitle: true,
@@ -94,7 +87,6 @@ class _MainPageState extends State<MainPage> {
               }
           ),
         ],
-      ),
     );
   }
 

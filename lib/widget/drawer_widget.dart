@@ -1,6 +1,5 @@
 
 import 'package:atlan_wan_android_flutter/util/constants.dart';
-import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:flutter/material.dart';
 import 'login_dialog.dart';
 
@@ -115,16 +114,12 @@ class _DrawerViewState extends State<DrawerView> {
     );
   }
 
-  TextEditingController _userNameController = TextEditingController();
-
-  TextEditingController _passwordController = TextEditingController();
-
-  void showLoginDialog(BuildContext context) {
-    NavigatorState navigator = context.rootAncestorStateOfType(const TypeMatcher<NavigatorState>());
-    showDialog(
+  void showLoginDialog(BuildContext context) async {
+    await showDialog(
         context: context,
         builder: (_) => LoginDialog()
     );
+
   }
 
 }

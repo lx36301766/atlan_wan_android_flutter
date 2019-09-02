@@ -36,6 +36,23 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
   @override
   void initState() {
     super.initState();
+
+    void _scrollListener() {
+      //滑到最底部刷新
+//    print("pixels=${_scrollController.position.pixels} , maxScrollExtent=${_scrollController.position.maxScrollExtent}");
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        print("到底啦！！！");
+//      // 模拟滑到底了
+//      if (_listPageIndex < 3) {
+//        _listPageIndex++;
+//      } else {
+//        _listPageIndex = _homeListBean.pageCount;
+//      }
+        _listPageIndex++;
+        _requestListData();
+      }
+    }
+
     _scrollController = ScrollController()..addListener(_scrollListener);
     _pageController = PageController(initialPage: 0);
     _requestBannerData();
@@ -55,6 +72,17 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
     if (_bannerListData == null && _homeListData.isEmpty) {
       return EmptyHolder();
     }
+
+    Widget _buildItem(int index) {
+      if (index == 0) {
+        return _buildBanner(index);
+      } else if (index == _homeListData.length + 1) {
+        return _buildLoadMore();
+      } else {
+        return _buildHomeListItem(index);
+      }
+    }
+
     Widget list = ListView.builder(
       physics: AlwaysScrollableScrollPhysics(),
       itemBuilder: (context, i) => _buildItem(i),
@@ -86,22 +114,6 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
     return null;
   }
 
-  void _scrollListener() {
-    //滑到最底部刷新
-//    print("pixels=${_scrollController.position.pixels} , maxScrollExtent=${_scrollController.position.maxScrollExtent}");
-    if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-      print("到底啦！！！");
-//      // 模拟滑到底了
-//      if (_listPageIndex < 3) {
-//        _listPageIndex++;
-//      } else {
-//        _listPageIndex = _homeListBean.pageCount;
-//      }
-      _listPageIndex++;
-      _requestListData();
-    }
-  }
-
   Future<void> _requestBannerData() async {
     List<HomeBannerBean> data = await Api.getHomeBanner();
     print(data.toString());
@@ -127,16 +139,6 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
         }
         _homeListData.addAll(bean.datas);
       });
-    }
-  }
-
-  Widget _buildItem(int index) {
-    if (index == 0) {
-      return _buildBanner(index);
-    } else if (index == _homeListData.length + 1) {
-      return _buildLoadMore();
-    } else {
-      return _buildHomeListItem(index);
     }
   }
 

@@ -9,7 +9,7 @@ import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/custom_expansion_tile.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:random_color/random_color.dart';
 
 class KnowledgeSystemListPage extends StatefulWidget {
 
@@ -74,6 +74,8 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
 
 //  PageStorageKey<_KnowledgeSystemListPageState> _key = PageStorageKey();
 
+  RandomColor _randomColor = RandomColor();
+
   Widget _buildItem(KnowledgeSystemBean data) {
 
 //    for (KnowledgeSystemBean itemBean in data.children) {
@@ -118,7 +120,7 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
                 children: data.children.map((itemData) {
                   return ActionChip(
                     labelPadding: const EdgeInsets.symmetric(horizontal: 8),
-                    backgroundColor: Colors.grey.shade200,
+                    backgroundColor: _randomColor.randomColor(colorBrightness: ColorBrightness.light),
                     shadowColor: appMainColor,
                     label: Text(itemData.name, style: TextStyle(fontSize: 12.0)),
                     onPressed: () {
