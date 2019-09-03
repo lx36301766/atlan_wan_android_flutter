@@ -7,14 +7,43 @@ import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:loadmore/loadmore.dart';
+import 'package:scoped_model/scoped_model.dart';
+
+
+class ClassificationModel extends Model {
+  
+  static ClassificationModel of(BuildContext context) => ScopedModel.of<ClassificationModel>(context);
+
+  ClassificationModel(this._rootBean);
+
+  KnowledgeSystemBean _rootBean;
+
+  List<HomeListDataBean> _classificationListData = [];
+
+  int _listPageIndex = 0;
+
+  bool _isLastPage = false;
+
+  Future<bool> updateData(int page) async {
+    var data = await Api.getKnowledgeSystemChildren(page, _rootBean.id);
+    print(data);
+    _listPageIndex = page;
+    if (data.datas.isNotEmpty) {
+      _isLastPage = data.pageCount < 2 || data.over;
+      if (page == 0) {
+        _classificationListData.clear();
+      }
+      _classificationListData.addAll(data.datas);
+    }
+    notifyListeners();
+    return data != null;
+  }
+
+}
+
 
 class ClassificationListPage extends StatefulWidget {
-
-  final KnowledgeSystemBean rootBean;
-
-  ClassificationListPage(this.rootBean);
 
   @override
   _ClassificationListState createState() => _ClassificationListState();
@@ -23,72 +52,41 @@ class ClassificationListPage extends StatefulWidget {
 
 class _ClassificationListState extends State<ClassificationListPage> {
 
-  List<HomeListDataBean> _classificationListData = [];
-
-  int _listPageIndex = 0;
-
-  bool _isLastPage = false;
-
   @override
   void initState() {
     super.initState();
-    _requestKnowledgeSystemData(0);
+    ClassificationModel.of(context).updateData(0);
   }
-
-  Future<bool> _requestKnowledgeSystemData(int page) async {
-    _listPageIndex = page;
-    var data = await Api.getKnowledgeSystemChildren(page, widget.rootBean.id);
-    print(data);
-    if (data == null) {
-      return false;
-    }
-    if (data.datas.isNotEmpty) {
-      setState(() {
-        _isLastPage = data.pageCount < 2 || data.over;
-        if (page == 0) {
-          _classificationListData.clear();
-        }
-        _classificationListData.addAll(data.datas);
-      });
-    }
-    return true;
-  }
-
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: appMainColor,
-          title: Text(widget.rootBean.name),
-          centerTitle: true,
-        ),
-        body: _classificationListData.isEmpty ? EmptyHolder() :_buildBody(),
-    );
+    return ScopedModelDescendant<ClassificationModel>(
+        builder: (context, child, model) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              backgroundColor: appMainColor,
+              title: Text(model._rootBean.name),
+              centerTitle: true,
+            ),
+            body: model._classificationListData.isEmpty ? EmptyHolder() : _buildBody(model),
+          );
+        });
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(ClassificationModel model) {
     Widget list = ListView.builder(
       physics: AlwaysScrollableScrollPhysics(),
-      itemBuilder: (context, i) => _buildListItem(i),
-      itemCount: _classificationListData == null ? 0 : _classificationListData.length,
+      itemBuilder: (context, i) => _buildListItem(i, model),
+      itemCount: model._classificationListData == null ? 0 : model._classificationListData.length,
 //      controller: _scrollController,
     );
 
-//    var _pullToRefreshWidget = LiquidPullToRefresh(
-////        scrollController: _scrollController,
-//      color: appMainColor,
-//      onRefresh: ()=> _requestKnowledgeSystemData(0),
-//      child: list,
-//    );
-//    return _pullToRefreshWidget;
-
     return LoadMore(
-      isFinish: _isLastPage,
-      onLoadMore: () => _requestKnowledgeSystemData(++_listPageIndex),
+      isFinish: model._isLastPage,
+      onLoadMore: () => ClassificationModel.of(context).updateData(++model._listPageIndex),
       textBuilder: (status) {
-        if (status == LoadMoreStatus.nomore && _classificationListData.isEmpty) {
+        if (status == LoadMoreStatus.nomore && model._classificationListData.isEmpty) {
           return "暂无数据";
         }
         return DefaultLoadMoreTextBuilder.chinese(status);
@@ -97,8 +95,8 @@ class _ClassificationListState extends State<ClassificationListPage> {
     );
   }
 
-  Widget _buildListItem(int index) {
-    HomeListDataBean data = _classificationListData[index];
+  Widget _buildListItem(int index, ClassificationModel model) {
+    HomeListDataBean data = model._classificationListData[index];
     data.title = htmlUnescape.convert(data.title);
     return Container(
 //      color: Colors.blue,
@@ -109,7 +107,7 @@ class _ClassificationListState extends State<ClassificationListPage> {
           splashColor: Color(0xFFf0f8FF),
           highlightColor: appMainColor,
           onTap: () {
-            var data = _classificationListData[index];
+            var data = model._classificationListData[index];
             Pages.openWebView(context, data.title, data.link);
           },
           child: Padding(

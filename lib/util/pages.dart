@@ -6,6 +6,7 @@ import 'package:atlan_wan_android_flutter/page/main_page.dart';
 import 'package:atlan_wan_android_flutter/page/splash_page.dart';
 import 'package:atlan_wan_android_flutter/page/web_view_page2.dart';
 import 'package:flutter/material.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 Map<String, WidgetBuilder> buildRoutes() {
   return <String, WidgetBuilder>{
@@ -46,7 +47,10 @@ class Pages {
   static void openClassificationList(BuildContext context, KnowledgeSystemBean bean) {
     Navigator.of(context).push(PageRouteBuilder(
       pageBuilder: (BuildContext context, _, __) {
-        return ClassificationListPage(bean);
+        return ScopedModel(
+          model: ClassificationModel(bean),
+          child: ClassificationListPage()
+        );
       },
     ));
   }
