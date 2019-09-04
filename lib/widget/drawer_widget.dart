@@ -1,6 +1,7 @@
 
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'login_dialog.dart';
 
 class DrawerView extends StatefulWidget {
@@ -117,9 +118,12 @@ class _DrawerViewState extends State<DrawerView> {
   void showLoginDialog(BuildContext context) async {
     await showDialog(
         context: context,
-        builder: (_) => LoginDialog()
+        builder: (_) =>
+            BlocProvider(
+                builder: (BuildContext context) => LoginBloc(),
+                child: LoginDialog()
+            )
     );
-
   }
 
 }

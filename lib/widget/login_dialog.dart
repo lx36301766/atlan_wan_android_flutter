@@ -4,7 +4,25 @@ import 'package:atlan_wan_android_flutter/util/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:bloc/bloc.dart';
+
 import 'custom_dialog.dart';
+
+
+class LoginBloc extends Bloc<String, String> {
+
+  @override
+  // TODO: implement initialState
+  String get initialState => null;
+
+  @override
+  Stream<String> mapEventToState(String event) {
+    // TODO: implement mapEventToState
+    return null;
+  }
+
+}
+
 
 class LoginDialog extends StatefulWidget {
   @override

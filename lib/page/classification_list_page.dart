@@ -12,10 +12,12 @@ import 'package:scoped_model/scoped_model.dart';
 
 
 class ClassificationModel extends Model {
-  
+
   static ClassificationModel of(BuildContext context) => ScopedModel.of<ClassificationModel>(context);
 
-  ClassificationModel(this._rootBean);
+  ClassificationModel(this._rootBean) {
+    requestPageData(0);
+  }
 
   KnowledgeSystemBean _rootBean;
 
@@ -25,7 +27,7 @@ class ClassificationModel extends Model {
 
   bool _isLastPage = false;
 
-  Future<bool> updateData(int page) async {
+  Future<bool> requestPageData(int page) async {
     var data = await Api.getKnowledgeSystemChildren(page, _rootBean.id);
     print(data);
     _listPageIndex = page;
@@ -40,6 +42,8 @@ class ClassificationModel extends Model {
     return data != null;
   }
 
+  Future<bool> nextPageData() async => requestPageData(++_listPageIndex);
+
 }
 
 
@@ -51,12 +55,6 @@ class ClassificationListPage extends StatefulWidget {
 }
 
 class _ClassificationListState extends State<ClassificationListPage> {
-
-  @override
-  void initState() {
-    super.initState();
-    ClassificationModel.of(context).updateData(0);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +82,7 @@ class _ClassificationListState extends State<ClassificationListPage> {
 
     return LoadMore(
       isFinish: model._isLastPage,
-      onLoadMore: () => ClassificationModel.of(context).updateData(++model._listPageIndex),
+      onLoadMore: () => model.nextPageData(),
       textBuilder: (status) {
         if (status == LoadMoreStatus.nomore && model._classificationListData.isEmpty) {
           return "暂无数据";

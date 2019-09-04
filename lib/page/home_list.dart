@@ -27,6 +27,8 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
 
   int _listPageIndex = 0;
 
+  int _articleTopSize = 0;
+
   List<HomeBannerBean> _bannerListData;
 
   List<HomeListDataBean> _homeListData = [];
@@ -128,6 +130,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
     List<HomeListDataBean> articleTopData;
     if (_listPageIndex == 0) {
       articleTopData = await Api.getArticleTop();
+      _articleTopSize = articleTopData.length;
     }
     HomeListBean bean = await Api.getHomeList(_listPageIndex);
     print(bean.toString());
@@ -192,9 +195,10 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
 //      color: Colors.blue,
       padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
       child: Card(
+        color: index > _articleTopSize ? Color(0xFFEEEEEE) : Color(0xFFFFFFFF),
         elevation: 5.0,
         child: InkWell(
-          splashColor: Color(0xFFf0f8FF),
+          splashColor: Color(0xFF30f86F),
           highlightColor: appMainColor,
           onTap: () {
             var data = _homeListData[index - 1];
