@@ -1,7 +1,9 @@
 
+import 'package:atlan_wan_android_flutter/bloc/bloc_provider.dart';
+import 'package:atlan_wan_android_flutter/bloc/login_bloc.dart';
+import 'package:atlan_wan_android_flutter/entity/login_register_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'login_dialog.dart';
 
 class DrawerView extends StatefulWidget {
@@ -10,9 +12,23 @@ class DrawerView extends StatefulWidget {
 }
 
 class _DrawerViewState extends State<DrawerView> {
+
+  LoginBloc _bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _bloc = LoginBloc();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _bloc.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-
     Widget header = DrawerHeader(
       margin: EdgeInsets.only(top: 10),
       curve: Curves.bounceInOut,
@@ -31,22 +47,33 @@ class _DrawerViewState extends State<DrawerView> {
         },
 //        splashColor: Color(0x00FFFF0F),
 //        highlightColor: Color(0x00FF0FFF),
-        child: Column(
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(top:20),
-              child: CircleAvatar(
-                child: Icon(Icons.person_pin_circle,
-                  color: appMainColor,
+        child: StreamBuilder<LoginRegisterBean>(
+          initialData: LoginRegisterBean.abc(),
+          stream: _bloc.loginBeanValue,
+          builder: (context, snapshot) {
+            print("snapshot=$snapshot");
+            return Column(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top:20),
+                  child: CircleAvatar(
+                    child: Icon(Icons.person_pin_circle,
+                      color: appMainColor,
+                    ),
+                    backgroundColor: Colors.tealAccent.shade100,
+                  ),
                 ),
-                backgroundColor: Colors.tealAccent.shade100,
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Text('登录'),
-            ),
-          ],
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: Text(snapshot.hasData ? snapshot.data.nickname : "登录"),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: Text("积分: 0"),
+                ),
+              ],
+            );
+          }
         ),
       ),
     );
@@ -93,13 +120,9 @@ class _DrawerViewState extends State<DrawerView> {
     );
 
     return Container(
-//      color: Colors.blue,
       padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
       child: Column(
         children: <Widget>[
-//          Expanded(
-//            child: header,
-//          ),
           Expanded(
             flex: 3,
             child: list,
@@ -118,11 +141,7 @@ class _DrawerViewState extends State<DrawerView> {
   void showLoginDialog(BuildContext context) async {
     await showDialog(
         context: context,
-        builder: (_) =>
-            BlocProvider(
-                builder: (BuildContext context) => LoginBloc(),
-                child: LoginDialog()
-            )
+        builder: (_) => LoginDialog()
     );
   }
 

@@ -26,7 +26,7 @@ class _MainPageState extends State<MainPage> {
     BottomItemInfo("体系", Icons.cloud, KnowledgeSystemListPage()),
     BottomItemInfo("导航", Icons.navigation, NavigationListPage()),
     BottomItemInfo("项目", Icons.folder, ProjectListPage()),
-    BottomItemInfo("公共号", Icons.public, WechatPublicListPage()),
+    BottomItemInfo("公共号", Icons.receipt, WechatPublicListPage()),
   ];
 
   @override

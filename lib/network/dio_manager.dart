@@ -35,6 +35,13 @@ class DioManager {
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path + "/dioCookie";
     print('http cookie path = $tempPath');
+
+    var cookJar = PersistCookieJar(dir: tempPath);
+    List<Cookie> cookies = cookJar.loadForRequest(Uri.parse(baseUrl + apiLogin));
+    cookies.forEach((cookie) {
+      print('cookie = $cookie');
+    });
+
     _dio.interceptors.add(CookieManager(PersistCookieJar(dir: tempPath)));
 
   }

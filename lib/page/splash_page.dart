@@ -5,6 +5,20 @@ import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:flutter/material.dart';
 
+
+/// 用于项目初始化之前显示的页面
+class SplashImage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: Colors.white,//背景色
+      child: Image.asset('image/logo.png',
+        fit: BoxFit.fill,
+      ),
+    );
+  }
+}
+
 class SplashPage extends StatefulWidget {
   @override
   _SplashPageState createState() => _SplashPageState();
@@ -13,9 +27,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
 
   _SplashPageState() {
-    DioManager().initialize().then((_) {
-      Future.delayed(Duration(seconds: 3), _onLogoClick);
-    });
+    Future.delayed(Duration(seconds: 3), _onLogoClick);
   }
 
   @override
