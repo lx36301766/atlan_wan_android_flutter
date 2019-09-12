@@ -48,7 +48,6 @@ class _DrawerViewState extends State<DrawerView> {
 //        splashColor: Color(0x00FFFF0F),
 //        highlightColor: Color(0x00FF0FFF),
         child: StreamBuilder<LoginRegisterBean>(
-          initialData: LoginRegisterBean.abc(),
           stream: _bloc.loginBeanValue,
           builder: (context, snapshot) {
             print("snapshot=$snapshot");
