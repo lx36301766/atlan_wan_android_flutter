@@ -17,7 +17,7 @@ class ToastUtil {
       msg,
       duration: Duration(seconds: 3),
       position: ToastPosition.bottom,
-      backgroundColor: appMainColor,
+      backgroundColor: appMainColor.withAlpha(196),
     );
   }
 

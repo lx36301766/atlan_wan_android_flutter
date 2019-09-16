@@ -33,6 +33,18 @@ class LoginBloc implements BlocBase {
     _userPointController.sink.add(bean);
   }
 
+  Future register(String userName, String password, String repassword) async {
+    LoginRegisterBean bean = await Api.register(userName, password, repassword).catchError((e) {
+      print("register, exception=$e");
+    });
+    print("register, bean=$bean");
+    if (bean != null) {
+      setIsRegister(false);
+      return bean;
+    }
+    return Future.error(null, StackTrace.current);
+  }
+
   Future login(String userName, String password) async {
     LoginRegisterBean bean = await Api.login(userName, password).catchError((e) {
       print("login, exception=$e");
@@ -43,19 +55,18 @@ class LoginBloc implements BlocBase {
       setLoginRegisterBean(bean);
       StorageUtils.setUserInfo(bean);
       getUserPoint();
+      return bean;
     }
-    return bean;
+    return Future.error(null, StackTrace.current);
   }
 
-  Future register(String userName, String password, String repassword) async {
-    LoginRegisterBean bean = await Api.register(userName, password, repassword).catchError((e) {
-      print("register, exception=$e");
+  Future logout() async {
+    await Api.logout().catchError((e) {
+      print("login, exception=$e");
     });
-    print("register, bean=$bean");
-    if (bean != null) {
-      setIsRegister(false);
-    }
-    return bean;
+    setLoginRegisterBean(null);
+    setUserPointBean(null);
+    StorageUtils.setUserInfo(null);
   }
 
   Future getUserPoint() async {
@@ -67,8 +78,9 @@ class LoginBloc implements BlocBase {
     print("getUserPoint, bean=$_userPointBean");
     if (_userPointBean != null) {
       setUserPointBean(_userPointBean);
+      return _userPointBean;
     }
-    return _userPointBean;
+    return Future.error(null, StackTrace.current);
   }
 
   @override

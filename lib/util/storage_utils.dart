@@ -32,8 +32,16 @@ class StorageUtils {
     }
   }
 
-  static LoginRegisterBean getUserInfo() => LoginRegisterBean.fromJson(json.decode(get(KEY_USER_INFO)));
+  static LoginRegisterBean getUserInfo() {
+    try {
+      var map = json.decode(get(KEY_USER_INFO));
+      return map == null ? null : LoginRegisterBean.fromJson(map);
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 
-  static void setUserInfo(LoginRegisterBean bean) => set(KEY_USER_INFO, json.encode(bean.toJson()));
+  static void setUserInfo(LoginRegisterBean bean) => set(KEY_USER_INFO, json.encode(bean?.toJson()));
 
 }

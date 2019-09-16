@@ -1,4 +1,3 @@
-
 import 'package:atlan_wan_android_flutter/bloc/bloc_provider.dart';
 import 'package:atlan_wan_android_flutter/bloc/login_bloc.dart';
 import 'package:atlan_wan_android_flutter/entity/login_register_bean.dart';
@@ -15,7 +14,6 @@ class DrawerView extends StatefulWidget {
 }
 
 class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerView> {
-
   LoginBloc bloc;
 
   @override
@@ -39,41 +37,44 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
       duration: const Duration(milliseconds: 1000),
       child: FlatButton(
         onPressed: () {
-          showLoginDialog(context);
+          if (StorageUtils.getUserInfo() != null) {
+            showLogoutDialog(context);
+          } else {
+            showLoginDialog(context);
+          }
         },
 //        splashColor: Color(0x00FFFF0F),
 //        highlightColor: Color(0x00FF0FFF),
         child: StreamBuilder<LoginRegisterBean>(
-          stream: bloc.loginRegisterValue,
-          builder: (context, snapshot) {
-            return Column(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top:20),
-                  child: CircleAvatar(
-                    child: Icon(Icons.person_pin_circle,
-                      color: appMainColor,
+            stream: bloc.loginRegisterValue,
+            builder: (context, snapshot) {
+              return Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: CircleAvatar(
+                      child: Icon(
+                        Icons.person_pin_circle,
+                        color: appMainColor,
+                      ),
+                      backgroundColor: Colors.tealAccent.shade100,
                     ),
-                    backgroundColor: Colors.tealAccent.shade100,
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Text(snapshot.hasData ? snapshot.data.nickname : "登录"),
-                ),
-                StreamBuilder<UserPointBean>(
-                  stream: bloc.userPointValue,
-                  builder: (context, snapshot) {
-                    return Padding(
-                      padding: EdgeInsets.only(top: 10),
-                      child: Text("积分: ${snapshot.hasData ? snapshot.data.coinCount : 0}"),
-                    );
-                  }
-                ),
-              ],
-            );
-          }
-        ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(snapshot.hasData ? snapshot.data.nickname : "登录"),
+                  ),
+                  StreamBuilder<UserPointBean>(
+                      stream: bloc.userPointValue,
+                      builder: (context, snapshot) {
+                        return Padding(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Text("积分: ${snapshot.hasData ? snapshot.data.coinCount : 0}"),
+                        );
+                      }),
+                ],
+              );
+            }),
       ),
     );
 
@@ -99,16 +100,13 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
         ListTile(
           leading: Icon(Icons.toc, color: appMainColor),
           title: Text("TODO"),
-          onTap: () {
-          },
+          onTap: () {},
         ),
         Divider(),
         ListTile(
           leading: Icon(Icons.settings, color: appMainColor),
           title: Text("设置"),
-          onTap: () {
-
-          },
+          onTap: () {},
         ),
         Divider(),
         AboutListTile(
@@ -138,10 +136,34 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
   }
 
   void showLoginDialog(BuildContext context) async {
-    await showDialog(
-        context: context,
-        builder: (_) => LoginDialog()
-    );
+    await showDialog(context: context, builder: (_) => LoginDialog());
   }
 
+  void showLogoutDialog(BuildContext context) async {
+    await showDialog(
+        context: context,
+        builder: (_) =>
+            AlertDialog(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),
+                content: Text("是否退出登录？"),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("否"),
+                    highlightColor: appMainColor,
+                    textColor: Colors.black54,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  FlatButton(
+                    child: Text("是"),
+                    splashColor: appMainColor,
+                    textColor: Colors.black54,
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      bloc.logout();
+                    },
+                  )
+                ]));
+  }
 }
