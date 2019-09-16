@@ -1,3 +1,5 @@
+import 'package:atlan_wan_android_flutter/bloc/bloc_provider.dart';
+import 'package:atlan_wan_android_flutter/bloc/login_bloc.dart';
 import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:atlan_wan_android_flutter/page/home_list.dart';
 import 'package:atlan_wan_android_flutter/page/knowledge_system_list.dart';
@@ -33,6 +35,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: this._pageIndex);
+    BlocProvider.of<LoginBloc>(context).getUserPoint();
   }
 
   @override

@@ -39,22 +39,13 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
       duration: const Duration(milliseconds: 1000),
       child: FlatButton(
         onPressed: () {
-
           showLoginDialog(context);
-//          Pages.openLoginPage(context);
-
-//          Api.login("lx364301766", "5393147").then((resp) {
-//            print(resp.toString());
-//          }, onError: (e) {
-//            print(e);
-//          });
         },
 //        splashColor: Color(0x00FFFF0F),
 //        highlightColor: Color(0x00FF0FFF),
         child: StreamBuilder<LoginRegisterBean>(
           stream: bloc.loginRegisterValue,
           builder: (context, snapshot) {
-            print("snapshot=$snapshot");
             return Column(
               children: <Widget>[
                 Padding(

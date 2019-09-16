@@ -17,5 +17,10 @@ class UserPointBean {
 
   Map<String, dynamic> toJson(UserPointBean instance) => _$UserPointBeanToJson(instance);
 
+  @override
+  String toString() {
+    return 'UserPointBean{coinCount: $coinCount, rank: $rank, userId: $userId, username: $username}';
+  }
+
 }
 
