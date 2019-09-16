@@ -102,6 +102,10 @@ class _MainPageState extends State<MainPage> {
     "addCollectWebsite": () => Api.addCollectWebsite("", ""),
     "updateCollectWebsite": () => Api.updateCollectWebsite(0, "", ""),
     "deleteCollectWebsite": () => Api.deleteCollectWebsite(0),
+
+    "getPointLeaderboardList": () => Api.getPointLeaderboardList(1),
+    "getUserPoint": () => Api.getUserPoint(),
+    "getUserPointGetList": () => Api.getUserPointGetList(1),
   };
 
   Widget buildBody() {

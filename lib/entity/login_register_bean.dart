@@ -17,8 +17,6 @@ class LoginRegisterBean {
   String token;
   int type;
 
-  LoginRegisterBean.abc();
-
   LoginRegisterBean(this.id, this.admin, this.collectIds, this.email, this.icon,
       this.username, this.nickname, this.password, this.token, this.type);
 

@@ -9,6 +9,9 @@ import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/login_register_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/navigation_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/user_point_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/user_point_get_list_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/user_point_leaderboard_bean.dart';
 
 import 'api_network.dart';
 import 'api_url.dart';
@@ -16,7 +19,7 @@ import 'api_url.dart';
 
 class Api {
 
-  static ApiNetwork api = ApiNetwork.getInstance();
+  static ApiNetwork api = ApiNetwork();
   
   // 首页接口
   static Future<HomeListBean> getHomeList(int page) async => HomeListBean
@@ -145,5 +148,26 @@ class Api {
   }
 
 
+  // 搜索相关接口
+
+
+  // TODO相关接口
+
+
+  // 积分相关接口
+  static Future<UserPointLeaderboardBean> getPointLeaderboardList(int page) async {
+    var data = await api.fetchGet(apiGetPointLeaderboardList + page.toString());
+    return UserPointLeaderboardBean.fromJson(data);
+  }
+
+  static Future<UserPointBean> getUserPoint() async {
+    var data = await api.fetchGet(apiGetUserPoint);
+    return UserPointBean.fromJson(data);
+  }
+
+  static Future<UserPointGetListBean> getUserPointGetList(int page) async {
+    var data = await api.fetchGet(apiGetUserPointGetList + page.toString());
+    return UserPointGetListBean.fromJson(data);
+  }
 
 }

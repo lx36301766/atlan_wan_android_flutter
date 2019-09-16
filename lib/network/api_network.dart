@@ -16,7 +16,7 @@ abstract class ApiNetwork {
 
   static const network = 2;
 
-  static ApiNetwork getInstance() {
+  factory ApiNetwork() {
     if (network == 1) {
       return _HttpNetwork();
     } else if (network == 2) {
@@ -25,6 +25,8 @@ abstract class ApiNetwork {
       return null;
     }
   }
+
+  ApiNetwork._internal();
 
   Future<void> initialize();
 
@@ -42,15 +44,14 @@ abstract class ApiNetwork {
 
 }
 
+
 class _HttpNetwork extends ApiNetwork {
 
   static final _HttpNetwork _singleton = _HttpNetwork._internal();
 
-  factory _HttpNetwork() {
-    return _singleton;
-  }
+  factory _HttpNetwork() => _singleton;
 
-  _HttpNetwork._internal();
+  _HttpNetwork._internal(): super._internal();
 
   @override
   Future<void> initialize() async {
@@ -80,15 +81,14 @@ class _HttpNetwork extends ApiNetwork {
 
 }
 
+
 class _DioNetwork extends ApiNetwork {
 
   static final _DioNetwork _singleton = _DioNetwork._internal();
 
-  factory _DioNetwork() {
-    return _singleton;
-  }
+  factory _DioNetwork() => _singleton;
 
-  _DioNetwork._internal();
+  _DioNetwork._internal(): super._internal();
 
   var _dio = Dio();
 

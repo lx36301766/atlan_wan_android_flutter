@@ -43,6 +43,8 @@ dependencies:
   random_color: 1.0.3
   font_awesome_flutter: 8.5.0
 
+  shared_preferences: ^0.5.2+2
+
 # unused
   carousel_slider: ^1.0.1
   banner_view: ^1.1.2

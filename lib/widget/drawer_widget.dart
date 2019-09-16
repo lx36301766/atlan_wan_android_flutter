@@ -2,8 +2,11 @@
 import 'package:atlan_wan_android_flutter/bloc/bloc_provider.dart';
 import 'package:atlan_wan_android_flutter/bloc/login_bloc.dart';
 import 'package:atlan_wan_android_flutter/entity/login_register_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/user_point_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
+import 'package:atlan_wan_android_flutter/util/storage_utils.dart';
 import 'package:flutter/material.dart';
+import 'after_layout.dart';
 import 'login_dialog.dart';
 
 class DrawerView extends StatefulWidget {
@@ -11,11 +14,25 @@ class DrawerView extends StatefulWidget {
   _DrawerViewState createState() => _DrawerViewState();
 }
 
-class _DrawerViewState extends State<DrawerView> {
+class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerView> {
+
+  LoginBloc bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    bloc = BlocProvider.of<LoginBloc>(context);
+  }
+
+  @override
+  void afterFirstLayout(BuildContext context) async {
+    var loginBean = StorageUtils.getUserInfo();
+    bloc.setLoginRegisterBean(loginBean);
+    bloc.getUserPoint();
+  }
 
   @override
   Widget build(BuildContext context) {
-    var bloc = BlocProvider.of<LoginBloc>(context);
     Widget header = DrawerHeader(
       margin: EdgeInsets.only(top: 10),
       curve: Curves.bounceInOut,
@@ -35,7 +52,7 @@ class _DrawerViewState extends State<DrawerView> {
 //        splashColor: Color(0x00FFFF0F),
 //        highlightColor: Color(0x00FF0FFF),
         child: StreamBuilder<LoginRegisterBean>(
-          stream: bloc.loginBeanValue,
+          stream: bloc.loginRegisterValue,
           builder: (context, snapshot) {
             print("snapshot=$snapshot");
             return Column(
@@ -53,9 +70,14 @@ class _DrawerViewState extends State<DrawerView> {
                   padding: EdgeInsets.only(top: 10),
                   child: Text(snapshot.hasData ? snapshot.data.nickname : "登录"),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 10),
-                  child: Text("积分: 0"),
+                StreamBuilder<UserPointBean>(
+                  stream: bloc.userPointValue,
+                  builder: (context, snapshot) {
+                    return Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Text("积分: ${snapshot.hasData ? snapshot.data.coinCount : 0}"),
+                    );
+                  }
                 ),
               ],
             );

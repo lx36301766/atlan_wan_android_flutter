@@ -126,3 +126,22 @@ const String apiUpdateCollectWebsite = "lg/collect/updatetool";
 const String apiDeleteCollectWebsite = "lg/collect/deletetool";
 
 
+
+// 7.1 搜索
+
+
+
+// 8.1 TODO工具
+
+
+
+// 9.1 积分排行榜接口
+const String apiGetPointLeaderboardList = "coin/rank/";
+
+// 9.2 获取个人积分，需要登录后访问
+const String apiGetUserPoint = "lg/coin/userinfo";
+
+// 9.1 获取个人积分获取列表，需要登录后访问
+const String apiGetUserPointGetList = "lg/coin/list/";
+
+
