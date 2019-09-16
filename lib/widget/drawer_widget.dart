@@ -13,22 +13,9 @@ class DrawerView extends StatefulWidget {
 
 class _DrawerViewState extends State<DrawerView> {
 
-  LoginBloc _bloc;
-
-  @override
-  void initState() {
-    super.initState();
-    _bloc = LoginBloc();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _bloc.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
+    var bloc = BlocProvider.of<LoginBloc>(context);
     Widget header = DrawerHeader(
       margin: EdgeInsets.only(top: 10),
       curve: Curves.bounceInOut,
@@ -48,7 +35,7 @@ class _DrawerViewState extends State<DrawerView> {
 //        splashColor: Color(0x00FFFF0F),
 //        highlightColor: Color(0x00FF0FFF),
         child: StreamBuilder<LoginRegisterBean>(
-          stream: _bloc.loginBeanValue,
+          stream: bloc.loginBeanValue,
           builder: (context, snapshot) {
             print("snapshot=$snapshot");
             return Column(

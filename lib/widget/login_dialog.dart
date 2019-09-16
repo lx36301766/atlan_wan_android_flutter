@@ -145,7 +145,7 @@ class _LoginDialogState extends State<LoginDialog> {
                           var repassword = _repasswordController.text.trim();
                           if (snapshot.data) {
                             bloc.register(userName, password, repassword).then((resp) {
-//                              ToastUtil.show("注册成功,请登录");
+                              ToastUtil.show("注册成功,请登录");
                               print( "resp = $resp");
                               FocusScope.of(context).requestFocus(_userNameFocusNode);
                             });

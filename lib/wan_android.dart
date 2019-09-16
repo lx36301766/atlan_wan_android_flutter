@@ -10,7 +10,7 @@ import 'package:oktoast/oktoast.dart';
 
 import 'bloc/bloc_provider.dart';
 import 'bloc/login_bloc.dart';
-import 'network/dio_manager.dart';
+import 'network/api_network.dart';
 
 //void main() => runApp(AtlanWanAndroid());
 
@@ -31,7 +31,7 @@ class AtlanWanAndroid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: DioManager().initialize(),
+      future: ApiNetwork.getInstance().initialize(),
       builder: (context, snapshot) {
         /// 在异步操作时,显示的页面
         if (snapshot.connectionState != ConnectionState.done) {

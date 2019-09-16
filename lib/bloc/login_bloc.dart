@@ -28,6 +28,8 @@ class LoginBloc implements BlocBase {
     if (bean != null) {
       setIsRegister(false);
       _loginRegisterBeanController.sink.add(bean);
+
+
     }
     return bean;
   }
