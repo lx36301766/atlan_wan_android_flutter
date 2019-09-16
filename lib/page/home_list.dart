@@ -195,7 +195,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
 //      color: Colors.blue,
       padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
       child: Card(
-        color: index > _articleTopSize ? Color(0xFFEEEEEE) : Color(0xFFFFFFFF),
+        color: index > _articleTopSize ? Color(0xFFFFFFFF) : Color(0xCFEEEEEE),
         elevation: 5.0,
         child: InkWell(
           splashColor: Color(0xFF30f86F),
@@ -228,7 +228,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Flexible(
-                        flex: 4,
+                        flex: 10,
                         child: Text
                           ("${data.author} / ${data.superChapterName}-${data.chapterName}",
                           style: TextStyle(
@@ -240,13 +240,13 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
                         ),
                       ),
                       Flexible(
-                        flex: 1,
+                        flex: 3,
                         child: Text(data.niceDate,
                           style: TextStyle(
                             fontSize: 12.0,
                             color: Colors.grey.shade500,
                             fontWeight: FontWeight.w400,
-                            wordSpacing: 2.0,
+                            wordSpacing: 1.5,
                           ),
                         ),
                       ),
