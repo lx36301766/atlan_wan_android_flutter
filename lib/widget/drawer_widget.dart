@@ -26,7 +26,9 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
   void afterFirstLayout(BuildContext context) async {
     var loginBean = StorageUtils.getUserInfo();
     bloc.setLoginRegisterBean(loginBean);
-    bloc.getUserPoint();
+    if (loginBean != null) {
+      bloc.getUserPoint();
+    }
   }
 
   @override

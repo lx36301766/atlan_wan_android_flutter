@@ -195,7 +195,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
 //      color: Colors.blue,
       padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
       child: Card(
-        color: index > _articleTopSize ? Color(0xFFFFFFFF) : Color(0xCFEEEEEE),
+        color: Colors.white,
         elevation: 5.0,
         child: InkWell(
           splashColor: Color(0xFF30f86F),
@@ -229,14 +229,30 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
                     children: <Widget>[
                       Flexible(
                         flex: 10,
-                        child: Text
-                          ("${data.author} / ${data.superChapterName}-${data.chapterName}",
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.grey.shade500,
-                            fontWeight: FontWeight.w400,
-                            wordSpacing: 2.0,
-                          ),
+                        child: Row(
+                          children: <Widget>[
+                            Visibility(
+                              visible: index <= _articleTopSize,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: Image.asset('image/top.png',
+                                  fit: BoxFit.none,
+                                  width: 15,
+                                  height: 15,
+                                  scale: 7.0,
+                                ),
+                              ),
+                            ),
+                            Text
+                              ("${data.author} • ${data.superChapterName} • ${data.chapterName}",
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.grey.shade500,
+                                fontWeight: FontWeight.w400,
+                                wordSpacing: 2.0,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                       Flexible(
