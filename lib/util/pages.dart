@@ -1,6 +1,5 @@
 
 import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
-import 'package:atlan_wan_android_flutter/page/login_page.dart';
 import 'package:atlan_wan_android_flutter/page/classification_list_page.dart';
 import 'package:atlan_wan_android_flutter/page/main_page.dart';
 import 'package:atlan_wan_android_flutter/page/splash_page.dart';
@@ -55,12 +54,12 @@ class Pages {
     ));
   }
 
-  static void openLoginPage(BuildContext context) {
-    Navigator.of(context).push(PageRouteBuilder(
-      pageBuilder: (BuildContext context, _, __) {
-        return LoginPage();
-      },
-    ));
-  }
+//  static void openLoginPage(BuildContext context) {
+//    Navigator.of(context).push(PageRouteBuilder(
+//      pageBuilder: (BuildContext context, _, __) {
+//        return LoginPage();
+//      },
+//    ));
+//  }
 
 }

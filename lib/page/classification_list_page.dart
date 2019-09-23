@@ -4,7 +4,7 @@ import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
 import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
-import 'package:atlan_wan_android_flutter/util/pages.dart';
+import 'package:atlan_wan_android_flutter/widget/article_item_widget.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
@@ -20,11 +20,9 @@ class ClassificationModel extends Model {
   }
 
   KnowledgeSystemBean _rootBean;
-
   List<HomeListDataBean> _classificationListData = [];
 
   int _listPageIndex = 0;
-
   bool _isLastPage = false;
 
   Future<bool> requestPageData(int page) async {
@@ -75,7 +73,7 @@ class _ClassificationListState extends State<ClassificationListPage> {
   Widget _buildBody(ClassificationModel model) {
     Widget list = ListView.builder(
       physics: AlwaysScrollableScrollPhysics(),
-      itemBuilder: (context, i) => _buildListItem(i, model),
+      itemBuilder: (context, i) => ArticleItemWidget(model._classificationListData[i], i, -1),
       itemCount: model._classificationListData == null ? 0 : model._classificationListData.length,
 //      controller: _scrollController,
     );
@@ -90,76 +88,6 @@ class _ClassificationListState extends State<ClassificationListPage> {
         return DefaultLoadMoreTextBuilder.chinese(status);
       },
       child: list,
-    );
-  }
-
-  Widget _buildListItem(int index, ClassificationModel model) {
-    HomeListDataBean data = model._classificationListData[index];
-    data.title = htmlUnescape.convert(data.title);
-    return Container(
-//      color: Colors.blue,
-      padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-      child: Card(
-        elevation: 5.0,
-        child: InkWell(
-          splashColor: Color(0xFFf0f8FF),
-          highlightColor: appMainColor,
-          onTap: () {
-            var data = model._classificationListData[index];
-            Pages.openWebView(context, data.title, data.link);
-          },
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical:5, horizontal:12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 10),
-                  child: Text(data.title,
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w600,
-                      wordSpacing: 5.0,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 5, bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Flexible(
-                        flex: 4,
-                        child: Text("${data.author} / ${data.superChapterName}-${data.chapterName}",
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.grey.shade500,
-                            fontWeight: FontWeight.w400,
-                            wordSpacing: 2.0,
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: Text(data.niceDate,
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.grey.shade500,
-                            fontWeight: FontWeight.w400,
-                            wordSpacing: 2.0,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 

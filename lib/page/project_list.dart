@@ -9,6 +9,7 @@ import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
+import 'package:atlan_wan_android_flutter/widget/unescape_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
@@ -84,7 +85,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
   Widget build(BuildContext context) {
     super.build(context);
     List<Tab> tabs = List.generate(_projectData.length, (int index) =>
-        Tab(text: htmlUnescape.convert(_projectData[index].name)));
+        UnescapeTab(text: _projectData[index].name));
     return Scaffold(
       appBar: _tabController == null ? null : _buildPageSlider(tabs),
       body: _tabController == null ? EmptyHolder() : TabBarView(
@@ -140,8 +141,6 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
   }
 
   Widget _buildCardItem(HomeListDataBean dataBean) {
-    var title = htmlUnescape.convert(dataBean.title);
-    var desc = htmlUnescape.convert(dataBean.desc);
     var name = "${dataBean.author}-${dataBean.chapterName}";
     return AspectRatio(
       key: PageStorageKey(dataBean),
@@ -165,14 +164,14 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(title, 
+                          UnescapeText(dataBean.title,
                             style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: Text(desc, 
+                            child: UnescapeText(dataBean.desc,
                               style: TextStyle(fontSize: 9, color: Colors.grey.shade500),
                               maxLines: 5,
                               overflow: TextOverflow.fade,

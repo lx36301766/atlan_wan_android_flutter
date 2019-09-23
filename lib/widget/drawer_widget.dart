@@ -53,9 +53,15 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
               return Column(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.only(top: 10),
                     child: CircleAvatar(
-                      child: Icon(
+                      radius: 30,
+                      child: snapshot.hasData ?
+                      ClipOval(
+                        child: Image.asset('image/avater.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ) : Icon(
                         Icons.person_pin_circle,
                         color: appMainColor,
                       ),

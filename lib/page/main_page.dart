@@ -18,10 +18,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   int _pageIndex = 0;
-
   PageController _pageController;
-
-  String _titleName = appName;
 
   List<BottomItemInfo> _buttonItemList = [
     BottomItemInfo("首页", Icons.home, HomeListPage()),
@@ -53,7 +50,7 @@ class _MainPageState extends State<MainPage> {
     return AppBar(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(16.0))),
         backgroundColor: appMainColor,
-        title: Text(_titleName),
+        title: Text(_buttonItemList[_pageIndex].name),
         centerTitle: true,
 //      bottom: PreferredSize(
 //          child: Container(
@@ -128,7 +125,6 @@ class _MainPageState extends State<MainPage> {
       onPageChanged: (int page) {
         setState(() {
           this._pageIndex = page;
-          _titleName = _buttonItemList[_pageIndex].name;
         });
       },
       controller: _pageController,

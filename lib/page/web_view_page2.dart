@@ -1,5 +1,6 @@
 
 import 'package:atlan_wan_android_flutter/util/constants.dart';
+import 'package:atlan_wan_android_flutter/widget/unescape_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,7 +24,7 @@ class _WebViewPageState2 extends State<WebViewPage2> {
       url: widget.url,
       appBar: AppBar(
         backgroundColor: appMainColor,
-        title: Text(widget.title),
+        title: UnescapeText(widget.title),
         leading: BackButton(),
         actions: <Widget>[
           IconButton(

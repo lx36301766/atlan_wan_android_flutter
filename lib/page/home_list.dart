@@ -7,6 +7,7 @@ import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
+import 'package:atlan_wan_android_flutter/widget/article_item_widget.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -22,17 +23,13 @@ class HomeListPage extends StatefulWidget {
 class _HomeListPageState extends KeepAliveState<HomeListPage> {
 
   ScrollController _scrollController;
-
   PageController _pageController;
 
   int _listPageIndex = 0;
-
   int _articleTopSize = 0;
 
   List<HomeBannerBean> _bannerListData;
-
   List<HomeListDataBean> _homeListData = [];
-
   HomeListBean _homeListBean;
 
   @override
@@ -81,7 +78,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
       } else if (index == _homeListData.length + 1) {
         return _buildLoadMore();
       } else {
-        return _buildHomeListItem(index);
+        return ArticleItemWidget(_homeListData[index - 1], index, _articleTopSize);
       }
     }
 
@@ -184,95 +181,6 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 20),
         child: Text(loadMore),
-      ),
-    );
-  }
-
-  Widget _buildHomeListItem(int index) {
-    HomeListDataBean data = _homeListData[index - 1];
-    data.title = htmlUnescape.convert(data.title);
-    return Container(
-//      color: Colors.blue,
-      padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
-      child: Card(
-        color: Colors.white,
-        elevation: 5.0,
-        child: InkWell(
-          splashColor: Color(0xFF30f86F),
-          highlightColor: appMainColor,
-          onTap: () {
-            var data = _homeListData[index - 1];
-            Pages.openWebView(context, data.title, data.link);
-          },
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical:5, horizontal:12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 10, bottom: 10),
-                  child: Text(data.title,
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight.w600,
-                      wordSpacing: 5.0,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 5, bottom: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      Flexible(
-                        flex: 10,
-                        child: Row(
-                          children: <Widget>[
-                            Visibility(
-                              visible: index <= _articleTopSize,
-                              child: Padding(
-                                padding: const EdgeInsets.only(right: 5),
-                                child: Image.asset('image/top.png',
-                                  fit: BoxFit.none,
-                                  width: 15,
-                                  height: 15,
-                                  scale: 7.0,
-                                ),
-                              ),
-                            ),
-                            Text
-                              ("${data.author} • ${data.superChapterName} • ${data.chapterName}",
-                              style: TextStyle(
-                                fontSize: 12.0,
-                                color: Colors.grey.shade500,
-                                fontWeight: FontWeight.w400,
-                                wordSpacing: 2.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Flexible(
-                        flex: 3,
-                        child: Text(data.niceDate,
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.grey.shade500,
-                            fontWeight: FontWeight.w400,
-                            wordSpacing: 1.5,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
       ),
     );
   }
