@@ -20,12 +20,12 @@ class _MainPageState extends State<MainPage> {
   int _pageIndex = 0;
   PageController _pageController;
 
-  List<BottomItemInfo> _buttonItemList = [
-    BottomItemInfo("首页", Icons.home, HomeListPage()),
-    BottomItemInfo("体系", Icons.cloud, KnowledgeSystemListPage()),
-    BottomItemInfo("导航", Icons.navigation, NavigationListPage()),
-    BottomItemInfo("项目", Icons.folder, ProjectListPage()),
-    BottomItemInfo("公共号", Icons.receipt, WechatPublicListPage()),
+  List<_BottomItemInfo> _buttonItemList = [
+    _BottomItemInfo("首页", Icons.home, HomeListPage()),
+    _BottomItemInfo("体系", Icons.cloud, KnowledgeSystemListPage()),
+    _BottomItemInfo("导航", Icons.navigation, NavigationListPage()),
+    _BottomItemInfo("项目", Icons.folder, ProjectListPage()),
+    _BottomItemInfo("公共号", Icons.receipt, WechatPublicListPage()),
   ];
 
   @override
@@ -152,12 +152,12 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-class BottomItemInfo {
+class _BottomItemInfo {
 
   String name;
   IconData icon;
   Widget widget;
 
-  BottomItemInfo(this.name, this.icon, this.widget);
+  _BottomItemInfo(this.name, this.icon, this.widget);
 
 }

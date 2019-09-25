@@ -9,20 +9,13 @@ import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
+import 'package:atlan_wan_android_flutter/widget/single_page_provider_consumer.dart';
 import 'package:atlan_wan_android_flutter/widget/unescape_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
 
-class ProjectListPage extends StatefulWidget {
-
-  @override
-  _ProjectListPageState createState() => _ProjectListPageState();
-}
-
-class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerProviderStateMixin {
-
-  TabController _tabController;
+class ProjectListModel extends ChangeNotifier {
 
   var _projectData = <KnowledgeSystemBean>[];
 
@@ -34,29 +27,13 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
 
   Map<int, Set<HomeListDataBean>> _homeListBeans = {};
 
-  @override
-  void initState() {
-    super.initState();
-    _requestProjectData();
-  }
-
   Future<void> _requestProjectData() async {
     List<KnowledgeSystemBean> data = await Api.getProject();
     print(data);
     if (data != null && data.length > 0) {
-      setState(() {
-        _projectData = data;
-        _listPageIndexes = List.generate(_projectData.length,  (int index) => 1);
-        _tabController = TabController(length: _projectData.length, vsync: this)..addListener(() {
-          if (_tabController.index.toDouble() == _tabController.animation.value) {
-            print("change selected tab index = ${_tabController.index}");
-            setState(() {
-              _selectedItemIndex = _tabController.index;
-              _requestProjectListData(_selectedItemIndex);
-            });
-          }
-        });
-      });
+      _projectData = data;
+      _listPageIndexes = List.generate(_projectData.length,  (int index) => 1);
+      notifyListeners();
       _requestProjectListData(_selectedItemIndex);
     }
   }
@@ -67,31 +44,76 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
     if (dataBean == null) {
       return false;
     }
-    setState(() {
-      _isLastPage = dataBean.pageCount < 2 || dataBean.over;
-      print("_isLastPage=$_isLastPage");
-      if (_homeListBeans[index] == null) {
-        _homeListBeans[index] = LinkedHashSet<HomeListDataBean>();
-      }
-      if (dataBean.datas != null && dataBean.datas.length > 0) {
-        _listPageIndexes[index]++;
-        _homeListBeans[index].addAll(dataBean.datas);
-      }
-    });
+    _isLastPage = dataBean.pageCount < 2 || dataBean.over;
+    print("_isLastPage=$_isLastPage");
+    if (_homeListBeans[index] == null) {
+      _homeListBeans[index] = LinkedHashSet<HomeListDataBean>();
+    }
+    if (dataBean.datas != null && dataBean.datas.length > 0) {
+      _listPageIndexes[index]++;
+      _homeListBeans[index].addAll(dataBean.datas);
+    }
+    notifyListeners();
     return true;
+  }
+
+  Future<bool> _requestCurrentProjectListData() async => _requestProjectListData(_selectedItemIndex);
+
+  void onTabChange(int index) {
+    _selectedItemIndex = index;
+    _requestProjectListData(_selectedItemIndex);
+  }
+
+}
+
+
+
+class ProjectListPage extends StatefulWidget {
+
+  @override
+  _ProjectListPageState createState() => _ProjectListPageState();
+}
+
+class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerProviderStateMixin {
+
+  TabController _tabController;
+
+  ProjectListModel _model;
+
+  @override
+  void initState() {
+    super.initState();
+    _model = ProjectListModel().._requestProjectData();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    List<Tab> tabs = List.generate(_projectData.length, (int index) =>
-        UnescapeTab(text: _projectData[index].name));
-    return Scaffold(
-      appBar: _tabController == null ? null : _buildPageSlider(tabs),
-      body: _tabController == null ? EmptyHolder() : TabBarView(
-        controller: _tabController,
-        children: List.generate(tabs.length, (int index) => _buildContent(_homeListBeans[index])),
-      ),
+    return SinglePageProviderConsumer<ProjectListModel>(
+      model: ProjectListModel().._requestProjectData(),
+      builder:(context, model, child) {
+        var length = model._projectData.length;
+        if (length > 0) {
+          this._model = model;
+          if (_tabController == null) {
+            _tabController = TabController(length: _model._projectData.length, vsync: this)..addListener(() {
+              if (_tabController.index.toDouble() == _tabController.animation.value) {
+                print("change selected tab index = ${_tabController.index}");
+                _model.onTabChange(_tabController.index);
+              }
+            });
+          }
+          return Scaffold(
+            appBar: _buildPageSlider(List.generate(length, (int index) => UnescapeTab(text: model._projectData[index].name))),
+            body: TabBarView(
+              controller: _tabController,
+              children: List.generate(length, (int index) => _buildContent(model, index)),
+            ),
+          );
+        } else {
+          return EmptyHolder();
+        }
+      }
     );
   }
 
@@ -115,15 +137,16 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
     );
   }
 
-  Widget _buildContent(Set<HomeListDataBean> dataSet) {
+  Widget _buildContent(ProjectListModel model, int index) {
+    Set<HomeListDataBean> dataSet = model._homeListBeans[index];
     if (dataSet == null) {
       return EmptyHolder();
     } else {
       List<HomeListDataBean> data = List.from(dataSet);
       return KeepAliveStateContainer(
         child: LoadMore(
-          isFinish: _isLastPage,
-          onLoadMore: ()=> _requestProjectListData(_selectedItemIndex),
+          isFinish: model._isLastPage,
+          onLoadMore: ()=> model._requestCurrentProjectListData(),
           textBuilder: (status) {
             if (status == LoadMoreStatus.nomore && data.isEmpty) {
               return "暂无数据";
@@ -211,17 +234,6 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
       ),
     );
   }
-  
-//  Widget _buildLoadMore() {
-//    print("_homeListBean.pageCount=${getSelectedListBean()?.pageCount}, _listPageIndex=$_listPageIndex");
-//    String loadMore = getSelectedListBean()?.pageCount == _listPageIndex ? "我是有底线的": "加载中...";
-//    return Center(
-//      child: Padding(
-//        padding: EdgeInsets.symmetric(vertical: 20),
-//        child: Text(loadMore),
-//      ),
-//    );
-//  }
 
   @override
   void dispose() {

@@ -12,6 +12,74 @@ import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:provider/provider.dart';
+
+class HomeListModel extends ChangeNotifier {
+
+  int _listPageIndex = 0;
+
+  int _articleTopSize = 0;
+
+  List<HomeBannerBean> _bannerListData;
+
+  List<HomeListDataBean> _homeListData = [];
+
+  HomeListBean _lastHomeListBean;
+
+  void _requestBannerData() async {
+    List<HomeBannerBean> data = await Api.getHomeBanner();
+    print(data.toString());
+    if (data != null && data.length > 0) {
+        _bannerListData = data;
+        notifyListeners();
+    }
+  }
+
+  void _requestListData() async {
+    List<Future> tasks = List();
+    if (_listPageIndex == 0) {
+      tasks.add(Api.getArticleTop());
+    }
+    tasks.add(Api.getHomeList(_listPageIndex));
+    dynamic result = await Future.wait(tasks);
+    List<HomeListDataBean> articleTopData;
+    HomeListBean homeListBean;
+    if (result.length == 2) {
+      articleTopData = result[0];
+      homeListBean = result[1];
+    } else if (result.length == 1) {
+      homeListBean = result[0];
+    } else {
+      return;
+    }
+    if (articleTopData != null && articleTopData.isNotEmpty) {
+      _articleTopSize = articleTopData.length;
+      _homeListData.addAll(articleTopData);
+    }
+    if (homeListBean != null && homeListBean.datas.isNotEmpty) {
+      _lastHomeListBean = homeListBean;
+      _homeListData.addAll(_lastHomeListBean.datas);
+    }
+    if (articleTopData != null || homeListBean != null) {
+      notifyListeners();
+    }
+  }
+
+  void _requestNextPageData() {
+    _listPageIndex++;
+    _requestListData();
+  }
+
+  void _reloadAllData() {
+    _homeListData.clear();
+    _listPageIndex = 0;
+    _requestBannerData();
+    _requestListData();
+  }
+
+}
+
+
 
 class HomeListPage extends StatefulWidget {
 
@@ -25,124 +93,75 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
   ScrollController _scrollController;
   PageController _pageController;
 
-  int _listPageIndex = 0;
-  int _articleTopSize = 0;
-
-  List<HomeBannerBean> _bannerListData;
-  List<HomeListDataBean> _homeListData = [];
-  HomeListBean _homeListBean;
+  HomeListModel _model;
 
   @override
   void initState() {
     super.initState();
 
-    void _scrollListener() {
-      //滑到最底部刷新
+    _model = HomeListModel()
+      .._requestBannerData()
+      .._requestListData();
+
+    _scrollController = ScrollController()
+      ..addListener(() {
+        //滑到最底部刷新
 //    print("pixels=${_scrollController.position.pixels} , maxScrollExtent=${_scrollController.position.maxScrollExtent}");
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        print("到底啦！！！");
+        if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+          debugPrint("到底啦！！！");
 //      // 模拟滑到底了
 //      if (_listPageIndex < 3) {
 //        _listPageIndex++;
 //      } else {
 //        _listPageIndex = _homeListBean.pageCount;
 //      }
-        _listPageIndex++;
-        _requestListData();
-      }
-    }
-
-    _scrollController = ScrollController()..addListener(_scrollListener);
+          _model._requestNextPageData();
+        }
+      });
     _pageController = PageController(initialPage: 0);
-    _requestBannerData();
-    _requestListData();
-  }
-
-  @override
-  void dispose() {
-    _scrollController?.dispose();
-    _pageController?.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (_bannerListData == null && _homeListData.isEmpty) {
-      return EmptyHolder();
-    }
-
-    Widget _buildItem(int index) {
-      if (index == 0) {
-        return _buildBanner(index);
-      } else if (index == _homeListData.length + 1) {
-        return _buildLoadMore();
-      } else {
-        return ArticleItemWidget(_homeListData[index - 1], index, _articleTopSize);
-      }
-    }
-
-    Widget list = ListView.builder(
-      physics: AlwaysScrollableScrollPhysics(),
-      itemBuilder: (context, i) => _buildItem(i),
-      itemCount: _homeListData == null ? 0 : _homeListData.length + 2,
-//      controller: _scrollController,
+    return ChangeNotifierProvider(
+        builder: (_) => _model,
+        child: Consumer<HomeListModel>(
+          builder: (context, model, child) {
+            return model._bannerListData == null && model._homeListData.isEmpty ? EmptyHolder() : NotificationListener<ScrollNotification>(
+              onNotification: (ScrollNotification scrollNotification) => false,
+              // RefreshIndicator / LiquidPullToRefresh
+              child: LiquidPullToRefresh(
+                scrollController: _scrollController,
+                color: appMainColor,
+                onRefresh: () {
+                  _pageController.jumpToPage(0);
+                  model._reloadAllData();
+                  return null;
+                },
+                child: ListView.builder(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  itemBuilder: (context, i) => _buildItem(i, model),
+                  itemCount: model._homeListData == null ? 0 : model._homeListData.length + 2,
+                ),
+              ),
+            );
+          }
+        )
     );
-
-    var _pullToRefreshWidget = NotificationListener<ScrollNotification>(
-      onNotification: (ScrollNotification scrollNotification) => false,
-      // RefreshIndicator / LiquidPullToRefresh
-      child: LiquidPullToRefresh(
-        scrollController: _scrollController,
-        color: appMainColor,
-        onRefresh: _pullToRefresh,
-        child: list,
-      ),
-    );
-    return _pullToRefreshWidget;
   }
 
-  Future<Null> _pullToRefresh() async {
-
-    _pageController.jumpToPage(0);
-    _requestBannerData();
-
-    _homeListData.clear();
-    _listPageIndex = 0;
-    _requestListData();
-    return null;
-  }
-
-  Future<void> _requestBannerData() async {
-    List<HomeBannerBean> data = await Api.getHomeBanner();
-    print(data.toString());
-    if (data != null && data.length > 0 && mounted) {
-      setState(() {
-        _bannerListData = data;
-      });
+  Widget _buildItem(int index, HomeListModel data) {
+    if (index == 0) {
+      return _buildBanner(index, data._bannerListData);
+    } else if (index == data._homeListData.length + 1) {
+      return _buildLoadMore(data._lastHomeListBean, data._listPageIndex);
+    } else {
+      return ArticleItemWidget(data._homeListData[index - 1], index, data._articleTopSize);
     }
   }
 
-  Future<void> _requestListData() async {
-    List<HomeListDataBean> articleTopData;
-    if (_listPageIndex == 0) {
-      articleTopData = await Api.getArticleTop();
-      _articleTopSize = articleTopData.length;
-    }
-    HomeListBean bean = await Api.getHomeList(_listPageIndex);
-    print(bean.toString());
-    if (mounted) {
-      setState(() {
-        _homeListBean = bean;
-        if (articleTopData != null && articleTopData.isNotEmpty) {
-          _homeListData.addAll(articleTopData);
-        }
-        _homeListData.addAll(bean.datas);
-      });
-    }
-  }
-
-  Widget _buildBanner(int index) {
+  Widget _buildBanner(int index, List<HomeBannerBean> _bannerListData) {
     return AspectRatio(
       aspectRatio: 9 / 5,
       child: Card(
@@ -174,7 +193,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
     );
   }
 
-  Widget _buildLoadMore() {
+  Widget _buildLoadMore(HomeListBean _homeListBean, int _listPageIndex) {
     print("_homeListBean.pageCount=${_homeListBean?.pageCount}, _listPageIndex=$_listPageIndex");
     String loadMore = _homeListBean?.pageCount == _listPageIndex ? "我是有底线的": "加载中...";
     return Center(
@@ -183,6 +202,13 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
         child: Text(loadMore),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _scrollController?.dispose();
+    _pageController?.dispose();
+    super.dispose();
   }
 
 }

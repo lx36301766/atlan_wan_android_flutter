@@ -9,7 +9,24 @@ import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/custom_expansion_tile.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:random_color/random_color.dart';
+
+class KnowledgeSystemModel extends ChangeNotifier {
+
+  var _knowledgeSystemData = <KnowledgeSystemBean>[];
+
+  Future<void> _requestKnowledgeSystemData() async {
+    List<KnowledgeSystemBean> data = await Api.getKnowledgeSystem();
+    print(data);
+    if (data != null && data.length > 0) {
+      _knowledgeSystemData = data;
+      notifyListeners();
+    }
+  }
+
+}
+
 
 class KnowledgeSystemListPage extends StatefulWidget {
 
@@ -20,82 +37,34 @@ class KnowledgeSystemListPage extends StatefulWidget {
 
 class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPage> {
 
-  var _knowledgeSystemData = <KnowledgeSystemBean>[];
+  KnowledgeSystemModel _model;
+
+  RandomColor _randomColor = RandomColor();
 
   @override
   void initState() {
     super.initState();
-    _requestKnowledgeSystemData();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  Future<void> _requestKnowledgeSystemData() async {
-    List<KnowledgeSystemBean> data = await Api.getKnowledgeSystem();
-    print(data);
-    if (data != null && data.length > 0) {
-      setState(() {
-        _knowledgeSystemData = data;
-      });
-    }
+    _model = KnowledgeSystemModel().._requestKnowledgeSystemData();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (_knowledgeSystemData.isEmpty) {
-      return EmptyHolder();
-    }
-    Widget list = ListView.builder(
-      itemBuilder: (context, i) => _buildItem(_knowledgeSystemData[i]),
-      itemCount: _knowledgeSystemData.length,
+    return ChangeNotifierProvider(
+      builder: (_) => _model,
+      child: Consumer<KnowledgeSystemModel>(
+        builder: (context, model, child) {
+          return model._knowledgeSystemData.isEmpty ? EmptyHolder() : ListView.builder(
+            itemBuilder: (context, i) => _buildItem(model._knowledgeSystemData[i]),
+            itemCount: model._knowledgeSystemData.length,
 //      controller: _scrollController,
+          );
+        }
+      ),
     );
-
-//    var _pullToRefreshWidget = NotificationListener<ScrollNotification>(
-//      onNotification: (scrollNotification) => false,
-//      // RefreshIndicator / LiquidPullToRefresh
-//      child: LiquidPullToRefresh(
-//        color: appIconColor,
-//        onRefresh: _pullToRefresh,
-//        child: list,
-//      ),
-//    );
-    return list;
   }
 
-  // Future<void> _pullToRefresh() async {
-  //   _requestKnowledgeSystemData();
-  //   return null;
-  // }
-
-//  PageStorageKey<_KnowledgeSystemListPageState> _key = PageStorageKey();
-
-  RandomColor _randomColor = RandomColor();
-
   Widget _buildItem(KnowledgeSystemBean data) {
-
-//    for (KnowledgeSystemBean itemBean in data.children) {
-//      titles.add(Divider());
-//      titles.add( ListTile(
-//        onTap: () {},
-//        dense: true,
-//        contentPadding: EdgeInsets.symmetric(horizontal: 0),
-//        title: Container(
-//          child: Center(
-//            child: Text(itemBean.name,
-//              style: TextStyle(
-//                fontSize: 13.0,
-//                fontStyle: FontStyle.normal,
-//                wordSpacing: 5.0,
-//              ),),
-//          ),
-//        ),
-//      ));
-//    }
     return Column(
       children: <Widget>[
         CustomExpansionTile(
@@ -127,24 +96,11 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
                       Pages.openClassificationList(context, itemData);
                     },
                   );
-//                  return InkWell(
-//                    child: Container(
-//                      child: Text(itemData.name, style: TextStyle(color: appIconColor, fontSize: 13.0)),
-//                      padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-//                    ),
-//                    onTap: () {
-//
-//                    },
-//                  );
                 }).toList(),
               ),
             )
           ],
         ),
-//        Divider(
-//          color: appIconColor,
-//          height: 3,
-//        )
       ],
     );
   }
