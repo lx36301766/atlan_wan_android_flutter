@@ -78,12 +78,9 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
 
   TabController _tabController;
 
-  ProjectListModel _model;
-
   @override
   void initState() {
     super.initState();
-    _model = ProjectListModel().._requestProjectData();
   }
 
   @override
@@ -94,12 +91,11 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
       builder:(context, model, child) {
         var length = model._projectData.length;
         if (length > 0) {
-          this._model = model;
           if (_tabController == null) {
-            _tabController = TabController(length: _model._projectData.length, vsync: this)..addListener(() {
+            _tabController = TabController(length: model._projectData.length, vsync: this)..addListener(() {
               if (_tabController.index.toDouble() == _tabController.animation.value) {
                 print("change selected tab index = ${_tabController.index}");
-                _model.onTabChange(_tabController.index);
+                model.onTabChange(_tabController.index);
               }
             });
           }

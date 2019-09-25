@@ -8,8 +8,8 @@ import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
+import 'package:atlan_wan_android_flutter/widget/single_page_provider_consumer.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class NavigationModel extends ChangeNotifier {
 
@@ -49,49 +49,45 @@ class _NavigationListPageState extends KeepAliveState<NavigationListPage> {
 
   ScrollController _scrollController;
 
-  NavigationModel _model;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _model = NavigationModel().._requestKnowledgeSystemData();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ChangeNotifierProvider(
-      builder: (_) => _model,
-      child: Consumer<NavigationModel>(
-        builder: (context, model, child) {
-          return model._navigationData.isEmpty ? EmptyHolder() : Row(
-            children: <Widget>[
-              Expanded(
-                child: Scrollbar(
-                  child: ListView.separated(
-                    itemBuilder: (context, i) => _buildNavigation(i, model),
-                    separatorBuilder: (BuildContext context, int index) => Divider(height:1.0,color: Colors.black26),
-                    itemCount: model._navigationData?.length,
-                  ),
+    return SinglePageProviderConsumer<NavigationModel>(
+      model: NavigationModel().._requestKnowledgeSystemData(),
+      builder: (context, model, child) {
+        return model._navigationData.isEmpty ? EmptyHolder() : Row(
+          children: <Widget>[
+            Expanded(
+              child: Scrollbar(
+                child: ListView.separated(
+                  itemBuilder: (context, i) => _buildNavigation(i, model),
+                  separatorBuilder: (BuildContext context, int index) => Divider(height:1.0,color: Colors.black26),
+                  itemCount: model._navigationData?.length,
                 ),
-                flex: 1,
               ),
-              Expanded(
-                child: Scrollbar(
-                  child: ListView.separated(
-                    itemBuilder: (context, i) => _buildNavigationItem(model._navigationData[model._selectItemIndex].articles[i]),
-                    separatorBuilder: (BuildContext context, int index) => Divider(height:1.0,color: appMainColor),
-                    itemCount: model.getChildItemCount(),
-                    controller: _scrollController,
-                  ),
+              flex: 1,
+            ),
+            Expanded(
+              child: Scrollbar(
+                child: ListView.separated(
+                  itemBuilder: (context, i) => _buildNavigationItem(model._navigationData[model._selectItemIndex].articles[i]),
+                  separatorBuilder: (BuildContext context, int index) => Divider(height:1.0,color: appMainColor),
+                  itemCount: model.getChildItemCount(),
+                  controller: _scrollController,
                 ),
-                flex: 2,
               ),
-            ],
-          );
-        }
-      ),
+              flex: 2,
+            ),
+          ],
+        );
+      }
     );
   }
 

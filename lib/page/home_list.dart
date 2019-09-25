@@ -9,10 +9,10 @@ import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/article_item_widget.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
+import 'package:atlan_wan_android_flutter/widget/single_page_provider_consumer.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:provider/provider.dart';
 
 class HomeListModel extends ChangeNotifier {
 
@@ -124,30 +124,29 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ChangeNotifierProvider(
-        builder: (_) => _model,
-        child: Consumer<HomeListModel>(
-          builder: (context, model, child) {
-            return model._bannerListData == null && model._homeListData.isEmpty ? EmptyHolder() : NotificationListener<ScrollNotification>(
-              onNotification: (ScrollNotification scrollNotification) => false,
-              // RefreshIndicator / LiquidPullToRefresh
-              child: LiquidPullToRefresh(
-                scrollController: _scrollController,
-                color: appMainColor,
-                onRefresh: () {
-                  _pageController.jumpToPage(0);
-                  model._reloadAllData();
-                  return null;
-                },
-                child: ListView.builder(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  itemBuilder: (context, i) => _buildItem(i, model),
-                  itemCount: model._homeListData == null ? 0 : model._homeListData.length + 2,
-                ),
+    return SinglePageProviderConsumer<HomeListModel>(
+        model: _model,
+        builder: (context, model, child) {
+          return model._bannerListData == null && model._homeListData.isEmpty ? EmptyHolder() : NotificationListener<
+              ScrollNotification>(
+            onNotification: (ScrollNotification scrollNotification) => false,
+            // RefreshIndicator / LiquidPullToRefresh
+            child: LiquidPullToRefresh(
+              scrollController: _scrollController,
+              color: appMainColor,
+              onRefresh: () {
+                _pageController.jumpToPage(0);
+                model._reloadAllData();
+                return null;
+              },
+              child: ListView.builder(
+                physics: AlwaysScrollableScrollPhysics(),
+                itemBuilder: (context, i) => _buildItem(i, model),
+                itemCount: model._homeListData == null ? 0 : model._homeListData.length + 2,
               ),
-            );
-          }
-        )
+            ),
+          );
+        }
     );
   }
 

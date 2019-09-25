@@ -8,8 +8,8 @@ import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/custom_expansion_tile.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
+import 'package:atlan_wan_android_flutter/widget/single_page_provider_consumer.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:random_color/random_color.dart';
 
 class KnowledgeSystemModel extends ChangeNotifier {
@@ -37,30 +37,25 @@ class KnowledgeSystemListPage extends StatefulWidget {
 
 class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPage> {
 
-  KnowledgeSystemModel _model;
-
   RandomColor _randomColor = RandomColor();
 
   @override
   void initState() {
     super.initState();
-    _model = KnowledgeSystemModel().._requestKnowledgeSystemData();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return ChangeNotifierProvider(
-      builder: (_) => _model,
-      child: Consumer<KnowledgeSystemModel>(
-        builder: (context, model, child) {
-          return model._knowledgeSystemData.isEmpty ? EmptyHolder() : ListView.builder(
-            itemBuilder: (context, i) => _buildItem(model._knowledgeSystemData[i]),
-            itemCount: model._knowledgeSystemData.length,
+    return SinglePageProviderConsumer<KnowledgeSystemModel>(
+      model: KnowledgeSystemModel().._requestKnowledgeSystemData(),
+      builder: (context, model, child) {
+        return model._knowledgeSystemData.isEmpty ? EmptyHolder() : ListView.builder(
+          itemBuilder: (context, i) => _buildItem(model._knowledgeSystemData[i]),
+          itemCount: model._knowledgeSystemData.length,
 //      controller: _scrollController,
-          );
-        }
-      ),
+        );
+      }
     );
   }
 
