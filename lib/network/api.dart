@@ -53,7 +53,7 @@ class Api {
   }
 
   static Future<HomeListBean> getKnowledgeSystemChildren(int page, int id) async {
-    var data = await api.fetchGet(apiHomeList + page.toString(), {"cid": "$id"});
+    var data = await api.fetchGet(apiKnowledgeSystemChildren + page.toString(), {"cid": "$id"});
     return HomeListBean.fromJson(data);
   }
 
@@ -155,7 +155,7 @@ class Api {
 
 
   // 积分相关接口
-  static Future<UserPointRankListBean> getPointRankList(int page) async {
+  static Future<UserPointRankListBean> getUserPointRankList(int page) async {
     var data = await api.fetchGet(apiGetPointRankList + page.toString());
     return UserPointRankListBean.fromJson(data);
   }

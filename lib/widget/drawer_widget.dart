@@ -3,7 +3,9 @@ import 'package:atlan_wan_android_flutter/bloc/login_bloc.dart';
 import 'package:atlan_wan_android_flutter/entity/login_register_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/user_point_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
+import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/util/storage_utils.dart';
+import 'package:atlan_wan_android_flutter/util/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'after_layout.dart';
 import 'login_dialog.dart';
@@ -77,7 +79,16 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
                       builder: (context, snapshot) {
                         return Padding(
                           padding: EdgeInsets.only(top: 10),
-                          child: Text("积分: ${snapshot.hasData ? snapshot.data.coinCount : 0}"),
+                          child: GestureDetector(
+                            onTap: () => {
+                              Pages.openPointDetailPage(context, null)
+                            },
+                            child: Text("积分: ${snapshot.hasData ? snapshot.data.coinCount : 0}",
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ),
                         );
                       }),
                 ],

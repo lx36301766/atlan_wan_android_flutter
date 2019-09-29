@@ -12,6 +12,17 @@ import 'package:http/http.dart' as http;
 import 'api_resp.dart';
 import 'api_url.dart';
 
+class ApiError extends Error {
+
+  final String message;
+
+  ApiError(this.message);
+
+  String toString() => "ApiError: $message";
+}
+
+
+
 abstract class ApiNetwork {
 
   static const network = 2;

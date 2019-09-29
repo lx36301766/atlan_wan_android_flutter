@@ -54,7 +54,11 @@ const String apiKnowledgeSystem = "tree";
 
 // 2.2 知识体系下的文章
 // http://www.wanandroid.com/article/list/0/json?cid=60
-const String apiKnowledgeSystemChildren = "article/list/";
+const String apiKnowledgeSystemChildren = apiHomeList;
+
+// 2.3 按照作者昵称搜索文章
+// https://wanandroid.com/article/list/0/json?author=鸿洋
+const String apiGetArticleByAuthor = apiHomeList;
 
 
 

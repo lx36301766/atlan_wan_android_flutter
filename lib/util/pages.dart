@@ -2,6 +2,7 @@
 import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
 import 'package:atlan_wan_android_flutter/page/classification_list_page.dart';
 import 'package:atlan_wan_android_flutter/page/main_page.dart';
+import 'package:atlan_wan_android_flutter/page/point_details_page.dart';
 import 'package:atlan_wan_android_flutter/page/splash_page.dart';
 import 'package:atlan_wan_android_flutter/page/web_view_page2.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,14 @@ class Pages {
           model: ClassificationModel(bean),
           child: ClassificationListPage()
         );
+      },
+    ));
+  }
+
+  static void openPointDetailPage(BuildContext context, KnowledgeSystemBean bean) {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (BuildContext context, _, __) {
+        return PointDetailsList();
       },
     ));
   }
