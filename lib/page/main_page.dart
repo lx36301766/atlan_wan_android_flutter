@@ -103,9 +103,9 @@ class _MainPageState extends State<MainPage> {
     "updateCollectWebsite": () => Api.updateCollectWebsite(0, "", ""),
     "deleteCollectWebsite": () => Api.deleteCollectWebsite(0),
 
-    "getPointLeaderboardList": () => Api.getPointLeaderboardList(1),
+    "getPointLeaderboardList": () => Api.getPointRankList(1),
     "getUserPoint": () => Api.getUserPoint(),
-    "getUserPointGetList": () => Api.getUserPointGetList(1),
+    "getUserPointGetList": () => Api.getUserEarnPointsList(1),
   };
 
   Widget buildBody() {

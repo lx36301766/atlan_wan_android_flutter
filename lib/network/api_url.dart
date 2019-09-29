@@ -136,12 +136,12 @@ const String apiDeleteCollectWebsite = "lg/collect/deletetool";
 
 
 // 9.1 积分排行榜接口
-const String apiGetPointLeaderboardList = "coin/rank/";
+const String apiGetPointRankList = "coin/rank/";
 
 // 9.2 获取个人积分，需要登录后访问
 const String apiGetUserPoint = "lg/coin/userinfo";
 
 // 9.1 获取个人积分获取列表，需要登录后访问
-const String apiGetUserPointGetList = "lg/coin/list/";
+const String apiUserEarnPointList = "lg/coin/list/";
 
 

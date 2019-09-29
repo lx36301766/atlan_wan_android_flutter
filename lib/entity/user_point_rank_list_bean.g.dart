@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_point_leaderboard_bean.dart';
+part of 'user_point_rank_list_bean.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserPointLeaderboardBean _$UserPointLeaderboardBeanFromJson(
+UserPointRankListBean _$UserPointRankListBeanFromJson(
     Map<String, dynamic> json) {
-  return UserPointLeaderboardBean(
+  return UserPointRankListBean(
       json['curPage'] as int,
       (json['datas'] as List)
           ?.map((e) => e == null
@@ -21,8 +21,8 @@ UserPointLeaderboardBean _$UserPointLeaderboardBeanFromJson(
       json['total'] as int);
 }
 
-Map<String, dynamic> _$UserPointLeaderboardBeanToJson(
-        UserPointLeaderboardBean instance) =>
+Map<String, dynamic> _$UserPointRankListBeanToJson(
+        UserPointRankListBean instance) =>
     <String, dynamic>{
       'curPage': instance.curPage,
       'datas': instance.datas,

@@ -1,18 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_point_get_list_bean.dart';
+part of 'user_earn_points_list_bean.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserPointGetListBean _$UserPointGetListBeanFromJson(Map<String, dynamic> json) {
-  return UserPointGetListBean(
+UserEarnPointsListBean _$UserEarnPointsListBeanFromJson(Map<String, dynamic> json) {
+  return UserEarnPointsListBean(
       json['curPage'] as int,
       (json['datas'] as List)
           ?.map((e) => e == null
               ? null
-              : UserPointGetListBeanItem.fromJson(e as Map<String, dynamic>))
+              : UserEarnPointsListBeanItem.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['offset'] as int,
       json['over'] as bool,
@@ -20,8 +20,8 @@ UserPointGetListBean _$UserPointGetListBeanFromJson(Map<String, dynamic> json) {
       json['total'] as int);
 }
 
-Map<String, dynamic> _$UserPointGetListBeanToJson(
-        UserPointGetListBean instance) =>
+Map<String, dynamic> _$UserEarnPointsListBeanToJson(
+        UserEarnPointsListBean instance) =>
     <String, dynamic>{
       'curPage': instance.curPage,
       'datas': instance.datas,
@@ -31,9 +31,9 @@ Map<String, dynamic> _$UserPointGetListBeanToJson(
       'total': instance.total
     };
 
-UserPointGetListBeanItem _$UserPointGetListBeanItemFromJson(
+UserEarnPointsListBeanItem _$UserEarnPointsListBeanItemFromJson(
     Map<String, dynamic> json) {
-  return UserPointGetListBeanItem(
+  return UserEarnPointsListBeanItem(
       json['coinCount'] as int,
       json['date'] as int,
       json['desc'] as String,
@@ -44,8 +44,8 @@ UserPointGetListBeanItem _$UserPointGetListBeanItemFromJson(
       json['username'] as String);
 }
 
-Map<String, dynamic> _$UserPointGetListBeanItemToJson(
-        UserPointGetListBeanItem instance) =>
+Map<String, dynamic> _$UserEarnPointsListBeanItemToJson(
+        UserEarnPointsListBeanItem instance) =>
     <String, dynamic>{
       'coinCount': instance.coinCount,
       'date': instance.date,

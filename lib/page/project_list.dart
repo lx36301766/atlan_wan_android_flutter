@@ -91,14 +91,12 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
       builder:(context, model, child) {
         var length = model._projectData.length;
         if (length > 0) {
-          if (_tabController == null) {
-            _tabController = TabController(length: model._projectData.length, vsync: this)..addListener(() {
-              if (_tabController.index.toDouble() == _tabController.animation.value) {
-                print("change selected tab index = ${_tabController.index}");
-                model.onTabChange(_tabController.index);
-              }
-            });
-          }
+          _tabController ??= TabController(length: model._projectData.length, vsync: this)..addListener(() {
+            if (_tabController.index.toDouble() == _tabController.animation.value) {
+              print("change selected tab index = ${_tabController.index}");
+              model.onTabChange(_tabController.index);
+            }
+          });
           return Scaffold(
             appBar: _buildPageSlider(List.generate(length, (int index) => UnescapeTab(text: model._projectData[index].name))),
             body: TabBarView(
