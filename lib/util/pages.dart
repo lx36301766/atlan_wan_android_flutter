@@ -4,6 +4,7 @@ import 'package:atlan_wan_android_flutter/page/classification_list_page.dart';
 import 'package:atlan_wan_android_flutter/page/main_page.dart';
 import 'package:atlan_wan_android_flutter/page/point_details_page.dart';
 import 'package:atlan_wan_android_flutter/page/splash_page.dart';
+import 'package:atlan_wan_android_flutter/page/web_view_page.dart';
 import 'package:atlan_wan_android_flutter/page/web_view_page2.dart';
 import 'package:flutter/material.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -31,7 +32,7 @@ class Pages {
 //    }));
     Navigator.of(context).push(PageRouteBuilder(
       pageBuilder: (BuildContext context, _, __) {
-        return WebViewPage2(title: title, url: url);
+        return WebViewPage(title: title, url: url.replaceAll("http:", "https:"));
       },
       // transitionsBuilder: (_, Animation<double> animation, __, Widget child) {
       //   return FadeTransition(

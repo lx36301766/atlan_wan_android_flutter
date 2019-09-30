@@ -26,7 +26,8 @@ class HomeListModel extends ChangeNotifier {
 
   HomeListBean _lastHomeListBean;
 
-  void _requestBannerData() async {
+  Future<void> _requestBannerData() async {
+    print("_requestBannerData");
     List<HomeBannerBean> data = await Api.getHomeBanner();
     print(data.toString());
     if (data != null && data.length > 0) {
@@ -35,7 +36,8 @@ class HomeListModel extends ChangeNotifier {
     }
   }
 
-  void _requestListData() async {
+  Future<void> _requestListData() async {
+    print("_requestListData");
     List<Future> tasks = List();
     if (_listPageIndex == 0) {
       tasks.add(Api.getArticleTop());
@@ -65,16 +67,24 @@ class HomeListModel extends ChangeNotifier {
     }
   }
 
-  void _requestNextPageData() {
+  Future<void> _requestNextPageData() async {
+    print("_requestNextPageData");
     _listPageIndex++;
     _requestListData();
   }
 
-  void _reloadAllData() {
+  Future<void> _reloadAllData() async {
+    print("_reloadAllData");
     _homeListData.clear();
     _listPageIndex = 0;
     _requestBannerData();
     _requestListData();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print("HomeListModel dispose");
   }
 
 }
@@ -93,40 +103,25 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
   ScrollController _scrollController;
   PageController _pageController;
 
-  HomeListModel _model;
-
   @override
   void initState() {
     super.initState();
-
-    _model = HomeListModel()
-      .._requestBannerData()
-      .._requestListData();
-
-    _scrollController = ScrollController()
-      ..addListener(() {
-        //滑到最底部刷新
-//    print("pixels=${_scrollController.position.pixels} , maxScrollExtent=${_scrollController.position.maxScrollExtent}");
-        if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-          debugPrint("到底啦！！！");
-//      // 模拟滑到底了
-//      if (_listPageIndex < 3) {
-//        _listPageIndex++;
-//      } else {
-//        _listPageIndex = _homeListBean.pageCount;
-//      }
-          _model._requestNextPageData();
-        }
-      });
     _pageController = PageController(initialPage: 0);
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    debugPrint("_HomeListPageState build");
     return SinglePageProviderConsumer<HomeListModel>(
-        model: _model,
+        model: HomeListModel().._requestBannerData().._requestListData(),
         builder: (context, model, child) {
+          _scrollController ??= ScrollController()..addListener(() {
+              if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+                debugPrint("到底啦！！！");
+                model._requestNextPageData();
+              }
+            });
           return model._bannerListData == null && model._homeListData.isEmpty ? EmptyHolder() : NotificationListener<
               ScrollNotification>(
             onNotification: (ScrollNotification scrollNotification) => false,
@@ -136,8 +131,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
               color: appMainColor,
               onRefresh: () {
                 _pageController.jumpToPage(0);
-                model._reloadAllData();
-                return null;
+                return model._reloadAllData();
               },
               child: ListView.builder(
                 physics: AlwaysScrollableScrollPhysics(),

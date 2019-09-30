@@ -25,6 +25,12 @@ class KnowledgeSystemModel extends ChangeNotifier {
     }
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    print("KnowledgeSystemModel dispose");
+  }
+
 }
 
 
@@ -47,6 +53,7 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    print("_KnowledgeSystemListPageState build");
     return SinglePageProviderConsumer<KnowledgeSystemModel>(
       model: KnowledgeSystemModel().._requestKnowledgeSystemData(),
       builder: (context, model, child) {

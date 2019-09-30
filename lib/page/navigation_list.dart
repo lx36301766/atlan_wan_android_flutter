@@ -35,6 +35,12 @@ class NavigationModel extends ChangeNotifier {
     return _navigationData.length > _selectItemIndex ? _navigationData[_selectItemIndex].articles.length : 0;
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    print("NavigationModel dispose");
+  }
+
 }
 
 

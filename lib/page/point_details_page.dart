@@ -3,10 +3,12 @@ import 'package:atlan_wan_android_flutter/entity/user_earn_points_list_bean.dart
 import 'package:atlan_wan_android_flutter/entity/user_point_rank_list_bean.dart';
 import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:atlan_wan_android_flutter/network/api_network.dart';
+import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/widget/single_page_provider_consumer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/bezier_bounce_footer.dart';
+import 'package:flutter_easyrefresh/bezier_circle_header.dart';
 import 'package:flutter_easyrefresh/bezier_hour_glass_header.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
@@ -119,8 +121,12 @@ class _PointDetailListState extends KeepAliveState<PointDetailList> {
           }
           return Scrollbar(
             child: EasyRefresh(
-              header: MaterialHeader(),
-              footer: MaterialFooter(),
+              header: BezierCircleHeader(
+                backgroundColor: appMainColor,
+              ),
+              footer: BezierBounceFooter(
+                backgroundColor: appMainColor,
+              ),
               child: ListView.separated(
                   physics: AlwaysScrollableScrollPhysics(),
                   separatorBuilder: (BuildContext context, int index) => Divider(height:1.0,color: Colors.black26),

@@ -111,21 +111,16 @@ class _MainPageState extends State<MainPage> {
   Widget buildBody() {
 //    return IndexedStack(
 //      index: _pageIndex,
-//      children: <Widget>[
-//        HomeListPage(),
-//        KnowledgeSystemListPage(),
-//        NavigationListPage(),
-//        ProjectListPage(),
-//        WechatPublicListPage(),
-//      ],
+//      children: _buttonItemList.map((item) => item.widget).toList(),
 //    );
-    return PageView(
+    return PageView.builder(
+      itemCount: _buttonItemList.length,
+      itemBuilder: (context, index) => _buttonItemList.map((item) => item.widget).toList()[index],
       physics: NeverScrollableScrollPhysics(),
-      children: _buttonItemList.map((item) => item.widget).toList(),
       onPageChanged: (int page) {
-        setState(() {
-          this._pageIndex = page;
-        });
+//        setState(() {
+//          this._pageIndex = page;
+//        });
       },
       controller: _pageController,
     );
