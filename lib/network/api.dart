@@ -149,7 +149,10 @@ class Api {
 
 
   // 搜索相关接口
-
+  static Future<HomeListBean> getSearchResult(int page, String key) async {
+    var data = await api.fetchPost("$apiGetSearchResult$page/json", {"k": "$key"});
+    return HomeListBean.fromJson(data);
+  }
 
   // TODO相关接口
 

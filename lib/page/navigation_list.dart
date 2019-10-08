@@ -54,19 +54,20 @@ class NavigationListPage extends StatefulWidget {
 class _NavigationListPageState extends KeepAliveState<NavigationListPage> {
 
   ScrollController _scrollController;
-
+  NavigationModel _model;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    _model = NavigationModel().._requestKnowledgeSystemData();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return SinglePageProviderConsumer<NavigationModel>(
-      model: NavigationModel().._requestKnowledgeSystemData(),
+      model: _model,
       builder: (context, model, child) {
         return model._navigationData.isEmpty ? EmptyHolder() : Row(
           children: <Widget>[

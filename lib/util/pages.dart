@@ -1,6 +1,6 @@
 
 import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
-import 'package:atlan_wan_android_flutter/page/classification_list_page.dart';
+import 'package:atlan_wan_android_flutter/page/general_article_list_page.dart';
 import 'package:atlan_wan_android_flutter/page/main_page.dart';
 import 'package:atlan_wan_android_flutter/page/point_details_page.dart';
 import 'package:atlan_wan_android_flutter/page/splash_page.dart';
@@ -45,12 +45,23 @@ class Pages {
     ));
   }
 
+  static void openSearchResultListPage(BuildContext context, String key) {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (BuildContext context, _, __) {
+        return ScopedModel(
+            model: SearchResultModel(key),
+            child: GeneralArticleListPage<SearchResultModel>()
+        );
+      },
+    ));
+  }
+
   static void openClassificationList(BuildContext context, KnowledgeSystemBean bean) {
     Navigator.of(context).push(PageRouteBuilder(
       pageBuilder: (BuildContext context, _, __) {
         return ScopedModel(
-          model: ClassificationModel(bean),
-          child: ClassificationListPage()
+          model: ClassificationModel(bean.name, bean.id),
+          child: GeneralArticleListPage<ClassificationModel>()
         );
       },
     ));

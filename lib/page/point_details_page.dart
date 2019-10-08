@@ -13,6 +13,7 @@ import 'package:flutter_easyrefresh/bezier_hour_glass_header.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
+import 'package:flutter_easyrefresh/phoenix_footer.dart';
 
 class PointDetailsList extends StatelessWidget {
 
@@ -124,8 +125,8 @@ class _PointDetailListState extends KeepAliveState<PointDetailList> {
               header: BezierCircleHeader(
                 backgroundColor: appMainColor,
               ),
-              footer: BezierBounceFooter(
-                backgroundColor: appMainColor,
+              footer: PhoenixFooter(
+//                backgroundColor: appMainColor,
               ),
               child: ListView.separated(
                   physics: AlwaysScrollableScrollPhysics(),

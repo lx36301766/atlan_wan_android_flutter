@@ -103,6 +103,7 @@ class _MainPageState extends State<MainPage> {
     "updateCollectWebsite": () => Api.updateCollectWebsite(0, "", ""),
     "deleteCollectWebsite": () => Api.deleteCollectWebsite(0),
 
+    "getSearchResult": () => Api.getSearchResult(0, "flutter"),
     "getPointLeaderboardList": () => Api.getUserPointRankList(1),
     "getUserPoint": () => Api.getUserPoint(),
     "getUserPointGetList": () => Api.getUserEarnPointsList(1),

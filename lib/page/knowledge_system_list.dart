@@ -44,10 +44,13 @@ class KnowledgeSystemListPage extends StatefulWidget {
 class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPage> {
 
   RandomColor _randomColor = RandomColor();
+  KnowledgeSystemModel _model;
+
 
   @override
   void initState() {
     super.initState();
+    _model = KnowledgeSystemModel().._requestKnowledgeSystemData();
   }
 
   @override
@@ -55,7 +58,7 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
     super.build(context);
     print("_KnowledgeSystemListPageState build");
     return SinglePageProviderConsumer<KnowledgeSystemModel>(
-      model: KnowledgeSystemModel().._requestKnowledgeSystemData(),
+      model: _model,
       builder: (context, model, child) {
         return model._knowledgeSystemData.isEmpty ? EmptyHolder() : ListView.builder(
           itemBuilder: (context, i) => _buildItem(model._knowledgeSystemData[i]),

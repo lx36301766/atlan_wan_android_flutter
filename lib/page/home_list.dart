@@ -103,10 +103,13 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
   ScrollController _scrollController;
   PageController _pageController;
 
+  HomeListModel _model;
+
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: 0);
+    _model = HomeListModel().._requestBannerData().._requestListData();
   }
 
   @override
@@ -114,7 +117,7 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
     super.build(context);
     debugPrint("_HomeListPageState build");
     return SinglePageProviderConsumer<HomeListModel>(
-        model: HomeListModel().._requestBannerData().._requestListData(),
+        model: _model,
         builder: (context, model, child) {
           _scrollController ??= ScrollController()..addListener(() {
               if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {

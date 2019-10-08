@@ -132,6 +132,8 @@ const String apiDeleteCollectWebsite = "lg/collect/deletetool";
 
 
 // 7.1 搜索
+// https://www.wanandroid.com/article/query/0/json - POST (页码：拼接在链接上，从0开始, k ： 搜索关键词)
+const String apiGetSearchResult = "article/query/";
 
 
 

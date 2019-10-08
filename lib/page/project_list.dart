@@ -77,17 +77,19 @@ class ProjectListPage extends StatefulWidget {
 class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerProviderStateMixin {
 
   TabController _tabController;
+  ProjectListModel _model;
 
   @override
   void initState() {
     super.initState();
+    _model = ProjectListModel().._requestProjectData();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return SinglePageProviderConsumer<ProjectListModel>(
-      model: ProjectListModel().._requestProjectData(),
+      model: _model,
       builder:(context, model, child) {
         var length = model._projectData.length;
         if (length > 0) {
