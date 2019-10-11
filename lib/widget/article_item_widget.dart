@@ -55,6 +55,19 @@ class ArticleItemWidget extends StatelessWidget {
                         child: Row(
                           children: <Widget>[
                             Visibility(
+                              visible: data.fresh,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 5),
+                                child: Text("新",
+                                  style: TextStyle(
+                                    color: Colors.deepOrange,
+                                    decoration: TextDecoration.underline,
+                                    decorationStyle: TextDecorationStyle.wavy,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Visibility(
                               visible: index <= topDataSize,
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
@@ -66,7 +79,8 @@ class ArticleItemWidget extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            UnescapeText("${data.author} • ${data.superChapterName} • ${data.chapterName}",
+                            UnescapeText("${data.author} • ${data.superChapterName} • ${data.chapterName}".trim(),
+                              overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 12.0,
                                 color: Colors.grey.shade500,

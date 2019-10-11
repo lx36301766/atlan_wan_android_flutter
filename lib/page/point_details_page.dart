@@ -1,10 +1,12 @@
 
 import 'package:atlan_wan_android_flutter/entity/user_earn_points_list_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/user_point_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/user_point_rank_list_bean.dart';
 import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:atlan_wan_android_flutter/network/api_network.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
+import 'package:atlan_wan_android_flutter/util/storage_utils.dart';
 import 'package:atlan_wan_android_flutter/widget/single_page_provider_consumer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/bezier_bounce_footer.dart';
@@ -14,6 +16,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_footer.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'package:flutter_easyrefresh/phoenix_footer.dart';
+import 'package:flutter_easyrefresh/taurus_footer.dart';
 
 class PointDetailsList extends StatelessWidget {
 
@@ -26,12 +29,23 @@ class PointDetailsList extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: TabBar(tabs: List.generate(tabs.length, (index) => Tab(text: tabs[index]))),
+          backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+          title: TabBar(
+              isScrollable: true,
+              unselectedLabelColor: Colors.black38,
+              indicatorWeight: 2.0,
+              indicatorColor: appMainColor,
+              indicatorSize: TabBarIndicatorSize.label,
+              indicatorPadding: EdgeInsets.symmetric(vertical: 1),
+              labelColor: appMainColor,
+              tabs: List.generate(tabs.length, (index) => Tab(text: tabs[index]))
+          ),
         ),
         body: TabBarView(
           children: <Widget>[
-            PointRankList(),
-            PointEarnList(),
+            _PointRankList(),
+            _PointEarnList(),
           ],
         ),
       ),
@@ -41,7 +55,7 @@ class PointDetailsList extends StatelessWidget {
 }
 
 
-class PointEarnList extends PointDetailList {
+class _PointEarnList extends _PointDetailList<UserEarnPointsListBean, UserEarnPointsListBeanItem> {
 
   @override
   Future<UserEarnPointsListBean> _request(int page) async => Api.getUserEarnPointsList(page);
@@ -57,7 +71,7 @@ class PointEarnList extends PointDetailList {
 
 }
 
-class PointRankList extends PointDetailList {
+class _PointRankList extends _PointDetailList<UserPointRankListBean, UserPointBean> {
 
   @override
   Future<UserPointRankListBean> _request(int page) async => Api.getUserPointRankList(page);
@@ -65,25 +79,32 @@ class PointRankList extends PointDetailList {
   @override
   Widget _getListItem(int index) {
     var item = _data[index];
+    String name = StorageUtils.getUserInfo()?.username?.replaceRange(1, 3, "**");
+    bool isMine = name == item.username;
+    print("_getListItem, name=$name");
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: Text("${index + 1}     ${item.username}   -  ${item.coinCount}"),
+      child: Text("${index + 1}     ${item.username}   -  ${item.coinCount}",
+          style: TextStyle(
+            color: isMine ? Colors.red : Colors.black
+          ),
+      ),
     );
   }
 
 }
 
-abstract class PointDetailList extends StatefulWidget with ChangeNotifier {
+abstract class _PointDetailList<T, I> extends StatefulWidget with ChangeNotifier {
 
-  List _data = List();
+  List<I> _data = List();
 
   int _pageIndex = 0;
 
-  PointDetailList() {
+  _PointDetailList() {
     _requestData(0);
   }
 
-  Future<dynamic> _request(int page);
+  Future<T> _request(int page);
 
   Widget _getListItem(int index);
 
@@ -110,10 +131,10 @@ abstract class PointDetailList extends StatefulWidget with ChangeNotifier {
 
 }
 
-class _PointDetailListState extends KeepAliveState<PointDetailList> {
+class _PointDetailListState extends KeepAliveState<_PointDetailList> {
   @override
   Widget build(BuildContext context) {
-    return SinglePageProviderConsumer<PointDetailList>(
+    return SinglePageProviderConsumer<_PointDetailList>(
         model: widget,
         builder: (context, model, child) {
           int size = model._data?.length ?? 0;
@@ -125,7 +146,7 @@ class _PointDetailListState extends KeepAliveState<PointDetailList> {
               header: BezierCircleHeader(
                 backgroundColor: appMainColor,
               ),
-              footer: PhoenixFooter(
+              footer: TaurusFooter(
 //                backgroundColor: appMainColor,
               ),
               child: ListView.separated(

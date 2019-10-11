@@ -119,9 +119,9 @@ class _MainPageState extends State<MainPage> {
       itemBuilder: (context, index) => _buttonItemList.map((item) => item.widget).toList()[index],
       physics: NeverScrollableScrollPhysics(),
       onPageChanged: (int page) {
-//        setState(() {
-//          this._pageIndex = page;
-//        });
+        setState(() {
+          this._pageIndex = page;
+        });
       },
       controller: _pageController,
     );
@@ -134,9 +134,6 @@ class _MainPageState extends State<MainPage> {
         iconSize: 24,
         fixedColor: appMainColor,
         onTap: (int index) {
-//          setState(() {
-//            this._pageIndex = index;
-//          });
           _pageController.animateToPage(index,
               duration: const Duration(milliseconds: 300), curve: Curves.ease);
         },
