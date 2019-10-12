@@ -14,12 +14,16 @@ NavigationBean _$NavigationBeanFromJson(Map<String, dynamic> json) {
               : HomeListDataBean.fromJson(e as Map<String, dynamic>))
           ?.toList(),
       json['cid'] as int,
-      json['name'] as String);
+      json['name'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['name'] as String));
 }
 
 Map<String, dynamic> _$NavigationBeanToJson(NavigationBean instance) =>
     <String, dynamic>{
       'articles': instance.articles,
       'cid': instance.cid,
-      'name': instance.name
+      'name': instance.name == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.name)
     };

@@ -34,29 +34,52 @@ Map<String, dynamic> _$HomeListBeanToJson(HomeListBean instance) =>
 
 HomeListDataBean _$HomeListDataBeanFromJson(Map<String, dynamic> json) {
   return HomeListDataBean(
-      json['apkLink'] as String,
-      json['author'] as String,
+      json['apkLink'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['apkLink'] as String),
+      json['author'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['author'] as String),
       json['chapterId'] as int,
-      json['chapterName'] as String,
+      json['chapterName'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['chapterName'] as String),
       json['collect'] as bool,
       json['courseId'] as int,
-      json['desc'] as String,
-      json['envelopePic'] as String,
+      json['desc'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['desc'] as String),
+      json['envelopePic'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['envelopePic'] as String),
       json['fresh'] as bool,
       json['id'] as int,
-      json['link'] as String,
-      json['niceDate'] as String,
-      json['origin'] as String,
-      json['projectLink'] as String,
+      json['link'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['link'] as String),
+      json['niceDate'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['niceDate'] as String),
+      json['origin'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['origin'] as String),
+      json['projectLink'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['projectLink'] as String),
       (json['publishTime'] as num)?.toDouble(),
       json['superChapterId'] as int,
-      json['superChapterName'] as String,
+      json['superChapterName'] == null
+          ? null
+          : const UnescapeJsonConvert()
+              .fromJson(json['superChapterName'] as String),
       (json['tags'] as List)
           ?.map((e) => e == null
               ? null
               : HomeListDataTagBean.fromJson(e as Map<String, dynamic>))
           ?.toList(),
-      json['title'] as String,
+      json['title'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['title'] as String),
       json['type'] as int,
       json['userId'] as int,
       json['visible'] as int,
@@ -65,25 +88,47 @@ HomeListDataBean _$HomeListDataBeanFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$HomeListDataBeanToJson(HomeListDataBean instance) =>
     <String, dynamic>{
-      'apkLink': instance.apkLink,
-      'author': instance.author,
+      'apkLink': instance.apkLink == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.apkLink),
+      'author': instance.author == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.author),
       'chapterId': instance.chapterId,
-      'chapterName': instance.chapterName,
+      'chapterName': instance.chapterName == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.chapterName),
       'collect': instance.collect,
       'courseId': instance.courseId,
-      'desc': instance.desc,
-      'envelopePic': instance.envelopePic,
+      'desc': instance.desc == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.desc),
+      'envelopePic': instance.envelopePic == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.envelopePic),
       'fresh': instance.fresh,
       'id': instance.id,
-      'link': instance.link,
-      'niceDate': instance.niceDate,
-      'origin': instance.origin,
-      'projectLink': instance.projectLink,
+      'link': instance.link == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.link),
+      'niceDate': instance.niceDate == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.niceDate),
+      'origin': instance.origin == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.origin),
+      'projectLink': instance.projectLink == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.projectLink),
       'publishTime': instance.publishTime,
       'superChapterId': instance.superChapterId,
-      'superChapterName': instance.superChapterName,
+      'superChapterName': instance.superChapterName == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.superChapterName),
       'tags': instance.tags,
-      'title': instance.title,
+      'title': instance.title == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.title),
       'type': instance.type,
       'userId': instance.userId,
       'visible': instance.visible,
@@ -91,9 +136,22 @@ Map<String, dynamic> _$HomeListDataBeanToJson(HomeListDataBean instance) =>
     };
 
 HomeListDataTagBean _$HomeListDataTagBeanFromJson(Map<String, dynamic> json) {
-  return HomeListDataTagBean(json['name'] as String, json['url'] as String);
+  return HomeListDataTagBean(
+      json['name'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['name'] as String),
+      json['url'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['url'] as String));
 }
 
 Map<String, dynamic> _$HomeListDataTagBeanToJson(
         HomeListDataTagBean instance) =>
-    <String, dynamic>{'name': instance.name, 'url': instance.url};
+    <String, dynamic>{
+      'name': instance.name == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.name),
+      'url': instance.url == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.url)
+    };

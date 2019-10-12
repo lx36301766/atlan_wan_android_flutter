@@ -1,9 +1,11 @@
 
+import 'package:atlan_wan_android_flutter/util/unescape_json_convert.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_earn_points_list_bean.g.dart';
 
 @JsonSerializable()
+@UnescapeJsonConvert()
 class UserEarnPointsListBean {
 
   int curPage;
@@ -22,6 +24,7 @@ class UserEarnPointsListBean {
 }
 
 @JsonSerializable()
+@UnescapeJsonConvert()
 class UserEarnPointsListBeanItem {
 
   int coinCount;

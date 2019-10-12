@@ -10,7 +10,6 @@ import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
 import 'package:atlan_wan_android_flutter/widget/single_page_provider_consumer.dart';
-import 'package:atlan_wan_android_flutter/widget/unescape_widget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
@@ -100,7 +99,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
             }
           });
           return Scaffold(
-            appBar: _buildPageSlider(List.generate(length, (int index) => UnescapeTab(text: model._projectData[index].name))),
+            appBar: _buildPageSlider(List.generate(length, (int index) => Tab(text: model._projectData[index].name))),
             body: TabBarView(
               controller: _tabController,
               children: List.generate(length, (int index) => _buildContent(model, index)),
@@ -183,14 +182,14 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          UnescapeText(dataBean.title,
+                          Text(dataBean.title,
                             style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                           ),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5),
-                            child: UnescapeText(dataBean.desc,
+                            child: Text(dataBean.desc,
                               style: TextStyle(fontSize: 9, color: Colors.grey.shade500),
                               maxLines: 5,
                               overflow: TextOverflow.fade,

@@ -1,9 +1,11 @@
 
+import 'package:atlan_wan_android_flutter/util/unescape_json_convert.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'get_collect_list_bean.g.dart';
 
 @JsonSerializable()
+@UnescapeJsonConvert()
 class GetCollectListBean {
 
   int curPage;
@@ -23,6 +25,7 @@ class GetCollectListBean {
 }
 
 @JsonSerializable()
+@UnescapeJsonConvert()
 class GetCollectListItemBean {
 
   int id;

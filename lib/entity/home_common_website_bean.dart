@@ -1,9 +1,11 @@
 
+import 'package:atlan_wan_android_flutter/util/unescape_json_convert.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'home_common_website_bean.g.dart';
 
 @JsonSerializable()
+@UnescapeJsonConvert()
 class HomeCommonWebsiteBean {
 
   String icon;

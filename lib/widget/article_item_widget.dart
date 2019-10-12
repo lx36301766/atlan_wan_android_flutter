@@ -4,8 +4,6 @@ import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:flutter/material.dart';
 
-import 'unescape_widget.dart';
-
 class ArticleItemWidget extends StatelessWidget {
 
   final HomeListDataBean data;
@@ -35,7 +33,7 @@ class ArticleItemWidget extends StatelessWidget {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(top: 10, bottom: 10),
-                  child: UnescapeText(data.title,
+                  child: Text(data.title,
                     style: TextStyle(
                       fontSize: 15.0,
                       fontStyle: FontStyle.italic,
@@ -79,7 +77,7 @@ class ArticleItemWidget extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            UnescapeText("${data.author} • ${data.superChapterName} • ${data.chapterName}".trim(),
+                            Text("${data.author} • ${data.superChapterName} • ${data.chapterName}".trim(),
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 12.0,

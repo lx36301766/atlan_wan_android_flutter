@@ -7,8 +7,13 @@ part of 'user_point_bean.dart';
 // **************************************************************************
 
 UserPointBean _$UserPointBeanFromJson(Map<String, dynamic> json) {
-  return UserPointBean(json['coinCount'] as int, json['rank'] as int,
-      json['userId'] as int, json['username'] as String);
+  return UserPointBean(
+      json['coinCount'] as int,
+      json['rank'] as int,
+      json['userId'] as int,
+      json['username'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['username'] as String));
 }
 
 Map<String, dynamic> _$UserPointBeanToJson(UserPointBean instance) =>
@@ -16,5 +21,7 @@ Map<String, dynamic> _$UserPointBeanToJson(UserPointBean instance) =>
       'coinCount': instance.coinCount,
       'rank': instance.rank,
       'userId': instance.userId,
-      'username': instance.username
+      'username': instance.username == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.username)
     };

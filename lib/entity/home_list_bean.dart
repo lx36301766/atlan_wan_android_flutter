@@ -1,9 +1,11 @@
 
+import 'package:atlan_wan_android_flutter/util/unescape_json_convert.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'home_list_bean.g.dart';
 
 @JsonSerializable()
+@UnescapeJsonConvert()
 class HomeListBean {
 
   int curPage;
@@ -28,6 +30,7 @@ class HomeListBean {
 }
 
 @JsonSerializable()
+@UnescapeJsonConvert()
 class HomeListDataBean {
 
   String apkLink;
@@ -78,6 +81,7 @@ class HomeListDataBean {
 
 
 @JsonSerializable()
+@UnescapeJsonConvert()
 class HomeListDataTagBean {
 
   String name;

@@ -6,7 +6,8 @@ part of 'user_earn_points_list_bean.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserEarnPointsListBean _$UserEarnPointsListBeanFromJson(Map<String, dynamic> json) {
+UserEarnPointsListBean _$UserEarnPointsListBeanFromJson(
+    Map<String, dynamic> json) {
   return UserEarnPointsListBean(
       json['curPage'] as int,
       (json['datas'] as List)
@@ -36,12 +37,18 @@ UserEarnPointsListBeanItem _$UserEarnPointsListBeanItemFromJson(
   return UserEarnPointsListBeanItem(
       json['coinCount'] as int,
       json['date'] as int,
-      json['desc'] as String,
+      json['desc'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['desc'] as String),
       json['id'] as int,
-      json['reason'] as String,
+      json['reason'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['reason'] as String),
       json['type'] as int,
       json['userId'] as int,
-      json['username'] as String);
+      json['username'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['username'] as String));
 }
 
 Map<String, dynamic> _$UserEarnPointsListBeanItemToJson(
@@ -49,10 +56,16 @@ Map<String, dynamic> _$UserEarnPointsListBeanItemToJson(
     <String, dynamic>{
       'coinCount': instance.coinCount,
       'date': instance.date,
-      'desc': instance.desc,
+      'desc': instance.desc == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.desc),
       'id': instance.id,
-      'reason': instance.reason,
+      'reason': instance.reason == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.reason),
       'type': instance.type,
       'userId': instance.userId,
-      'username': instance.username
+      'username': instance.username == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.username)
     };

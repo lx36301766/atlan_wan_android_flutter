@@ -1,10 +1,12 @@
 
+import 'package:atlan_wan_android_flutter/util/unescape_json_convert.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'user_point_bean.dart';
 
 part 'user_point_rank_list_bean.g.dart';
 
 @JsonSerializable()
+@UnescapeJsonConvert()
 class UserPointRankListBean {
 
   int curPage;

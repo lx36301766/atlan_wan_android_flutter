@@ -9,7 +9,6 @@ import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
-import 'package:atlan_wan_android_flutter/widget/unescape_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:loadmore/loadmore.dart';
 
@@ -86,7 +85,7 @@ class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage>
   Widget build(BuildContext context) {
     super.build(context);
     List<Tab> tabs = List.generate(_wechatAuthorData.length, (int index) =>
-        UnescapeTab(text: _wechatAuthorData[index].name));
+        Tab(text: _wechatAuthorData[index].name));
     return Scaffold(
       appBar: _tabController == null ? null : _buildPageSlider(tabs),
       body: _tabController == null ? EmptyHolder() : TabBarView(
@@ -157,7 +156,7 @@ class _WechatPublicListPageState extends KeepAliveState<WechatPublicListPage>
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                UnescapeText(dataBean.title, style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic)),
+                Text(dataBean.title, style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic)),
                 Padding(padding: const EdgeInsets.symmetric(vertical: 5)),
                 Align(
                     alignment: Alignment.centerRight,

@@ -1,5 +1,6 @@
 
 import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
+import 'package:atlan_wan_android_flutter/util/unescape_json_convert.dart';
 
 class ProjectBean extends KnowledgeSystemBean {
 
@@ -29,7 +30,9 @@ ProjectBean _$ProjectBeanFromJson(Map<String, dynamic> json) {
           ?.toList(),
       json['courseId'] as int,
       json['id'] as int,
-      json['name'] as String,
+      json['name'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['name'] as String),
       json['order'] as int,
       json['parentChapterId'] as int,
       json['userControlSetTop'] as bool,
@@ -42,7 +45,9 @@ Map<String, dynamic> _$ProjectBeanToJson(
       'children': instance.children,
       'courseId': instance.courseId,
       'id': instance.id,
-      'name': instance.name,
+      'name': instance.name == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.name),
       'order': instance.order,
       'parentChapterId': instance.parentChapterId,
       'userControlSetTop': instance.userControlSetTop,
