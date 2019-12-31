@@ -49,11 +49,11 @@ class ArticleItemWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: <Widget>[
                       Flexible(
-                        flex: 10,
+                        flex: 5,
                         child: Row(
                           children: <Widget>[
                             Visibility(
-                              visible: data.fresh,
+                              visible: data.fresh ?? false,
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
                                 child: Text("新",
@@ -77,7 +77,9 @@ class ArticleItemWidget extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Text("${data.author} • ${data.superChapterName} • ${data.chapterName}".trim(),
+                            Text("${data.author.isEmpty ? data.shareUser ?? "" : data.author}" +
+                                (data.superChapterName?.isEmpty ?? true ?  "" : " • ${data.superChapterName}") +
+                                " • ${data.chapterName}".trim(),
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 12.0,

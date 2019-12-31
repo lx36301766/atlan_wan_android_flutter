@@ -2,6 +2,8 @@
 import 'package:atlan_wan_android_flutter/util/unescape_json_convert.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'get_collect_list_bean.dart';
+
 part 'home_list_bean.g.dart';
 
 @JsonSerializable()
@@ -17,6 +19,16 @@ class HomeListBean {
   List<HomeListDataBean> datas;
 
   HomeListBean(this.curPage, this.offset, this.over, this.pageCount, this.size, this.total, this.datas);
+
+  HomeListBean.formCollectList(GetCollectListBean collectListBean) {
+    this.curPage = collectListBean.curPage;
+    this.offset = collectListBean.offset;
+    this.over = collectListBean.over;
+    this.pageCount = collectListBean.pageCount;
+    this.size = collectListBean.size;
+    this.total = collectListBean.total;
+    this.datas = collectListBean.datas.map((collectItem) => HomeListDataBean.formCollectItem(collectItem)).toList();
+  }
 
   factory HomeListBean.fromJson(Map<String, dynamic> json) => _$HomeListBeanFromJson(json);
 
@@ -48,6 +60,9 @@ class HomeListDataBean {
   String origin;
   String projectLink;
   double publishTime;
+  int selfVisible;
+  double shareDate;
+  String shareUser;
   int superChapterId;
   String superChapterName;
   List<HomeListDataTagBean> tags;
@@ -58,10 +73,53 @@ class HomeListDataBean {
   int zan;
 
 
-  HomeListDataBean(this.apkLink, this.author, this.chapterId, this.chapterName, this.collect, this.courseId, this.desc,
-      this.envelopePic, this.fresh, this.id, this.link, this.niceDate, this.origin, this.projectLink, this.publishTime,
-      this.superChapterId, this.superChapterName, this.tags, this.title, this.type, this.userId, this.visible,
+  HomeListDataBean(
+      this.apkLink,
+      this.author,
+      this.chapterId,
+      this.chapterName,
+      this.collect,
+      this.courseId,
+      this.desc,
+      this.envelopePic,
+      this.fresh,
+      this.id,
+      this.link,
+      this.niceDate,
+      this.origin,
+      this.projectLink,
+      this.publishTime,
+      this.selfVisible,
+      this.shareDate,
+      this.shareUser,
+      this.superChapterId,
+      this.superChapterName,
+      this.tags,
+      this.title,
+      this.type,
+      this.userId,
+      this.visible,
       this.zan);
+
+  HomeListDataBean.formCollectItem(GetCollectListItemBean itemBean) {
+    this.id = itemBean.originId;
+    this.author = itemBean.author;
+    this.chapterId = itemBean.chapterId;
+    this.chapterName = itemBean.chapterName;
+    this.courseId = itemBean.courseId;
+    this.desc = itemBean.desc;
+    this.envelopePic = itemBean.envelopePic;
+    this.link = itemBean.link;
+    this.niceDate = itemBean.niceDate;
+    this.origin = itemBean.origin;
+//    this.originId = itemBean.originId;
+    this.publishTime = itemBean.publishTime;
+    this.title = itemBean.title;
+    this.userId = itemBean.userId;
+    this.visible = itemBean.visible;
+    this.zan = itemBean.zan;
+
+  }
 
   factory HomeListDataBean.fromJson(Map<String, dynamic> json) => _$HomeListDataBeanFromJson(json);
 

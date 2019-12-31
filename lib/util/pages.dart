@@ -67,6 +67,18 @@ class Pages {
     ));
   }
 
+  static void openCollectListPage(BuildContext context) {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (BuildContext context, _, __) {
+        return ScopedModel(
+            model: MineCollectModel(),
+            child: GeneralArticleListPage<MineCollectModel>()
+        );
+      },
+    ));
+  }
+
+
   static void openPointDetailPage(BuildContext context, KnowledgeSystemBean bean) {
     Navigator.of(context).push(PageRouteBuilder(
       pageBuilder: (BuildContext context, _, __) {

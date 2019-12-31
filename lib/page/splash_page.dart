@@ -19,9 +19,12 @@ class SplashImage extends StatelessWidget {
 }
 
 class SplashPage extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
-    Future.delayed(Duration(seconds: 3), () => _onLogoClick(context));
+    Future.delayed(Duration(seconds: 3), () => Navigator.of(context).pushReplacementNamed(Pages.home)).catchError((e) {
+          print(e);
+    });
     return Scaffold(
         backgroundColor: appMainColor,
         body: Center(
@@ -29,13 +32,10 @@ class SplashPage extends StatelessWidget {
             padding: const EdgeInsets.all(50.0),
             child: FlatButton(
               child: Image.asset('image/logo.png'),
-              onPressed: () => _onLogoClick(context),
+              onPressed: () => Navigator.of(context).pushReplacementNamed(Pages.home),
             ),
           ),
         ));
   }
 
-  void _onLogoClick(BuildContext context) {
-    Navigator.of(context).pushReplacementNamed(Pages.home);
-  }
 }

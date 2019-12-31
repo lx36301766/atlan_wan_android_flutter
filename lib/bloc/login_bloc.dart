@@ -80,6 +80,7 @@ class LoginBloc implements BlocBase {
       setUserPointBean(_userPointBean);
       return _userPointBean;
     }
+    logout();
     return Future.error(null, StackTrace.current);
   }
 

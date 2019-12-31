@@ -20,7 +20,7 @@ abstract class GeneralArticleModel extends Model {
   int _listPageIndex = 0;
   bool _isLastPage = false;
 
-  Future getData(int page);
+  Future<HomeListBean> getData(int page);
 
   Future<bool> requestPageData(int page) async {
     var data = await getData(page);
@@ -47,7 +47,7 @@ class ClassificationModel extends GeneralArticleModel {
   ClassificationModel(String name, this._id) : super(name);
 
   @override
-  Future getData(int page) => Api.getKnowledgeSystemChildren(page, _id);
+  Future<HomeListBean> getData(int page) async => Api.getKnowledgeSystemChildren(page, _id);
 }
 
 class SearchResultModel extends GeneralArticleModel {
@@ -55,7 +55,15 @@ class SearchResultModel extends GeneralArticleModel {
   SearchResultModel(String key) : super(key);
 
   @override
-  Future getData(int page) => Api.getSearchResult(page, _name);
+  Future<HomeListBean> getData(int page) async => Api.getSearchResult(page, _name);
+}
+
+class MineCollectModel extends GeneralArticleModel {
+
+  MineCollectModel() : super("我的收藏");
+
+  @override
+  Future<HomeListBean> getData(int page) async => HomeListBean.formCollectList(await Api.getCollectList(page));
 }
 
 

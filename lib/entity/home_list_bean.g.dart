@@ -67,6 +67,11 @@ HomeListDataBean _$HomeListDataBeanFromJson(Map<String, dynamic> json) {
           ? null
           : const UnescapeJsonConvert().fromJson(json['projectLink'] as String),
       (json['publishTime'] as num)?.toDouble(),
+      json['selfVisible'] as int,
+      (json['shareDate'] as num)?.toDouble(),
+      json['shareUser'] == null
+          ? null
+          : const UnescapeJsonConvert().fromJson(json['shareUser'] as String),
       json['superChapterId'] as int,
       json['superChapterName'] == null
           ? null
@@ -121,6 +126,11 @@ Map<String, dynamic> _$HomeListDataBeanToJson(HomeListDataBean instance) =>
           ? null
           : const UnescapeJsonConvert().toJson(instance.projectLink),
       'publishTime': instance.publishTime,
+      'selfVisible': instance.selfVisible,
+      'shareDate': instance.shareDate,
+      'shareUser': instance.shareUser == null
+          ? null
+          : const UnescapeJsonConvert().toJson(instance.shareUser),
       'superChapterId': instance.superChapterId,
       'superChapterName': instance.superChapterName == null
           ? null

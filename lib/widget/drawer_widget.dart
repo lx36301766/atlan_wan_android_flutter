@@ -5,7 +5,6 @@ import 'package:atlan_wan_android_flutter/entity/user_point_bean.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/util/storage_utils.dart';
-import 'package:atlan_wan_android_flutter/util/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'after_layout.dart';
 import 'login_dialog.dart';
@@ -113,7 +112,13 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
         ListTile(
           leading: Icon(Icons.collections, color: appMainColor),
           title: Text("收藏"),
-          onTap: () {},
+          onTap: () {
+            if (StorageUtils.getUserInfo() != null) {
+              Pages.openCollectListPage(context);
+            } else {
+              showLoginDialog(context);
+            }
+          },
         ),
         Divider(),
         ListTile(

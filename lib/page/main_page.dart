@@ -32,7 +32,9 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: this._pageIndex);
-    BlocProvider.of<LoginBloc>(context).getUserPoint();
+    BlocProvider.of<LoginBloc>(context).getUserPoint().catchError((e) {
+      print(e);
+    });
   }
 
   @override
