@@ -116,14 +116,14 @@ class Api {
     return GetCollectListBean.fromJson(data);
   }
 
-  static Future<GetCollectListBean> deleteCollect(int originId) async {
-    var data = await api.fetchPost(apiDeleteCollect + originId.toString());
-    return GetCollectListBean.fromJson(data);
+  static Future<void> deleteCollect(int originId) async {
+    await api.fetchPost(apiDeleteCollect + originId.toString() + '/json');
+    return null;
   }
 
-  static Future<GetCollectListBean> deleteCollect2(int originId) async {
-    var data = await api.fetchPost(apiDeleteCollect2 + originId.toString());
-    return GetCollectListBean.fromJson(data);
+  static Future<void> deleteCollect2(int originId) async {
+    await api.fetchPost(apiDeleteCollect2 + originId.toString() + '/json');
+    return null;
   }
 
   // 收藏网站相关接口

@@ -118,7 +118,7 @@ class HomeListDataBean {
     this.userId = itemBean.userId;
     this.visible = itemBean.visible;
     this.zan = itemBean.zan;
-
+    this.collect = true;
   }
 
   factory HomeListDataBean.fromJson(Map<String, dynamic> json) => _$HomeListDataBeanFromJson(json);

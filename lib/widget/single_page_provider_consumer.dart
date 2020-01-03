@@ -12,8 +12,8 @@ class SinglePageProviderConsumer<T extends ChangeNotifier> extends StatelessWidg
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      builder: (_) => model,
+    return ChangeNotifierProvider.value(
+      value: model,
       child: Consumer(builder: builder),
     );
   }
