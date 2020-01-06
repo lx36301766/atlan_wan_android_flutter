@@ -100,9 +100,9 @@ class _LoginDialogState extends State<LoginDialog> {
                         controller: _userNameController,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(10.0),
+                          contentPadding: EdgeInsets.only(top: 15),
                           prefixIcon: Icon(FontAwesomeIcons.user),
-                          hintText: '请输入用户名',
+                          hintText: "请输入用户名"
                         ),
                         autofocus: false,
                       ),
@@ -111,7 +111,7 @@ class _LoginDialogState extends State<LoginDialog> {
                         controller: _passwordController,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(10.0),
+                          contentPadding: EdgeInsets.only(top: 15),
                           prefixIcon: Icon(FontAwesomeIcons.lock),
                           hintText: '请输入密码',
                         ),
@@ -123,9 +123,9 @@ class _LoginDialogState extends State<LoginDialog> {
                           controller: _repasswordController,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
-                            contentPadding: EdgeInsets.all(10.0),
+                            contentPadding: EdgeInsets.only(top: 15),
                             prefixIcon: Icon(FontAwesomeIcons.lock),
-                            hintText: '确认密码',
+                            labelText: '确认密码',
                           ),
                           obscureText: true,
                         ),

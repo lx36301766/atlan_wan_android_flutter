@@ -3,6 +3,7 @@ import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/network/api.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
+import 'package:atlan_wan_android_flutter/util/storage_utils.dart';
 import 'package:atlan_wan_android_flutter/util/toast_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -111,14 +112,18 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
                         flex: 2,
                         child: InkWell(
                           onTap: () {
-                            if (widget._model.data.collect ?? false) {
-                              Api.deleteCollect(widget._model.data.id).then((resp) {
-                                widget._model.updateCollectStatus(false);
-                              });
+                            if (StorageUtils.isLogin) {
+                              if (widget._model.data.collect ?? false) {
+                                Api.deleteCollect(widget._model.data.id).then((resp) {
+                                  widget._model.updateCollectStatus(false);
+                                });
+                              } else {
+                                Api.addCollectInside(widget._model.data.id).then((resp) {
+                                  widget._model.updateCollectStatus(true);
+                                });
+                              }
                             } else {
-                              Api.addCollectInside(widget._model.data.id).then((resp) {
-                                widget._model.updateCollectStatus(true);
-                              });
+                              ToastUtil.show("请先登录");
                             }
                           },
                           child: SizedBox(

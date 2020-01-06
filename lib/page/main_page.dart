@@ -7,6 +7,7 @@ import 'package:atlan_wan_android_flutter/page/navigation_list.dart';
 import 'package:atlan_wan_android_flutter/page/project_list.dart';
 import 'package:atlan_wan_android_flutter/page/wechat_public_list.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
+import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/widget/drawer_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -50,10 +51,10 @@ class _MainPageState extends State<MainPage> {
 
   Widget buildAppBar() {
     return AppBar(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(16.0))),
-        backgroundColor: appMainColor,
-        title: Text(_buttonItemList[_pageIndex].name),
-        centerTitle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(16.0))),
+      backgroundColor: appMainColor,
+      title: Text(_buttonItemList[_pageIndex].name),
+      centerTitle: true,
 //      bottom: PreferredSize(
 //          child: Container(
 //            padding: EdgeInsets.all(5),
@@ -65,30 +66,42 @@ class _MainPageState extends State<MainPage> {
 //          ),
 //          preferredSize: const Size.fromHeight(30.0)
 //      ),
-        actions: <Widget>[
-          PopupMenuButton(
-//          icon: Icon(
-//            icon:
-//          ),
-              itemBuilder: (BuildContext context) =>
-                  testApi.keys.map((key) {
-                    return PopupMenuItem(
-                      child: Text(key),
-                      value: key,
-                    );
-                  }).toList(),
-              onSelected: (value) {
-                print("_onPopMenuSelected, value=$value");
-                if (testApi[value] != null) {
-                  testApi[value]().then((resp) {
-                    print(resp);
-                  }, onError: (e) {
-                    print(e);
-                  });
-                }
-              }
+      actions: <Widget>[
+        InkWell(
+          onTap: () {
+            Pages.openSearchPage(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: Icon(
+              Icons.search,
+              color: Colors.black,
+            ),
           ),
-        ],
+        ),
+
+//        PopupMenuButton(
+//            icon: Icon(
+//              Icons.search,
+//              color: appMainColor,
+//            ),
+//            itemBuilder: (BuildContext context) => testApi.keys.map((key) {
+//                  return PopupMenuItem(
+//                    child: Text(key),
+//                    value: key,
+//                  );
+//                }).toList(),
+//            onSelected: (value) {
+//              print("_onPopMenuSelected, value=$value");
+//              if (testApi[value] != null) {
+//                testApi[value]().then((resp) {
+//                  print(resp);
+//                }, onError: (e) {
+//                  print(e);
+//                });
+//              }
+//            }),
+      ],
     );
   }
 

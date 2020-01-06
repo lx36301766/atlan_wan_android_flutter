@@ -44,4 +44,6 @@ class StorageUtils {
 
   static void setUserInfo(LoginRegisterBean bean) => set(KEY_USER_INFO, json.encode(bean?.toJson()));
 
+  static bool get isLogin => getUserInfo() != null;
+
 }

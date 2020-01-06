@@ -3,6 +3,7 @@ import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
 import 'package:atlan_wan_android_flutter/page/general_article_list_page.dart';
 import 'package:atlan_wan_android_flutter/page/main_page.dart';
 import 'package:atlan_wan_android_flutter/page/point_details_page.dart';
+import 'package:atlan_wan_android_flutter/page/search_page.dart';
 import 'package:atlan_wan_android_flutter/page/splash_page.dart';
 import 'package:atlan_wan_android_flutter/page/web_view_page.dart';
 import 'package:atlan_wan_android_flutter/page/web_view_page2.dart';
@@ -42,6 +43,14 @@ class Pages {
       //     ),
       //   );
       // }
+    ));
+  }
+
+  static void openSearchPage(BuildContext context) {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (BuildContext context, _, __) {
+        return SearchPage();
+      },
     ));
   }
 

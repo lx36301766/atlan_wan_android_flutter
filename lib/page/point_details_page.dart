@@ -7,6 +7,7 @@ import 'package:atlan_wan_android_flutter/network/api_network.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/keep_alive_state.dart';
 import 'package:atlan_wan_android_flutter/util/storage_utils.dart';
+import 'package:atlan_wan_android_flutter/widget/empty_holder.dart';
 import 'package:atlan_wan_android_flutter/widget/single_page_provider_consumer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/bezier_bounce_footer.dart';
@@ -84,10 +85,27 @@ class _PointRankList extends _PointDetailList<UserPointRankListBean, UserPointBe
     print("_getListItem, name=$name");
     return Padding(
       padding: const EdgeInsets.all(15.0),
-      child: Text("${index + 1}     ${item.username}   -  ${item.coinCount}",
-          style: TextStyle(
-            color: isMine ? Colors.red : Colors.black
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Flexible(
+            flex: 5,
+            child: Text("${index + 1}     ${item.username}",
+                style: TextStyle(
+                  color: isMine ? Colors.red : Colors.black
+                ),
+            ),
           ),
+          Flexible(
+            flex: 1,
+            child: Text("${item.coinCount}",
+              style: TextStyle(
+                  color: isMine ? Colors.red : Colors.black
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -98,10 +116,10 @@ abstract class _PointDetailList<T, I> extends StatefulWidget with ChangeNotifier
 
   List<I> _data = List();
 
-  int _pageIndex = 0;
+  int _pageIndex = 1;
 
   _PointDetailList() {
-    _requestData(0);
+    _requestData(_pageIndex);
   }
 
   Future<T> _request(int page);
@@ -110,7 +128,7 @@ abstract class _PointDetailList<T, I> extends StatefulWidget with ChangeNotifier
 
   Future<void> _requestData(int page) async {
     print("_requestData, page=$page");
-    if (page == 0) {
+    if (page == 1) {
       _data.clear();
     }
     dynamic bean = await _request(page);
@@ -139,7 +157,7 @@ class _PointDetailListState extends KeepAliveState<_PointDetailList> {
         builder: (context, model, child) {
           int size = model._data?.length ?? 0;
           if (size == 0) {
-            return Center(child: Text("empty"));
+            return EmptyHolder();
           }
           return Scrollbar(
             child: EasyRefresh(
@@ -156,7 +174,7 @@ class _PointDetailListState extends KeepAliveState<_PointDetailList> {
                   itemCount: size,
                   itemBuilder: (context, index) => widget._getListItem(index)
               ),
-              onRefresh: () => model._requestData(0),
+              onRefresh: () => model._requestData(1),
               onLoad: () => model._requestNextPage(),
             ),
           );

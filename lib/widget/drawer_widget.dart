@@ -40,7 +40,7 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
       duration: const Duration(milliseconds: 1000),
       child: FlatButton(
         onPressed: () {
-          if (StorageUtils.getUserInfo() != null) {
+          if (StorageUtils.isLogin) {
             showLogoutDialog(context);
           } else {
             showLoginDialog(context);
@@ -113,7 +113,7 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
           leading: Icon(Icons.collections, color: appMainColor),
           title: Text("收藏"),
           onTap: () {
-            if (StorageUtils.getUserInfo() != null) {
+            if (StorageUtils.isLogin) {
               Pages.openCollectListPage(context);
             } else {
               showLoginDialog(context);
