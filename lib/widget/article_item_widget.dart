@@ -6,6 +6,7 @@ import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/util/storage_utils.dart';
 import 'package:atlan_wan_android_flutter/util/toast_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class ArticleItemModel extends ChangeNotifier {
@@ -89,12 +90,27 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
                               visible: widget._model.index <= widget._model.topDataSize,
                               child: Padding(
                                 padding: const EdgeInsets.only(right: 5),
-                                child: Image.asset('image/top.png',
-                                  fit: BoxFit.none,
-                                  width: 15,
-                                  height: 15,
-                                  scale: 7.0,
-                                ),
+//                                child: Image.asset('image/top.png',
+//                                  fit: BoxFit.none,
+//                                  width: 15,
+//                                  height: 15,
+//                                  scale: 7.0,
+//                                ),
+                                  child: DecoratedBox(
+                                    decoration: BoxDecoration(
+                                      color: Colors.blue,
+                                      border: Border.all(
+                                        color: appMainColor,
+                                        width: 16,
+                                      ),
+                                    ),
+                                    child: Text('顶',
+                                      style: TextStyle(
+                                        fontSize: 14.0,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
                               ),
                             ),
                             Text(widget._model.data.author.isEmpty ? widget._model.data.shareUser ?? "" : widget._model.data.author,
@@ -116,10 +132,12 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
                               if (widget._model.data.collect ?? false) {
                                 Api.deleteCollect(widget._model.data.id).then((resp) {
                                   widget._model.updateCollectStatus(false);
+                                  ToastUtil.show("取消收藏成功");
                                 });
                               } else {
                                 Api.addCollectInside(widget._model.data.id).then((resp) {
                                   widget._model.updateCollectStatus(true);
+                                  ToastUtil.show("收藏成功");
                                 });
                               }
                             } else {
@@ -131,11 +149,15 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
                             height: 30,
                             child: Consumer<ArticleItemModel>(
                               builder: (context, value, child) {
-                                return Image.asset(value.data.collect ?? false ? "image/uncollect.png" : "image/collect.png",
-                                  fit: BoxFit.none,
-                                  width: 15,
-                                  height: 15,
-                                  scale: 7.0,
+//                                return Image.asset(value.data.collect ?? false ? "image/uncollect.png" : "image/collect.png",
+//                                  fit: BoxFit.none,
+//                                  width: 15,
+//                                  height: 15,
+//                                  scale: 7.0,
+//                                );
+                                return Icon(value.data.collect ?? false ? FontAwesomeIcons.heart : FontAwesomeIcons.solidHeart,
+                                  color: appMainColor,
+                                  size: 20,
                                 );
                               }
                             ),

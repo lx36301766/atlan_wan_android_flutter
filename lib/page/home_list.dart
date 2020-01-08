@@ -125,6 +125,11 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
                 model._requestNextPageData();
               }
             });
+
+          model._bannerListData?.forEach((data) {
+            precacheImage(CachedNetworkImageProvider(data.imagePath), context);
+          });
+
           return model._bannerListData == null && model._homeListData.isEmpty ? EmptyHolder() : NotificationListener<
               ScrollNotification>(
             onNotification: (ScrollNotification scrollNotification) => false,
