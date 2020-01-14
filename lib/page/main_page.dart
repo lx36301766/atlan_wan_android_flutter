@@ -23,6 +23,7 @@ class _MainPageState extends State<MainPage> {
 
   List<_BottomItemInfo> _buttonItemList = [
     _BottomItemInfo("首页", Icons.home, HomeListPage()),
+    _BottomItemInfo("广场", Icons.camera, KnowledgeSystemListPage()),
     _BottomItemInfo("体系", Icons.cloud, KnowledgeSystemListPage()),
     _BottomItemInfo("导航", Icons.navigation, NavigationListPage()),
     _BottomItemInfo("项目", Icons.folder, ProjectListPage()),

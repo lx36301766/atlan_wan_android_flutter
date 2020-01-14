@@ -57,6 +57,11 @@ class Api {
     return HomeListBean.fromJson(data);
   }
 
+  static Future<HomeListBean> getAuthorArticleList(String author, int page) async {
+    var data = await api.fetchGet(apiGetArticleByAuthor + page.toString(), {"author": "$author"});
+    return HomeListBean.fromJson(data);
+  }
+
   // 导航接口
   static Future<List<NavigationBean>> getNavigation() async {
     List data = await api.fetchGet(apiNavigation);

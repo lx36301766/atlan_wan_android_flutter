@@ -66,7 +66,13 @@ class MineCollectModel extends GeneralArticleModel {
   Future<HomeListBean> getData(int page) async => HomeListBean.formCollectList(await Api.getCollectList(page));
 }
 
+class AuthorArticleListModel extends GeneralArticleModel {
 
+  AuthorArticleListModel(String author) : super(author);
+
+  @override
+  Future<HomeListBean> getData(int page) async => Api.getAuthorArticleList(_name, page);
+}
 
 
 

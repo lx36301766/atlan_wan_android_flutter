@@ -113,12 +113,17 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
                                   ),
                               ),
                             ),
-                            Text(widget._model.data.author.isEmpty ? widget._model.data.shareUser ?? "" : widget._model.data.author,
-                              style: TextStyle(
-                                fontSize: 12.0,
-                                color: Colors.grey.shade800,
-                                fontWeight: FontWeight.w500,
-                                wordSpacing: 2.0,
+                            InkWell(
+                              onTap: () {
+                                Pages.openAuthorArticleListPage(context, widget._model.data.author.isEmpty ? widget._model.data.shareUser ?? "" : widget._model.data.author);
+                              },
+                              child: Text(widget._model.data.author.isEmpty ? widget._model.data.shareUser ?? "" : widget._model.data.author,
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: Colors.grey.shade800,
+                                  fontWeight: FontWeight.w500,
+                                  wordSpacing: 2.0,
+                                ),
                               ),
                             ),
                           ],

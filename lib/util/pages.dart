@@ -98,6 +98,17 @@ class Pages {
     ));
   }
 
+  static void openAuthorArticleListPage(BuildContext context, String author) {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (BuildContext context, _, __) {
+        return ScopedModel(
+            model: AuthorArticleListModel(author),
+            child: GeneralArticleListPage<AuthorArticleListModel>()
+        );
+      },
+    ));
+  }
+
 
   static void openPointDetailPage(BuildContext context, KnowledgeSystemBean bean) {
     Navigator.of(context).push(PageRouteBuilder(
