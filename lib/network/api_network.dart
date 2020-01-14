@@ -126,6 +126,19 @@ class _DioNetwork extends ApiNetwork {
 
     _dio.interceptors.add(CookieManager(PersistCookieJar(dir: tempPath)));
 
+    assert(() {
+      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+        // config the http client
+        client.findProxy = (uri) {
+          //proxy all request to localhost:8888
+          return "PROXY 192.168.1.188:8888";
+        };
+        client.badCertificateCallback = (X509Certificate cert, String host, int port) {
+          return true;
+        };
+      };
+      return true;
+    }());
   }
 
   Future fetchGet(String path, [ Map<String, String> arguments ] ) async {
@@ -149,5 +162,14 @@ class _DioNetwork extends ApiNetwork {
     print("fetchPost response = $response");
     return _parseErrorCode(response.data).data;
   }
+
+//  Future fetchPost(String path, [ Map<String, String> arguments ] ) async {
+//    var url = baseUrl + path;
+//    print("fetchPost url = $url, body=$arguments");
+//    var data = arguments == null ? FormData() : FormData.from(arguments);
+//    final response = await _dio.post(url, queryParameters: arguments);
+//    print("fetchPost response = $response");
+//    return _parseErrorCode(response.data).data;
+//  }
 
 }

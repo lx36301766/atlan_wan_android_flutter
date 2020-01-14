@@ -35,7 +35,7 @@ class Api {
     return List.generate(data.length, (int index) => HomeCommonWebsiteBean.fromJson(data[index]));
   }
 
-  static Future<List<HomeHotKeyBean>> getHomeHotKey() async {
+  static Future<List<HomeHotKeyBean>> getSearchHotKey() async {
     List data = await api.fetchGet(apiSearchHotKey);
     return List.generate(data.length, (int index) => HomeHotKeyBean.fromJson(data[index]));
   }

@@ -6,6 +6,7 @@ import 'package:atlan_wan_android_flutter/util/pages.dart';
 import 'package:atlan_wan_android_flutter/util/storage_utils.dart';
 import 'package:atlan_wan_android_flutter/util/toast_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -132,7 +133,7 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
                               if (widget._model.data.collect ?? false) {
                                 Api.deleteCollect(widget._model.data.id).then((resp) {
                                   widget._model.updateCollectStatus(false);
-                                  ToastUtil.show("取消收藏成功");
+                                  ToastUtil.show("取消收藏");
                                 });
                               } else {
                                 Api.addCollectInside(widget._model.data.id).then((resp) {
@@ -168,14 +169,23 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 2, bottom: 5),
-                    child: Text(widget._model.data.title,
-                      style: TextStyle(
+                    child: Html(
+                      data: widget._model.data.title,
+                      defaultTextStyle: TextStyle(
                         fontSize: 15.0,
                         fontStyle: FontStyle.italic,
                         fontWeight: FontWeight.w600,
                         wordSpacing: 5.0,
                       ),
                     ),
+//                    child: Text(widget._model.data.title,
+//                      style: TextStyle(
+//                        fontSize: 15.0,
+//                        fontStyle: FontStyle.italic,
+//                        fontWeight: FontWeight.w600,
+//                        wordSpacing: 5.0,
+//                      ),
+//                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 5, bottom: 5),

@@ -125,7 +125,7 @@ class _LoginDialogState extends State<LoginDialog> {
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.only(top: 15),
                             prefixIcon: Icon(FontAwesomeIcons.lock),
-                            labelText: '确认密码',
+                            hintText: '确认密码',
                           ),
                           obscureText: true,
                         ),

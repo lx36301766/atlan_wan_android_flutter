@@ -49,7 +49,10 @@ class Pages {
   static void openSearchPage(BuildContext context) {
     Navigator.of(context).push(PageRouteBuilder(
       pageBuilder: (BuildContext context, _, __) {
-        return SearchPage();
+        return ScopedModel(
+            model: SearchHotKeyModel(),
+            child: SearchPage()
+        );
       },
     ));
   }

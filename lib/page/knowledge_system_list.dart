@@ -43,9 +43,7 @@ class KnowledgeSystemListPage extends StatefulWidget {
 
 class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPage> {
 
-  RandomColor _randomColor = RandomColor();
   KnowledgeSystemModel _model;
-
 
   @override
   void initState() {
@@ -91,17 +89,16 @@ class _KnowledgeSystemListPageState extends KeepAliveState<KnowledgeSystemListPa
                 spacing: 8.0,
                 runSpacing: 0.0,
                 alignment: WrapAlignment.start,
-                children: data.children.map((itemData) {
-                  return ActionChip(
+                children: data.children.map((itemData) => ActionChip(
                     labelPadding: const EdgeInsets.symmetric(horizontal: 8),
-                    backgroundColor: _randomColor.randomColor(colorBrightness: ColorBrightness.light),
+                    backgroundColor: randomColor.randomColor(colorBrightness: ColorBrightness.light),
                     shadowColor: appMainColor,
                     label: Text(itemData.name, style: TextStyle(fontSize: 12.0)),
                     onPressed: () {
                       Pages.openClassificationList(context, itemData);
                     },
-                  );
-                }).toList(),
+                  )
+                ).toList(),
               ),
             )
           ],
