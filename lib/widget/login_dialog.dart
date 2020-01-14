@@ -49,6 +49,7 @@ class _LoginDialogState extends State<LoginDialog> {
 
   @override
   Widget build(BuildContext context) {
+    print("_LoginDialogState build");
     var bloc = BlocProvider.of<LoginBloc>(context);
     return CustomDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(16.0))),

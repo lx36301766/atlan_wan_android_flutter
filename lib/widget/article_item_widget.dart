@@ -99,7 +99,6 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
 //                                ),
                                   child: DecoratedBox(
                                     decoration: BoxDecoration(
-                                      color: Colors.blue,
                                       border: Border.all(
                                         color: appMainColor,
                                         width: 16,

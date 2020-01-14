@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const String KEY_USER_INFO = "user_info";
 
+const String KEY_SEARCH_HISTORY = "search_history";
+
 class StorageUtils {
 
   static SharedPreferences sharedPreferences;
@@ -45,5 +47,16 @@ class StorageUtils {
   static void setUserInfo(LoginRegisterBean bean) => set(KEY_USER_INFO, json.encode(bean?.toJson()));
 
   static bool get isLogin => getUserInfo() != null;
+
+
+  static List<String> getSearchHistory() => sharedPreferences.getStringList(KEY_SEARCH_HISTORY) ?? List();
+
+  static void saveSearchHistory(String key) {
+    var keys = getSearchHistory();
+    if (!keys.contains(key) && keys.length >= 9) {
+      keys = keys.sublist(0, 9);
+    }
+    sharedPreferences.setStringList(KEY_SEARCH_HISTORY, keys..remove(key)..insert(0, key));
+  }
 
 }

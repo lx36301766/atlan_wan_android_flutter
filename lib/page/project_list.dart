@@ -188,7 +188,7 @@ class _ProjectListPageState extends KeepAliveState<ProjectListPage> with TickerP
                             overflow: TextOverflow.ellipsis,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            padding: const EdgeInsets.symmetric(vertical: 2),
                             child: Text(dataBean.desc,
                               style: TextStyle(fontSize: 9, color: Colors.grey.shade500),
                               maxLines: 5,

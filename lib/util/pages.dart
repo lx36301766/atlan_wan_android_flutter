@@ -50,19 +50,27 @@ class Pages {
     Navigator.of(context).push(PageRouteBuilder(
       pageBuilder: (BuildContext context, _, __) {
         return ScopedModel(
-            model: SearchHotKeyModel(),
+            model: SearchKeyModel(),
             child: SearchPage()
         );
       },
     ));
   }
 
-  static void openSearchResultListPage(BuildContext context, String key) {
+  static void openSearchResultListPage(BuildContext context, String key, [Function callback]) {
     Navigator.of(context).push(PageRouteBuilder(
       pageBuilder: (BuildContext context, _, __) {
-        return ScopedModel(
-            model: SearchResultModel(key),
-            child: GeneralArticleListPage<SearchResultModel>()
+        return WillPopScope(
+          onWillPop: () {
+            return Future(() {
+              callback();
+              return true;
+            });
+          },
+          child: ScopedModel(
+              model: SearchResultModel(key),
+              child: GeneralArticleListPage<SearchResultModel>()
+          ),
         );
       },
     ));
