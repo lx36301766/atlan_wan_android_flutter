@@ -16,7 +16,9 @@ class ArticleItemModel extends ChangeNotifier {
   final int index;
   final int topDataSize;
 
-  ArticleItemModel(this.data, this.index, this.topDataSize);
+  final bool displayTab;
+
+  ArticleItemModel(this.data, this.index, this.topDataSize, this.displayTab);
 
   void updateCollectStatus(bool collect) {
     data.collect = collect;
@@ -36,7 +38,8 @@ class ArticleItemWidget extends StatefulWidget {
 
   final ArticleItemModel _model;
 
-  ArticleItemWidget(HomeListDataBean data, int index, int topDataSize): _model = ArticleItemModel(data, index, topDataSize);
+  ArticleItemWidget(HomeListDataBean data, int index, {int topDataSize = -1, bool displayTab = true}) :
+        _model =ArticleItemModel(data, index, topDataSize, displayTab);
 
   @override
   _ArticleItemWidgetState createState() => _ArticleItemWidgetState();
@@ -199,20 +202,19 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
                       children: <Widget>[
                         Flexible(
                           flex: 5,
-                          child: Row(
-                            children: <Widget>[
-                              Text((widget._model.data.superChapterName?.isEmpty ?? true ?
-                              "${widget._model.data.chapterName}".trim() :
-                              "${widget._model.data.superChapterName} • ${widget._model.data.chapterName}").trim(),
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  color: Colors.grey.shade500,
-                                  fontWeight: FontWeight.w400,
-                                  wordSpacing: 2.0,
-                                ),
+                          child: Visibility(
+                            visible: widget._model.displayTab,
+                            child: Text((widget._model.data.superChapterName?.isEmpty ?? true ?
+                            "${widget._model.data.chapterName}".trim() :
+                            "${widget._model.data.superChapterName} • ${widget._model.data.chapterName}").trim(),
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.grey.shade500,
+                                fontWeight: FontWeight.w400,
+                                wordSpacing: 2.0,
                               ),
-                            ],
+                            ),
                           ),
                         ),
                         Flexible(

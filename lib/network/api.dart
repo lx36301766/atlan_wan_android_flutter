@@ -22,8 +22,8 @@ class Api {
   static ApiNetwork api = ApiNetwork();
   
   // 首页接口
-  static Future<HomeListBean> getHomeList(int page) async => HomeListBean
-      .fromJson(await api.fetchGet(apiHomeList + page.toString()));
+  static Future<HomeListBean> getHomeList(int page) async =>
+      HomeListBean.fromJson(await api.fetchGet(apiHomeList + page.toString()));
 
   static Future<List<HomeBannerBean>> getHomeBanner() async {
     List data = await api.fetchGet(apiHomeBanner);
@@ -168,14 +168,17 @@ class Api {
     return UserPointRankListBean.fromJson(data);
   }
 
-  static Future<UserPointBean> getUserPoint() async {
-    var data = await api.fetchGet(apiGetUserPoint);
-    return UserPointBean.fromJson(data);
-  }
+  static Future<UserPointBean> getUserPoint() async =>
+      UserPointBean.fromJson(await api.fetchGet(apiGetUserPoint));
 
   static Future<UserEarnPointsListBean> getUserEarnPointsList(int page) async {
-    var data = await api.fetchGet(apiUserEarnPointList + page.toString());
+    var data = await api.fetchGet("$apiUserEarnPointList$page");
     return UserEarnPointsListBean.fromJson(data);
   }
+
+
+  //广场接口
+  static Future<HomeListBean> getUserArticleList(int page) async =>
+      HomeListBean.fromJson(await api.fetchGet("$apiUserArticleList$page"));
 
 }

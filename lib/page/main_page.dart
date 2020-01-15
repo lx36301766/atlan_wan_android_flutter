@@ -5,6 +5,7 @@ import 'package:atlan_wan_android_flutter/page/home_list.dart';
 import 'package:atlan_wan_android_flutter/page/knowledge_system_list.dart';
 import 'package:atlan_wan_android_flutter/page/navigation_list.dart';
 import 'package:atlan_wan_android_flutter/page/project_list.dart';
+import 'package:atlan_wan_android_flutter/page/square_page.dart';
 import 'package:atlan_wan_android_flutter/page/wechat_public_list.dart';
 import 'package:atlan_wan_android_flutter/util/constants.dart';
 import 'package:atlan_wan_android_flutter/util/pages.dart';
@@ -23,7 +24,7 @@ class _MainPageState extends State<MainPage> {
 
   List<_BottomItemInfo> _buttonItemList = [
     _BottomItemInfo("首页", Icons.home, HomeListPage()),
-    _BottomItemInfo("广场", Icons.camera, KnowledgeSystemListPage()),
+    _BottomItemInfo("广场", Icons.camera, SquareListPage()),
     _BottomItemInfo("体系", Icons.cloud, KnowledgeSystemListPage()),
     _BottomItemInfo("导航", Icons.navigation, NavigationListPage()),
     _BottomItemInfo("项目", Icons.folder, ProjectListPage()),

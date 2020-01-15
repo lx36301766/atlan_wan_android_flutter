@@ -100,7 +100,7 @@ class _GeneralArticleListPageListState<T extends GeneralArticleModel> extends St
   Widget _buildBody(GeneralArticleModel model) {
     Widget list = ListView.builder(
       physics: AlwaysScrollableScrollPhysics(),
-      itemBuilder: (context, i) => ArticleItemWidget(model._generalArticleListData[i], i, -1),
+      itemBuilder: (context, i) => ArticleItemWidget(model._generalArticleListData[i], i),
       itemCount: model._generalArticleListData == null ? 0 : model._generalArticleListData.length,
 //      controller: _scrollController,
     );

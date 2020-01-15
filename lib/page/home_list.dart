@@ -158,7 +158,9 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
     } else if (index == data._homeListData.length + 1) {
       return _buildLoadMore(data._lastHomeListBean, data._listPageIndex);
     } else {
-      return ArticleItemWidget(data._homeListData[index - 1], index, data._articleTopSize);
+      return ArticleItemWidget(data._homeListData[index - 1], index,
+        topDataSize: data._articleTopSize,
+      );
     }
   }
 
