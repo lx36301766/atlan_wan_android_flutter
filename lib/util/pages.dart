@@ -98,17 +98,27 @@ class Pages {
     ));
   }
 
-  static void openAuthorArticleListPage(BuildContext context, String author) {
-    Navigator.of(context).push(PageRouteBuilder(
-      pageBuilder: (BuildContext context, _, __) {
-        return ScopedModel(
-            model: AuthorArticleListModel(author),
-            child: GeneralArticleListPage<AuthorArticleListModel>()
-        );
-      },
-    ));
+  static void openUserArticleListPage(BuildContext context, String author, [int shareUserId = -1]) {
+    if (shareUserId == -1) {
+      Navigator.of(context).push(PageRouteBuilder(
+        pageBuilder: (BuildContext context, _, __) {
+          return ScopedModel(
+              model: AuthorArticleListModel(author),
+              child: GeneralArticleListPage<AuthorArticleListModel>()
+          );
+        },
+      ));
+    } else {
+      Navigator.of(context).push(PageRouteBuilder(
+        pageBuilder: (BuildContext context, _, __) {
+          return ScopedModel(
+              model: ShareUserArticleListModel(shareUserId, author),
+              child: GeneralArticleListPage<ShareUserArticleListModel>()
+          );
+        },
+      ));
+    }
   }
-
 
   static void openPointDetailPage(BuildContext context, KnowledgeSystemBean bean) {
     Navigator.of(context).push(PageRouteBuilder(
@@ -117,13 +127,5 @@ class Pages {
       },
     ));
   }
-
-//  static void openLoginPage(BuildContext context) {
-//    Navigator.of(context).push(PageRouteBuilder(
-//      pageBuilder: (BuildContext context, _, __) {
-//        return LoginPage();
-//      },
-//    ));
-//  }
 
 }

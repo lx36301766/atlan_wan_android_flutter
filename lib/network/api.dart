@@ -9,6 +9,7 @@ import 'package:atlan_wan_android_flutter/entity/home_list_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/login_register_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/navigation_bean.dart';
+import 'package:atlan_wan_android_flutter/entity/share_articles_list_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/user_point_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/user_earn_points_list_bean.dart';
 import 'package:atlan_wan_android_flutter/entity/user_point_rank_list_bean.dart';
@@ -16,6 +17,7 @@ import 'package:atlan_wan_android_flutter/entity/user_point_rank_list_bean.dart'
 import 'api_network.dart';
 import 'api_url.dart';
 
+import 'package:sprintf/sprintf.dart';
 
 class Api {
 
@@ -180,5 +182,8 @@ class Api {
   //广场接口
   static Future<HomeListBean> getUserArticleList(int page) async =>
       HomeListBean.fromJson(await api.fetchGet("$apiUserArticleList$page"));
+
+  static Future<ShareArticlesListBean> getShareUserArticleList(int userId, int page) async =>
+      ShareArticlesListBean.fromJson(await api.fetchGet(sprintf(apiShareUserArticleList, [userId, page])));
 
 }

@@ -26,7 +26,7 @@ abstract class GeneralArticleModel extends Model {
     var data = await getData(page);
     print(data);
     _listPageIndex = page;
-    if (data.datas.isNotEmpty) {
+    if (data.datas?.isNotEmpty ?? false) {
       _isLastPage = data.pageCount < 2 || data.over;
       if (page == 0) {
         _generalArticleListData.clear();
@@ -74,6 +74,16 @@ class AuthorArticleListModel extends GeneralArticleModel {
   Future<HomeListBean> getData(int page) async => Api.getAuthorArticleList(_name, page);
 }
 
+class ShareUserArticleListModel extends GeneralArticleModel {
+
+  int userId;
+
+  ShareUserArticleListModel(this.userId, String author) : super(author);
+
+  @override
+  Future<HomeListBean> getData(int page) async => (await Api.getShareUserArticleList(userId, page)).shareArticles;
+}
+
 
 
 class GeneralArticleListPage<T extends GeneralArticleModel> extends StatefulWidget {
@@ -100,7 +110,9 @@ class _GeneralArticleListPageListState<T extends GeneralArticleModel> extends St
   Widget _buildBody(GeneralArticleModel model) {
     Widget list = ListView.builder(
       physics: AlwaysScrollableScrollPhysics(),
-      itemBuilder: (context, i) => ArticleItemWidget(model._generalArticleListData[i], i),
+      itemBuilder: (context, i) => ArticleItemWidget(model._generalArticleListData[i], i,
+        canOpenArticleList: false,
+      ),
       itemCount: model._generalArticleListData == null ? 0 : model._generalArticleListData.length,
 //      controller: _scrollController,
     );

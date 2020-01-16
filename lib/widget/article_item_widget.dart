@@ -16,13 +16,30 @@ class ArticleItemModel extends ChangeNotifier {
   final int index;
   final int topDataSize;
 
-  final bool displayTab;
+  final bool displayChapter;
+  final bool canOpenArticleList;
 
-  ArticleItemModel(this.data, this.index, this.topDataSize, this.displayTab);
+  ArticleItemModel(this.data, this.index, this.topDataSize, this.displayChapter, this.canOpenArticleList);
 
   void updateCollectStatus(bool collect) {
     data.collect = collect;
     notifyListeners();
+  }
+
+  String getName(bool hasPrefix) {
+    if (data.author?.isNotEmpty ?? false)
+      return hasPrefix ? "作者: ${data.author}" : data.author;
+    if (data.shareUser?.isNotEmpty ?? false)
+      return hasPrefix ? "分享人: ${data.shareUser}" : data.shareUser;
+    return "用户分享文章";
+  }
+
+  String getChapterName() {
+    if (data.superChapterName?.isNotEmpty ?? false) {
+      return "${data.superChapterName} • ${data.chapterName}".trim();
+    } else {
+      return "${data.chapterName}".trim();
+    }
   }
 
   @override
@@ -33,17 +50,19 @@ class ArticleItemModel extends ChangeNotifier {
 
 }
 
-
 class ArticleItemWidget extends StatefulWidget {
-
   final ArticleItemModel _model;
 
-  ArticleItemWidget(HomeListDataBean data, int index, {int topDataSize = -1, bool displayTab = true}) :
-        _model =ArticleItemModel(data, index, topDataSize, displayTab);
+  ArticleItemWidget(
+    HomeListDataBean data,
+    int index, {
+    int topDataSize = -1,
+    bool displayTab = true,
+    bool canOpenArticleList = true,
+  }) : _model = ArticleItemModel(data, index, topDataSize, displayTab, canOpenArticleList);
 
   @override
   _ArticleItemWidgetState createState() => _ArticleItemWidgetState();
-
 }
 
 class _ArticleItemWidgetState extends State<ArticleItemWidget> {
@@ -118,9 +137,11 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
                             ),
                             InkWell(
                               onTap: () {
-                                Pages.openAuthorArticleListPage(context, widget._model.data.author.isEmpty ? widget._model.data.shareUser ?? "" : widget._model.data.author);
+                                if (widget._model.canOpenArticleList) {
+                                  Pages.openUserArticleListPage(context, widget._model.getName(false), widget._model.data.userId);
+                                }
                               },
-                              child: Text(widget._model.data.author.isEmpty ? widget._model.data.shareUser ?? "" : widget._model.data.author,
+                              child: Text(widget._model.getName(true),
                                 style: TextStyle(
                                   fontSize: 12.0,
                                   color: Colors.grey.shade800,
@@ -203,10 +224,8 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
                         Flexible(
                           flex: 5,
                           child: Visibility(
-                            visible: widget._model.displayTab,
-                            child: Text((widget._model.data.superChapterName?.isEmpty ?? true ?
-                            "${widget._model.data.chapterName}".trim() :
-                            "${widget._model.data.superChapterName} • ${widget._model.data.chapterName}").trim(),
+                            visible: widget._model.displayChapter,
+                            child: Text(widget._model.getChapterName(),
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 12.0,

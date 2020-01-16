@@ -151,6 +151,12 @@ const String apiGetUserPoint = "lg/coin/userinfo";
 const String apiUserEarnPointList = "lg/coin/list/";
 
 
+
 // 10.1 广场列表数据
 // https://wanandroid.com/user_article/list/0/json
 const String apiUserArticleList = "user_article/list/";
+
+
+// 10.2 分享人对应列表数据
+// https://www.wanandroid.com/user/2/share_articles/1/json
+const String apiShareUserArticleList = "user/%s/share_articles/%s";
