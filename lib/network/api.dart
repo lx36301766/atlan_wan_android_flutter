@@ -186,4 +186,7 @@ class Api {
   static Future<ShareArticlesListBean> getShareUserArticleList(int userId, int page) async =>
       ShareArticlesListBean.fromJson(await api.fetchGet(sprintf(apiShareUserArticleList, [userId, page])));
 
+  static Future<ShareArticlesListBean> getMyShareArticleList(int page) async =>
+      ShareArticlesListBean.fromJson(await api.fetchGet(sprintf(apiMyShareArticleList, [page])));
+
 }

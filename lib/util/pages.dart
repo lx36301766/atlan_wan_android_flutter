@@ -120,6 +120,17 @@ class Pages {
     }
   }
 
+  static void openMyShareListPage(BuildContext context) {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (BuildContext context, _, __) {
+        return ScopedModel(
+            model: MyShareArticleListModel(),
+            child: GeneralArticleListPage<MyShareArticleListModel>()
+        );
+      },
+    ));
+  }
+
   static void openPointDetailPage(BuildContext context, KnowledgeSystemBean bean) {
     Navigator.of(context).push(PageRouteBuilder(
       pageBuilder: (BuildContext context, _, __) {

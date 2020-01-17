@@ -31,7 +31,7 @@ class ArticleItemModel extends ChangeNotifier {
       return hasPrefix ? "作者: ${data.author}" : data.author;
     if (data.shareUser?.isNotEmpty ?? false)
       return hasPrefix ? "分享人: ${data.shareUser}" : data.shareUser;
-    return "用户分享文章";
+    return "分享文章";
   }
 
   String getChapterName() {

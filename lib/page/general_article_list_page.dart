@@ -40,6 +40,8 @@ abstract class GeneralArticleModel extends Model {
   Future<bool> nextPageData() async => requestPageData(++_listPageIndex);
 }
 
+
+
 class ClassificationModel extends GeneralArticleModel {
 
   int _id;
@@ -82,6 +84,14 @@ class ShareUserArticleListModel extends GeneralArticleModel {
 
   @override
   Future<HomeListBean> getData(int page) async => (await Api.getShareUserArticleList(userId, page)).shareArticles;
+}
+
+class MyShareArticleListModel extends GeneralArticleModel {
+
+  MyShareArticleListModel() : super("我的分享");
+
+  @override
+  Future<HomeListBean> getData(int page) async => (await Api.getMyShareArticleList(page)).shareArticles;
 }
 
 

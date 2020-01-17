@@ -160,3 +160,7 @@ const String apiUserArticleList = "user_article/list/";
 // 10.2 分享人对应列表数据
 // https://www.wanandroid.com/user/2/share_articles/1/json
 const String apiShareUserArticleList = "user/%s/share_articles/%s";
+
+// 10.3 自己的分享的文章列表
+// https://wanandroid.com/user/lg/private_articles/1/json
+const String apiMyShareArticleList = "user/lg/private_articles/%s";

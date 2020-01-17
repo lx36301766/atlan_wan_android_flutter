@@ -104,17 +104,23 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
           padding: EdgeInsets.only(top: 8),
           child: ListTile(
             leading: Icon(Icons.web, color: appMainColor),
-            title: Text("常用网站"),
-            onTap: () {},
+            title: Text("我的收藏"),
+            onTap: () {
+              if (StorageUtils.isLogin) {
+                Pages.openCollectListPage(context);
+              } else {
+                showLoginDialog(context);
+              }
+            },
           ),
         ),
         Divider(),
         ListTile(
           leading: Icon(Icons.collections, color: appMainColor),
-          title: Text("收藏"),
+          title: Text("我的分享"),
           onTap: () {
             if (StorageUtils.isLogin) {
-              Pages.openCollectListPage(context);
+              Pages.openMyShareListPage(context);
             } else {
               showLoginDialog(context);
             }
@@ -124,18 +130,22 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
         ListTile(
           leading: Icon(Icons.toc, color: appMainColor),
           title: Text("TODO"),
-          onTap: () {},
+          onTap: () {
+
+          },
         ),
         Divider(),
         ListTile(
           leading: Icon(Icons.settings, color: appMainColor),
           title: Text("设置"),
-          onTap: () {},
+          onTap: () {
+
+          },
         ),
         Divider(),
         AboutListTile(
           icon: Icon(Icons.info_outline, color: appMainColor),
-          child: Text("关于"),
+          child: Text("关于我"),
         ),
       ],
     );
