@@ -137,7 +137,7 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
         Divider(),
         ListTile(
           leading: Icon(Icons.settings, color: appMainColor),
-          title: Text("设置"),
+          title: Text("设置"), // webview, theme, ziti
           onTap: () {
 
           },
