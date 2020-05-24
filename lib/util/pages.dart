@@ -1,5 +1,6 @@
 
 import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
+import 'package:atlan_wan_android_flutter/page/about_page.dart';
 import 'package:atlan_wan_android_flutter/page/general_article_list_page.dart';
 import 'package:atlan_wan_android_flutter/page/google_maven_page.dart';
 import 'package:atlan_wan_android_flutter/page/main_page.dart';
@@ -146,6 +147,14 @@ class Pages {
     Navigator.of(context).push(PageRouteBuilder(
       pageBuilder: (BuildContext context, _, __) {
         return SettingPage();
+      },
+    ));
+  }
+
+  static void openAboutPage(BuildContext context) {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (BuildContext context, _, __) {
+        return AboutPage();
       },
     ));
   }

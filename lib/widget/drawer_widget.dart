@@ -143,9 +143,12 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
           },
         ),
         Divider(),
-        AboutListTile(
-          icon: Icon(Icons.info_outline, color: appMainColor),
-          child: Text("关于我"),
+        ListTile(
+          leading: Icon(Icons.info_outline, color: appMainColor),
+          title: Text("关于"),
+          onTap: () {
+            Pages.openAboutPage(context);
+          },
         ),
       ],
     );

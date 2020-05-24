@@ -119,17 +119,16 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
     return SinglePageProviderConsumer<HomeListModel>(
         model: _model,
         builder: (context, model, child) {
-          _scrollController ??= ScrollController()..addListener(() {
-              if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-                debugPrint("到底啦！！！");
-                model._requestNextPageData();
-              }
-            });
-
           model._bannerListData?.forEach((data) {
             precacheImage(CachedNetworkImageProvider(data.imagePath), context);
           });
-
+          _scrollController ??= ScrollController()..addListener(() {
+            debugPrint("到底啦！！！123123213");
+            if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+              debugPrint("到底啦！！！");
+              model._requestNextPageData();
+            }
+          });
           return model._bannerListData == null && model._homeListData.isEmpty ? EmptyHolder() : NotificationListener<
               ScrollNotification>(
             onNotification: (ScrollNotification scrollNotification) => false,
