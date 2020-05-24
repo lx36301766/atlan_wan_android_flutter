@@ -9,7 +9,8 @@ part of 'user_point_bean.dart';
 UserPointBean _$UserPointBeanFromJson(Map<String, dynamic> json) {
   return UserPointBean(
       json['coinCount'] as int,
-      json['rank'] as int,
+      json['level'] as int,
+      json['rank'],
       json['userId'] as int,
       json['username'] == null
           ? null
@@ -19,6 +20,7 @@ UserPointBean _$UserPointBeanFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$UserPointBeanToJson(UserPointBean instance) =>
     <String, dynamic>{
       'coinCount': instance.coinCount,
+      'level': instance.level,
       'rank': instance.rank,
       'userId': instance.userId,
       'username': instance.username == null
