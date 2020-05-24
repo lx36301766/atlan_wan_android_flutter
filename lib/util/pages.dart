@@ -1,10 +1,13 @@
 
 import 'package:atlan_wan_android_flutter/entity/knowledge_system_bean.dart';
 import 'package:atlan_wan_android_flutter/page/general_article_list_page.dart';
+import 'package:atlan_wan_android_flutter/page/google_maven_page.dart';
 import 'package:atlan_wan_android_flutter/page/main_page.dart';
 import 'package:atlan_wan_android_flutter/page/point_details_page.dart';
 import 'package:atlan_wan_android_flutter/page/search_page.dart';
+import 'package:atlan_wan_android_flutter/page/setting_page.dart';
 import 'package:atlan_wan_android_flutter/page/splash_page.dart';
+import 'package:atlan_wan_android_flutter/page/todo_page.dart';
 import 'package:atlan_wan_android_flutter/page/web_view_page.dart';
 import 'package:atlan_wan_android_flutter/page/web_view_page2.dart';
 import 'package:flutter/material.dart';
@@ -131,10 +134,34 @@ class Pages {
     ));
   }
 
-  static void openPointDetailPage(BuildContext context, KnowledgeSystemBean bean) {
+  static void openPointDetailPage(BuildContext context) {
     Navigator.of(context).push(PageRouteBuilder(
       pageBuilder: (BuildContext context, _, __) {
         return PointDetailsList();
+      },
+    ));
+  }
+
+  static void openSettingPage(BuildContext context) {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (BuildContext context, _, __) {
+        return SettingPage();
+      },
+    ));
+  }
+
+  static void openTodoPage(BuildContext context) {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (BuildContext context, _, __) {
+        return TodoPage();
+      },
+    ));
+  }
+
+  static void openGoogleMavenPage(BuildContext context) {
+    Navigator.of(context).push(PageRouteBuilder(
+      pageBuilder: (BuildContext context, _, __) {
+        return GoogleMavenPage();
       },
     ));
   }

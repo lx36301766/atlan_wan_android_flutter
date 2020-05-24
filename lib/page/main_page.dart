@@ -31,6 +31,12 @@ class _MainPageState extends State<MainPage> {
     _BottomItemInfo("公共号", Icons.receipt, WechatPublicListPage()),
   ];
 
+  Map<String, Function> extFuncMap = {
+//    "Search": (context) => Pages.openSearchPage(context),
+    "ToDo": (context) => Pages.openTodoPage(context),
+    "GoogleMaven": (context) => Pages.openGoogleMavenPage(context),
+  };
+
   @override
   void initState() {
     super.initState();
@@ -52,6 +58,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   Widget buildAppBar() {
+    var popMenuMap = extFuncMap;
     return AppBar(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.vertical(bottom: Radius.circular(16.0))),
       backgroundColor: appMainColor,
@@ -82,49 +89,49 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
 
-//        PopupMenuButton(
-//            icon: Icon(
-//              Icons.search,
-//              color: appMainColor,
-//            ),
-//            itemBuilder: (BuildContext context) => testApi.keys.map((key) {
-//                  return PopupMenuItem(
-//                    child: Text(key),
-//                    value: key,
-//                  );
-//                }).toList(),
-//            onSelected: (value) {
-//              print("_onPopMenuSelected, value=$value");
-//              if (testApi[value] != null) {
-//                testApi[value]().then((resp) {
-//                  print(resp);
-//                }, onError: (e) {
-//                  print(e);
-//                });
-//              }
-//            }),
+        PopupMenuButton(
+            icon: Icon(
+              Icons.more_vert,
+              color: Colors.black,
+            ),
+            itemBuilder: (BuildContext context) => popMenuMap.keys.map((key) {
+                  return PopupMenuItem(
+                    child: Text(key),
+                    value: key,
+                  );
+                }).toList(),
+            onSelected: (value) {
+              print("_onPopMenuSelected, value=$value");
+              if (popMenuMap[value] != null) {
+                popMenuMap[value](context).then((resp) {
+                  print(resp);
+                }, onError: (e) {
+                  print(e);
+                });
+              }
+            }),
       ],
     );
   }
 
-  Map<String, Function> testApi = {
-    "register": () => Api.register("12r43654656563", "455123123", "455123123"),
-    "login": () => Api.login("lx364301766", "5393147"),
-    "logout": () => Api.logout(),
-    "getCollect": () => Api.getCollectList(0),
-    "addCollectInside": () => Api.addCollectInside(8920),
-    "deleteCollect": () => Api.deleteCollect(0),
-    "deleteCollect2": () => Api.deleteCollect2(0),
-    "getCollectWebsite": () => Api.getCollectWebsite(),
-    "addCollectWebsite": () => Api.addCollectWebsite("", ""),
-    "updateCollectWebsite": () => Api.updateCollectWebsite(0, "", ""),
-    "deleteCollectWebsite": () => Api.deleteCollectWebsite(0),
-
-    "getSearchResult": () => Api.getSearchResult(0, "flutter"),
-    "getPointLeaderboardList": () => Api.getUserPointRankList(1),
-    "getUserPoint": () => Api.getUserPoint(),
-    "getUserPointGetList": () => Api.getUserEarnPointsList(1),
-  };
+//  Map<String, Function> testApi = {
+//    "register": () => Api.register("12r43654656563", "455123123", "455123123"),
+//    "login": () => Api.login("lx364301766", "5393147"),
+//    "logout": () => Api.logout(),
+//    "getCollect": () => Api.getCollectList(0),
+//    "addCollectInside": () => Api.addCollectInside(8920),
+//    "deleteCollect": () => Api.deleteCollect(0),
+//    "deleteCollect2": () => Api.deleteCollect2(0),
+//    "getCollectWebsite": () => Api.getCollectWebsite(),
+//    "addCollectWebsite": () => Api.addCollectWebsite("", ""),
+//    "updateCollectWebsite": () => Api.updateCollectWebsite(0, "", ""),
+//    "deleteCollectWebsite": () => Api.deleteCollectWebsite(0),
+//
+//    "getSearchResult": () => Api.getSearchResult(0, "flutter"),
+//    "getPointLeaderboardList": () => Api.getUserPointRankList(1),
+//    "getUserPoint": () => Api.getUserPoint(),
+//    "getUserPointGetList": () => Api.getUserEarnPointsList(1),
+//  };
 
   Widget buildBody() {
 //    return IndexedStack(
