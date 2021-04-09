@@ -18,52 +18,56 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  cupertino_icons: ^1.0.2
 
 #  http: ^0.12.0
-  dio: ^3.0.9
-  cookie_jar: ^1.0.1
-  dio_cookie_manager: 1.0.0
-  json_annotation: ^3.0.1
+  dio: 4.0.0
+  cookie_jar: ^3.0.0
+  dio_cookie_manager: 2.0.0
+  json_annotation: ^4.0.1
 
-  path_provider: ^1.6.9
-  url_launcher: ^5.4.10
+  path_provider: ^2.0.1
+  url_launcher: ^6.0.3
 
-  webview_flutter: ^0.3.22+1
+  webview_flutter: ^2.0.2
   flutter_webview_plugin: ^0.3.11
 
   # pull_to_refresh: ^1.1.6
-  flutter_easyrefresh: ^2.1.1
-  liquid_pull_to_refresh: ^1.2.0
-  loadmore: ^1.0.4
-  cached_network_image: ^2.2.0+1
+  flutter_easyrefresh: ^2.1.8
+  liquid_pull_to_refresh: ^3.0.0
+  loadmore: ^2.0.1
+  cached_network_image: ^3.0.0
 
   # fluttertoast: ^3.1.0
-  oktoast: 2.3.2
+  oktoast: 3.0.0
 
-  html_unescape: 1.0.1+3
-  flutter_html: ^0.11.1
-  sprintf: ^4.0.2
+  html_unescape: 2.0.0
+  flutter_html: ^2.0.0-nullsafety.0
+  # flutter_html: ^1.3.0
+  sprintf: ^6.0.0
 
-  random_color: 1.0.3
-  font_awesome_flutter: 8.5.0
+  random_color: 1.0.5
+  font_awesome_flutter: 9.0.0
 
-  shared_preferences: ^0.5.7+3
-  back_button_interceptor: ^4.2.3
+  shared_preferences: ^2.0.5
+  back_button_interceptor: ^5.0.0
+
 
   tuple: ^1.0.3
 
 # unused
-  carousel_slider: ^1.0.1
+  carousel_slider: ^3.0.0
   banner_view: ^1.1.2
 
-  rxdart: 0.24.1
+  rxdart: 0.26.0
 
-  provider: 4.1.2
-  scoped_model: 1.0.1
-  flutter_bloc: 4.0.0
-  flutter_redux: 0.6.0
-  fish_redux: 0.3.4
+  provider: 5.0.0
+  scoped_model: 1.1.0
+  flutter_bloc: 7.0.0
+  flutter_redux: 0.8.2
+  fish_redux: 0.3.7
+
+  get: 4.1.1
 
   # # 汉字转拼音库 https://github.com/flutterchina/lpinyin
   # lpinyin: ^1.0.7
@@ -86,8 +90,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  build_runner: ^1.10.0
-  json_serializable: ^3.3.0
+  build_runner: ^1.12.2
+  json_serializable: ^4.1.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec

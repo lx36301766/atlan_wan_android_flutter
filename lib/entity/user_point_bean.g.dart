@@ -10,7 +10,8 @@ UserPointBean _$UserPointBeanFromJson(Map<String, dynamic> json) {
   return UserPointBean(
       json['coinCount'] as int,
       json['level'] as int,
-      json['rank'],
+      json['nickname'] as String,
+      json['rank'] as String,
       json['userId'] as int,
       json['username'] == null
           ? null
@@ -21,6 +22,7 @@ Map<String, dynamic> _$UserPointBeanToJson(UserPointBean instance) =>
     <String, dynamic>{
       'coinCount': instance.coinCount,
       'level': instance.level,
+      'nickname': instance.nickname,
       'rank': instance.rank,
       'userId': instance.userId,
       'username': instance.username == null

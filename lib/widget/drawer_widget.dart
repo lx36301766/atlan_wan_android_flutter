@@ -82,7 +82,7 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
                             onTap: () => {
                               Pages.openPointDetailPage(context)
                             },
-                            child: Text("积分: ${snapshot.hasData ? snapshot.data.coinCount : 0}",
+                            child: Text("积分: ${snapshot.hasData ? snapshot.data.coinCount : 0}, 等级: ${snapshot.hasData ? snapshot.data.level : 0}, 排名: ${snapshot.hasData ? snapshot.data.rank : 0}",
                               style: TextStyle(
                                 decoration: TextDecoration.underline,
                               ),

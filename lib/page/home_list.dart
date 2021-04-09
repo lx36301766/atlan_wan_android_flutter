@@ -138,7 +138,6 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
             },
             // RefreshIndicator / LiquidPullToRefresh
             child: LiquidPullToRefresh(
-//              scrollController: _scrollController,
               color: appMainColor,
               onRefresh: () {
                 _pageController.jumpToPage(0);

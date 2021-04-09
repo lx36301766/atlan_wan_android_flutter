@@ -71,22 +71,22 @@ class _HttpNetwork extends ApiNetwork {
   }
 
   Future fetchGet(String path, [ Map<String, String> arguments ] ) async {
-    var url = baseUrl + path + "/json";
-    if (arguments != null) {
-      url += "?";
-      arguments.forEach((key, value) => url += "$key=$value&");
-      url = url.substring(0, url.length - 1);
-    }
-    print("fetchGet url = $url");
-    final response = await http.get(url);
+    // var url = baseUrl + path + "/json";
+    // if (arguments != null) {
+    //   url += "?";
+    //   arguments.forEach((key, value) => url += "$key=$value&");
+    //   url = url.substring(0, url.length - 1);
+    // }
+    print("fetchGet path = $path");
+    path = path + "/json";
+    final response = await http.get(Uri.https(baseUrl, path, arguments));
     var map = json.decode(response.body);
     return ApiResp.fromJson(map).data;
   }
 
   Future fetchPost(String path, [ Map<String, String> arguments ] ) async {
-    var url = baseUrl + path;
-    print("fetchPost url = $url, body=$arguments");
-    final response = await http.post(url, body: arguments);
+    print("fetchPost path = $path, body=$arguments");
+    final response = await http.post(Uri.https(baseUrl, path, arguments), body: arguments);
     var map = json.decode(response.body);
     return ApiResp.fromJson(map).data;
   }
@@ -119,13 +119,12 @@ class _DioNetwork extends ApiNetwork {
     String tempPath = tempDir.path + "/dioCookie";
     print('http cookie path = $tempPath');
 
-    var cookJar = PersistCookieJar(dir: tempPath);
-    List<Cookie> cookies = cookJar.loadForRequest(Uri.parse(baseUrl + apiLogin));
+    var cookJar = PersistCookieJar(ignoreExpires: true, storage: FileStorage(tempPath));
+    List<Cookie> cookies = await cookJar.loadForRequest(Uri.parse(baseUrl + apiLogin));
     cookies.forEach((cookie) {
       print('cookie = $cookie');
     });
-
-    _dio.interceptors.add(CookieManager(PersistCookieJar(dir: tempPath)));
+    _dio.interceptors.add(CookieManager(cookJar));
 
 //    assert(() {
 //      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {

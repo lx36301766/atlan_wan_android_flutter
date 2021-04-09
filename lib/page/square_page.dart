@@ -88,7 +88,7 @@ class _SquareListPageState extends KeepAliveState<SquareListPage> {
             onNotification: (ScrollNotification scrollNotification) => false,
             // RefreshIndicator / LiquidPullToRefresh
             child: LiquidPullToRefresh(
-              scrollController: _scrollController,
+              // scrollController: _scrollController,
               color: appMainColor,
               onRefresh: () {
 //                _pageController.jumpToPage(0);

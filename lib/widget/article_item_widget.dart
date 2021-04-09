@@ -144,8 +144,9 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
                               child: Text(widget._model.getName(true),
                                 style: TextStyle(
                                   fontSize: 12.0,
-                                  color: Colors.grey.shade800,
-                                  fontWeight: FontWeight.w500,
+                                  color: appMainColor,
+                                  backgroundColor: Colors.grey.shade300,
+                                  fontWeight: FontWeight.w700,
                                   wordSpacing: 2.0,
                                 ),
                               ),
@@ -199,12 +200,12 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
                     padding: EdgeInsets.only(top: 2, bottom: 5),
                     child: Html(
                       data: widget._model.data.title,
-                      defaultTextStyle: TextStyle(
-                        fontSize: 15.0,
-                        fontStyle: FontStyle.italic,
-                        fontWeight: FontWeight.w600,
-                        wordSpacing: 5.0,
-                      ),
+                      // defaultTextStyle: TextStyle(
+                      //   fontSize: 15.0,
+                      //   fontStyle: FontStyle.italic,
+                      //   fontWeight: FontWeight.w600,
+                      //   wordSpacing: 5.0,
+                      // ),
                     ),
 //                    child: Text(widget._model.data.title,
 //                      style: TextStyle(
