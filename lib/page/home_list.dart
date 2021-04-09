@@ -119,29 +119,32 @@ class _HomeListPageState extends KeepAliveState<HomeListPage> {
     return SinglePageProviderConsumer<HomeListModel>(
         model: _model,
         builder: (context, model, child) {
-          _scrollController ??= ScrollController()..addListener(() {
-              if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-                debugPrint("到底啦！！！");
-                model._requestNextPageData();
-              }
-            });
-
           model._bannerListData?.forEach((data) {
             precacheImage(CachedNetworkImageProvider(data.imagePath), context);
           });
-
-          return model._bannerListData == null && model._homeListData.isEmpty ? EmptyHolder() : NotificationListener<
-              ScrollNotification>(
-            onNotification: (ScrollNotification scrollNotification) => false,
+          _scrollController ??= ScrollController()..addListener(() {
+            if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+              debugPrint("到底啦！！！");
+              model._requestNextPageData();
+            }
+          });
+          return model._bannerListData == null && model._homeListData.isEmpty ? EmptyHolder() : NotificationListener<ScrollNotification>(
+            onNotification: (ScrollNotification scrollNotification) {
+                if (scrollNotification is ScrollEndNotification) {
+//                  print(_scrollController.position.pixels);
+                  debugPrint("ScrollEndNotification");
+                }
+                return false;
+            },
             // RefreshIndicator / LiquidPullToRefresh
             child: LiquidPullToRefresh(
-              // scrollController: _scrollController,
               color: appMainColor,
               onRefresh: () {
                 _pageController.jumpToPage(0);
                 return model._reloadAllData();
               },
               child: ListView.builder(
+                controller: _scrollController,
                 physics: AlwaysScrollableScrollPhysics(),
                 itemBuilder: (context, i) => _buildItem(i, model),
                 itemCount: model._homeListData == null ? 0 : model._homeListData.length + 2,

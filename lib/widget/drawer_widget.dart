@@ -80,7 +80,7 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
                           padding: EdgeInsets.only(top: 10),
                           child: GestureDetector(
                             onTap: () => {
-                              Pages.openPointDetailPage(context, null)
+                              Pages.openPointDetailPage(context)
                             },
                             child: Text("积分: ${snapshot.hasData ? snapshot.data.coinCount : 0}, 等级: ${snapshot.hasData ? snapshot.data.level : 0}, 排名: ${snapshot.hasData ? snapshot.data.rank : 0}",
                               style: TextStyle(
@@ -126,26 +126,29 @@ class _DrawerViewState extends State<DrawerView> with AfterLayoutMixin<DrawerVie
             }
           },
         ),
-        Divider(),
-        ListTile(
-          leading: Icon(Icons.toc, color: appMainColor),
-          title: Text("TODO"),
-          onTap: () {
-
-          },
-        ),
+//        Divider(),
+//        ListTile(
+//          leading: Icon(Icons.toc, color: appMainColor),
+//          title: Text("TODO"),
+//          onTap: () {
+//
+//          },
+//        ),
         Divider(),
         ListTile(
           leading: Icon(Icons.settings, color: appMainColor),
           title: Text("设置"), // webview, theme, ziti
           onTap: () {
-
+            Pages.openSettingPage(context);
           },
         ),
         Divider(),
-        AboutListTile(
-          icon: Icon(Icons.info_outline, color: appMainColor),
-          child: Text("关于我"),
+        ListTile(
+          leading: Icon(Icons.info_outline, color: appMainColor),
+          title: Text("关于"),
+          onTap: () {
+            Pages.openAboutPage(context);
+          },
         ),
       ],
     );
