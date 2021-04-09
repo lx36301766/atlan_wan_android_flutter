@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:atlan_wan_android_flutter/util/toast_utils.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'package:http/http.dart' as http;
@@ -70,22 +71,22 @@ class _HttpNetwork extends ApiNetwork {
   }
 
   Future fetchGet(String path, [ Map<String, String> arguments ] ) async {
-    var url = baseUrl + path + "/json";
-    if (arguments != null) {
-      url += "?";
-      arguments.forEach((key, value) => url += "$key=$value&");
-      url = url.substring(0, url.length - 1);
-    }
-    print("fetchGet url = $url");
-    final response = await http.get(url);
+    // var url = baseUrl + path + "/json";
+    // if (arguments != null) {
+    //   url += "?";
+    //   arguments.forEach((key, value) => url += "$key=$value&");
+    //   url = url.substring(0, url.length - 1);
+    // }
+    print("fetchGet path = $path");
+    path = path + "/json";
+    final response = await http.get(Uri.https(baseUrl, path, arguments));
     var map = json.decode(response.body);
     return ApiResp.fromJson(map).data;
   }
 
   Future fetchPost(String path, [ Map<String, String> arguments ] ) async {
-    var url = baseUrl + path;
-    print("fetchPost url = $url, body=$arguments");
-    final response = await http.post(url, body: arguments);
+    print("fetchPost path = $path, body=$arguments");
+    final response = await http.post(Uri.https(baseUrl, path, arguments), body: arguments);
     var map = json.decode(response.body);
     return ApiResp.fromJson(map).data;
   }
@@ -118,27 +119,26 @@ class _DioNetwork extends ApiNetwork {
     String tempPath = tempDir.path + "/dioCookie";
     print('http cookie path = $tempPath');
 
-    var cookJar = PersistCookieJar(dir: tempPath);
-    List<Cookie> cookies = cookJar.loadForRequest(Uri.parse(baseUrl + apiLogin));
+    var cookJar = PersistCookieJar(ignoreExpires: true, storage: FileStorage(tempPath));
+    List<Cookie> cookies = await cookJar.loadForRequest(Uri.parse(baseUrl + apiLogin));
     cookies.forEach((cookie) {
       print('cookie = $cookie');
     });
+    _dio.interceptors.add(CookieManager(cookJar));
 
-    _dio.interceptors.add(CookieManager(PersistCookieJar(dir: tempPath)));
-
-    assert(() {
-      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
-        // config the http client
-        client.findProxy = (uri) {
-          //proxy all request to localhost:8888
-          return "PROXY 192.168.1.188:8888";
-        };
-        client.badCertificateCallback = (X509Certificate cert, String host, int port) {
-          return true;
-        };
-      };
-      return true;
-    }());
+//    assert(() {
+//      (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate = (client) {
+//        // config the http client
+//        client.findProxy = (uri) {
+//          //proxy all request to localhost:8888
+//          return "PROXY 192.168.1.188:8888";
+//        };
+//        client.badCertificateCallback = (X509Certificate cert, String host, int port) {
+//          return true;
+//        };
+//      };
+//      return true;
+//    }());
   }
 
   Future fetchGet(String path, [ Map<String, String> arguments ] ) async {
@@ -157,7 +157,7 @@ class _DioNetwork extends ApiNetwork {
   Future fetchPost(String path, [ Map<String, String> arguments ] ) async {
     var url = baseUrl + path;
     print("fetchPost url = $url, body=$arguments");
-    var data = arguments == null ? FormData() : FormData.from(arguments);
+    var data = arguments == null ? FormData() : FormData.fromMap(arguments);
     final response = await _dio.post(url, data: data);
     print("fetchPost response = $response");
     return _parseErrorCode(response.data).data;

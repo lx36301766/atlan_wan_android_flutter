@@ -29,7 +29,7 @@ CoinInfoBean _$CoinInfoBeanFromJson(Map<String, dynamic> json) {
   return CoinInfoBean(
       json['coinCount'] as int,
       json['level'] as int,
-      json['rank'] as int,
+      json['rank'] as String,
       json['userId'] as int,
       json['username'] == null
           ? null

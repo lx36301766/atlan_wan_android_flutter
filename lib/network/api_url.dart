@@ -1,11 +1,8 @@
-
 ///
 ///  API: http://www.wanandroid.com/blog/show/2
 ///
 
-
 const baseUrl = "https://www.wanandroid.com/";
-
 
 // X.1 获取公众号列表
 
@@ -16,14 +13,9 @@ const String apiWXList = "wxarticle/chapters/";
 // https://wanandroid.com/wxarticle/list/405/1/json
 const String apiWXListItem = "wxarticle/list/";
 
-
-
-
 // 最新项目tab (首页的第二个tab)
 // https://wanandroid.com/article/listproject/0/json
 const String apiListProject = "article/listproject/";
-
-
 
 // 1.1 首页文章列表
 // https://www.wanandroid.com/article/list/0/json
@@ -45,9 +37,6 @@ const String apiSearchHotKey = "hotkey";
 // https://www.wanandroid.com/article/top/json
 const String apiArticleTop = "article/top";
 
-
-
-
 // 2.1 体系数据
 // https://www.wanandroid.com/tree/json
 const String apiKnowledgeSystem = "tree";
@@ -60,13 +49,9 @@ const String apiKnowledgeSystemChildren = apiHomeList;
 // https://www.wanandroid.com/article/list/0/json?author=鸿洋
 const String apiGetArticleByAuthor = apiHomeList;
 
-
-
 // 3.1 导航数据
 // https://www.wanandroid.com/navi/json
 const String apiNavigation = "navi";
-
-
 
 // 4.1 项目分类
 // https://www.wanandroid.com/project/tree/json
@@ -75,8 +60,6 @@ const String apiProject = "project/tree";
 // 4.2 项目列表数据
 // https://www.wanandroid.com/project/list/1/json?cid=294
 const String apiProjectList = "project/list/";
-
-
 
 // 5.1 登录 - POST（username，password）
 // https://www.wanandroid.com/user/login
@@ -89,8 +72,6 @@ const String apiRegister = "user/register";
 // 5.3 退出
 // https://www.wanandroid.com/user/logout/json
 const String apiLogout = "user/logout";
-
-
 
 // 6.1 收藏文章列表
 // https://www.wanandroid.com/lg/collect/list/0/json
@@ -112,7 +93,6 @@ const String apiDeleteCollect = "lg/uncollect_originId/";
 // https://www.wanandroid.com/lg/uncollect/2805/json
 const String apiDeleteCollect2 = "lg/uncollect/";
 
-
 // 6.5 收藏网站列表
 // https://www.wanandroid.com/lg/collect/usertools/json
 const String apiGetCollectWebsite = "lg/collect/usertools";
@@ -129,17 +109,11 @@ const String apiUpdateCollectWebsite = "lg/collect/updatetool";
 // https://www.wanandroid.com/lg/collect/deletetool/json
 const String apiDeleteCollectWebsite = "lg/collect/deletetool";
 
-
-
 // 7.1 搜索
 // https://www.wanandroid.com/article/query/0/json - POST (页码：拼接在链接上，从0开始, k ： 搜索关键词)
 const String apiGetSearchResult = "article/query/";
 
-
-
 // 8.1 TODO工具
-
-
 
 // 9.1 积分排行榜接口
 const String apiGetPointRankList = "coin/rank/";
@@ -150,12 +124,9 @@ const String apiGetUserPoint = "lg/coin/userinfo";
 // 9.1 获取个人积分获取列表，需要登录后访问
 const String apiUserEarnPointList = "lg/coin/list/";
 
-
-
 // 10.1 广场列表数据
 // https://wanandroid.com/user_article/list/0/json
 const String apiUserArticleList = "user_article/list/";
-
 
 // 10.2 分享人对应列表数据
 // https://www.wanandroid.com/user/2/share_articles/1/json

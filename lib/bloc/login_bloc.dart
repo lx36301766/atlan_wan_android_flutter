@@ -81,7 +81,7 @@ class LoginBloc implements BlocBase {
       return _userPointBean;
     }
     logout();
-    return Future.error(null, StackTrace.current);
+    return Future.error("null", StackTrace.current);
   }
 
   @override

@@ -9,11 +9,13 @@ part 'user_point_bean.g.dart';
 class UserPointBean {
 
   int coinCount;
-  int rank;
+  int level;
+  String nickname;
+  String rank;
   int userId;
   String username;
 
-  UserPointBean(this.coinCount, this.rank, this.userId, this.username);
+  UserPointBean(this.coinCount, this.level, this.nickname, this.rank, this.userId, this.username);
 
   factory UserPointBean.fromJson(Map<String, dynamic> json) => _$UserPointBeanFromJson(json);
 
@@ -21,7 +23,7 @@ class UserPointBean {
 
   @override
   String toString() {
-    return 'UserPointBean{coinCount: $coinCount, rank: $rank, userId: $userId, username: $username}';
+    return 'UserPointBean{coinCount: $coinCount, level: $level, nickname: $nickname, rank: $rank, userId: $userId, username: $username}';
   }
 
 }
