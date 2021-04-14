@@ -144,7 +144,7 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
                               child: Text(widget._model.getName(true),
                                 style: TextStyle(
                                   fontSize: 12.0,
-                                  color: appMainColor,
+                                  color: Colors.blue,
                                   backgroundColor: Colors.grey.shade300,
                                   fontWeight: FontWeight.w700,
                                   wordSpacing: 2.0,
@@ -185,7 +185,7 @@ class _ArticleItemWidgetState extends State<ArticleItemWidget> {
 //                                  height: 15,
 //                                  scale: 7.0,
 //                                );
-                                return Icon(value.data.collect ?? false ? FontAwesomeIcons.heart : FontAwesomeIcons.solidHeart,
+                                return Icon(value.data.collect ?? false ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
                                   color: appMainColor,
                                   size: 20,
                                 );

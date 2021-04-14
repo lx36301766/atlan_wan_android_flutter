@@ -26,6 +26,9 @@ dependencies:
   dio_cookie_manager: 2.0.0
   json_annotation: ^4.0.1
 
+  retrofit: any
+  logger: 1.0.0
+
   path_provider: ^2.0.1
   url_launcher: ^6.0.3
 
@@ -52,8 +55,7 @@ dependencies:
   shared_preferences: ^2.0.5
   back_button_interceptor: ^5.0.0
 
-
-  tuple: ^1.0.3
+  tuple: 2.0.0
 
 # unused
   carousel_slider: ^3.0.0
@@ -92,6 +94,7 @@ dev_dependencies:
 
   build_runner: ^1.12.2
   json_serializable: ^4.1.0
+  retrofit_generator: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://www.dartlang.org/tools/pub/pubspec
